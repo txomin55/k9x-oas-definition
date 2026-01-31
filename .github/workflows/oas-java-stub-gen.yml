@@ -56,5 +56,8 @@ jobs:
             -DoutputDirectory=${{ github.workspace }} \
             -s ci_settings.xml
 
+      - name: Copy OpenAPI spec
+        run: cp openapi.yaml ${{ github.workspace }}/k9x-oas-definition-stubs
+
       - name: Deploy
         run: mvn -f ${{ github.workspace }}/k9x-oas-definition-stubs/pom.xml clean deploy -s ${{ github.workspace }}/k9x-oas-definition-stubs/ci_settings.xml
