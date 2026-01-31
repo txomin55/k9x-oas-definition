@@ -1,0 +1,189 @@
+openapi: 3.2.0
+info:
+  title: K9X API
+  description: K9X API Documentation
+  license:
+    name: Apache 2.0
+    url: 'https://springdoc.org'
+  version: v0.0.1
+externalDocs:
+  description: K9X Backend project repo
+  url: 'https://github.com/txomin55/k9x-backend'
+servers:
+  - url: 'http://localhost:4000'
+    description: Generated server url
+paths:
+  /api/dogs:
+    get:
+      tags:
+        - getDogs
+      operationId: getDogs
+      parameters:
+        - in: header
+          name: Authorization
+          description: JWT format bearer for Authorization header
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetDogListWeb'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /login:
+    post:
+      tags:
+        - login
+      operationId: login
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/user:
+    get:
+      tags:
+        - getUserData
+      operationId: getUserData
+      parameters:
+        - in: header
+          name: Authorization
+          description: JWT format bearer for Authorization header
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  '/api/dogs/{id}':
+    get:
+      tags:
+        - getDog
+      operationId: getDog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: JWT format bearer for Authorization header
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDogWeb'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /api/logout:
+    get:
+      tags:
+        - logout
+      operationId: logout
+      parameters:
+        - in: header
+          name: Authorization
+          description: JWT format bearer for Authorization header
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /loginUrl:
+    get:
+      tags:
+        - loginUrl
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginUrlWeb'
+      operationId: loginUrl
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    UnauthorizedError:
+      description: Authorization header is missing!!
+  headers:
+    authorizationHeader:
+      description: desc
+      schema:
+        type: string
+  schemas:
+    GetDogWeb:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        image:
+          type: string
+    UserDetails:
+      type: object
+      properties:
+        owner:
+          type: string
+        organizations:
+          type: array
+          items:
+            type: string
+    GetDogListWeb:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          x-faker: name.firstName
+        image:
+          type: string
+    LoginUrlWeb:
+      title: LoginUrlWeb
+      type: object
+      properties:
+        url:
+          type: string
+      required:
+        - url
