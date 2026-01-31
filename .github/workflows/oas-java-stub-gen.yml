@@ -50,7 +50,7 @@ jobs:
             -DarchetypeVersion=$ARCHETYPE_VERSION \
             -DgroupId=com.k9x \
             -DartifactId=oas-definition-stubs \
-            -Dname=$MODULE_NAME \
+            -Dname="$MODULE_NAME" \
             -Dversion=0.0.1-SNAPSHOT \
             -DinteractiveMode=false \
             -DgithubRepo=${{ github.repository }} \
@@ -61,5 +61,4 @@ jobs:
         run: cp openapi.yaml ${{ github.workspace }}/oas-definition-stubs
 
       - name: Deploy
-        working-directory: ${{ github.workspace }}/oas-definition-stubs
-        run: mvn clean deploy -s ${{ github.workspace }}/ci_settings.xml
+        run: mvn -f ${{ github.workspace }}/oas-definition-stubs/pom.xml clean deploy -s ${{ github.workspace }}/oas-definition-stubs/ci_settings.xml
