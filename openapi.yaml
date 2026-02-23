@@ -36,6 +36,12 @@ paths:
       tags:
         - login
       operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginWeb'
       responses:
         '200':
           description: OK
@@ -97,18 +103,6 @@ paths:
                 type: string
         '401':
           $ref: '#/components/responses/UnauthorizedError'
-  /loginUrl:
-    get:
-      tags:
-        - loginUrl
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LoginUrlWeb'
-      operationId: loginUrl
 components:
   securitySchemes:
     bearerAuth:
@@ -152,11 +146,11 @@ components:
           x-faker: name.firstName
         image:
           type: string
-    LoginUrlWeb:
-      title: LoginUrlWeb
+    LoginWeb:
+      title: LoginWeb
       type: object
       properties:
-        url:
+        idToken:
           type: string
       required:
-        - url
+        - idToken
