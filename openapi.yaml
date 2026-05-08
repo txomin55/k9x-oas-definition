@@ -1,156 +1,2869 @@
-openapi: 3.0.1
-info:
-  title: K9X API
-  description: K9X API Documentation
-  license:
-    name: Apache 2.0
-    url: 'https://springdoc.org'
-  version: v0.0.1
-externalDocs:
-  description: K9X Backend project repo
-  url: 'https://github.com/txomin55/k9x-backend'
-servers:
-  - url: 'http://localhost:4000'
-    description: Generated server url
-paths:
-  /api/dogs:
-    get:
-      tags:
-        - getDogs
-      operationId: getDogs
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/GetDogListWeb'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-  /login:
-    post:
-      tags:
-        - login
-      operationId: login
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LoginWeb'
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: string
-  /api/user:
-    get:
-      tags:
-        - getUserData
-      operationId: getUserData
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserDetails'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-  '/api/dogs/{id}':
-    get:
-      tags:
-        - getDog
-      operationId: getDog
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetDogWeb'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-  /api/logout:
-    get:
-      tags:
-        - logout
-      operationId: logout
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: string
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-  responses:
-    UnauthorizedError:
-      description: Authorization header is missing!!
-  headers:
-    authorizationHeader:
-      description: desc
-      schema:
-        type: string
-  schemas:
-    GetDogWeb:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        image:
-          type: string
-    UserDetails:
-      type: object
-      properties:
-        owner:
-          type: string
-        organizations:
-          type: array
-          items:
-            type: string
-    GetDogListWeb:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          x-faker: name.firstName
-        image:
-          type: string
-    LoginWeb:
-      title: LoginWeb
-      type: object
-      properties:
-        idToken:
-          type: string
-      required:
-        - idToken
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Default",
+    "description": "OpenAPI contract for the K9X local-first application, covering authentication, dog profiles, competitions, stages, events, scoring, and push notification setup.",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Raíz"
+    },
+    {
+      "name": "Raíz/dogs"
+    },
+    {
+      "name": "Raíz/dogs/secured"
+    },
+    {
+      "name": "Raíz/user"
+    },
+    {
+      "name": "Raíz/user/secured"
+    },
+    {
+      "name": "Raíz/competitions"
+    },
+    {
+      "name": "Raíz/competitions/secured"
+    },
+    {
+      "name": "Raíz/stages"
+    },
+    {
+      "name": "Raíz/stages/secured"
+    },
+    {
+      "name": "Raíz/events"
+    },
+    {
+      "name": "Raíz/events/secured"
+    },
+    {
+      "name": "Raíz/judges"
+    },
+    {
+      "name": "Raíz/judges/secured"
+    },
+    {
+      "name": "Raíz/disciplines"
+    },
+    {
+      "name": "Raíz/disciplines/secured"
+    },
+    {
+      "name": "Raíz/collections"
+    },
+    {
+      "name": "Raíz/collections/secured"
+    },
+    {
+      "name": "dogs"
+    },
+    {
+      "name": "user"
+    },
+    {
+      "name": "competitions"
+    },
+    {
+      "name": "stages"
+    },
+    {
+      "name": "events"
+    },
+    {
+      "name": "collections"
+    },
+    {
+      "name": "judges"
+    },
+    {
+      "name": "Raíz/disciplines/api"
+    },
+    {
+      "name": "Raíz/collections/api"
+    }
+  ],
+  "paths": {
+    "/secured/dogs/{id}": {
+      "delete": {
+        "summary": "Delete dog",
+        "deprecated": false,
+        "description": "",
+        "operationId": "deleteDog",
+        "tags": [
+          "Raíz/dogs/secured",
+          "dogs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dog deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the deleted dog"
+                },
+                "example": "dog_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update dog",
+        "deprecated": false,
+        "description": "",
+        "operationId": "putDog",
+        "tags": [
+          "Raíz/dogs/secured",
+          "dogs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDogRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Dog updated successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the updated dog"
+                },
+                "example": "dog_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/dogs": {
+      "post": {
+        "summary": "Create dog",
+        "deprecated": false,
+        "description": "",
+        "operationId": "postDog",
+        "tags": [
+          "Raíz/dogs/secured",
+          "dogs"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDogRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Dog created successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the created dog"
+                },
+                "example": "dog_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "List dogs",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getDogsApi",
+        "tags": [
+          "Raíz/dogs/secured",
+          "dogs"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Dog list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DogSummaryResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/user": {
+      "get": {
+        "summary": "Get current user profile",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getUserData",
+        "tags": [
+          "Raíz/user/secured",
+          "user"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Current user profile returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/logout": {
+      "post": {
+        "summary": "Log out current user",
+        "deprecated": false,
+        "description": "",
+        "operationId": "logout",
+        "tags": [
+          "Raíz/user/secured",
+          "user"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User logged out successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/set-notification-setup": {
+      "post": {
+        "summary": "Register push subscription",
+        "deprecated": false,
+        "description": "",
+        "operationId": "setNotificationSetup",
+        "tags": [
+          "Raíz/user/secured",
+          "user"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PushSubscriptionRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Push subscription registered successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Exchange login code for JWT",
+        "deprecated": false,
+        "description": "",
+        "operationId": "login",
+        "tags": [
+          "Raíz/user",
+          "user"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "JWT issued successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "JWT bearer token",
+                  "pattern": "^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$"
+                },
+                "example": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIn0.signature"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/InvalidLoginCodeError",
+            "description": "Invalid login code"
+          }
+        },
+        "security": []
+      }
+    },
+    "/secured/competitions": {
+      "post": {
+        "summary": "Create competition",
+        "deprecated": false,
+        "description": "",
+        "operationId": "postCompetition",
+        "tags": [
+          "Raíz/competitions/secured",
+          "competitions"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IdNameDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Competition created successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the created competition"
+                },
+                "example": "competition_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "List competitions",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getCompetitions",
+        "tags": [
+          "Raíz/competitions/secured",
+          "competitions"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Competition list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompetitionResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/competitions/{id}": {
+      "put": {
+        "summary": "Update competition",
+        "deprecated": false,
+        "description": "",
+        "operationId": "putCompetition",
+        "tags": [
+          "Raíz/competitions/secured",
+          "competitions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCompetitionRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Competition updated successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the updated competition"
+                },
+                "example": "competition_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete competition",
+        "deprecated": false,
+        "description": "",
+        "operationId": "deleteCompetition",
+        "tags": [
+          "Raíz/competitions/secured",
+          "competitions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Competition deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the deleted competition"
+                },
+                "example": "competition_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/stages": {
+      "post": {
+        "summary": "Create stage",
+        "deprecated": false,
+        "description": "",
+        "operationId": "postStage",
+        "tags": [
+          "Raíz/stages/secured",
+          "stages"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStageRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Stage created successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the created stage"
+                },
+                "example": "stage_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/stages/{id}": {
+      "put": {
+        "summary": "Update stage",
+        "deprecated": false,
+        "description": "",
+        "operationId": "putStage",
+        "tags": [
+          "Raíz/stages/secured",
+          "stages"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStageRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Stage updated successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the updated stage"
+                },
+                "example": "stage_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete stage",
+        "deprecated": false,
+        "description": "",
+        "operationId": "deleteStage",
+        "tags": [
+          "Raíz/stages/secured",
+          "stages"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stage deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the deleted stage"
+                },
+                "example": "stage_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/stages/{id}": {
+      "get": {
+        "summary": "Get stage detail",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getStage",
+        "tags": [
+          "Raíz/stages",
+          "stages"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stage detail returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StageDetailResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/stages": {
+      "get": {
+        "summary": "List stages",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getStages",
+        "tags": [
+          "Raíz/stages",
+          "stages"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Stage list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StageSummaryResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/secured/events": {
+      "post": {
+        "summary": "Create event",
+        "deprecated": false,
+        "description": "",
+        "operationId": "postEvent",
+        "tags": [
+          "Raíz/events/secured",
+          "events"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEventRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event created successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the created event"
+                },
+                "example": "event_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/events/{id}": {
+      "put": {
+        "summary": "Update event",
+        "deprecated": false,
+        "description": "",
+        "operationId": "putEvent",
+        "tags": [
+          "Raíz/events/secured",
+          "events"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEventRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event updated successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the updated event"
+                },
+                "example": "event_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete event",
+        "deprecated": false,
+        "description": "",
+        "operationId": "deleteEvent",
+        "tags": [
+          "Raíz/events/secured",
+          "events"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the deleted event"
+                },
+                "example": "event_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/events/{id}/scores": {
+      "get": {
+        "summary": "Get event scores",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getScores",
+        "tags": [
+          "Raíz/events/secured",
+          "events"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompetitorScoresResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/secured/events/{id}/collections": {
+      "get": {
+        "summary": "Get event collection detail",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getCollection",
+        "tags": [
+          "Raíz/events/secured",
+          "collections"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/events/{eventId}/score": {
+      "put": {
+        "summary": "Update Collection score",
+        "deprecated": false,
+        "description": "",
+        "operationId": "putScore",
+        "tags": [
+          "Raíz/events/secured",
+          "collections"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCollectionScoreRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Success text"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/stages/{stageId}/events/{eventId}/enroll": {
+      "put": {
+        "summary": "Enroll into event",
+        "deprecated": false,
+        "description": "",
+        "operationId": "putEnroll",
+        "tags": [
+          "Raíz/events/secured",
+          "events"
+        ],
+        "parameters": [
+          {
+            "name": "stageId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrollStageEventRequestDTO"
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/stages/{stageId}/events/{eventId}/classification": {
+      "get": {
+        "summary": "Get event classification",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Raíz/events"
+        ],
+        "parameters": [
+          {
+            "name": "stageId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StageEventClassificationResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/secured/judges": {
+      "post": {
+        "summary": "Create judge",
+        "deprecated": false,
+        "description": "",
+        "operationId": "postJudge",
+        "tags": [
+          "Raíz/judges/secured",
+          "judges"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IdNameDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Judge created successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the created judge"
+                },
+                "example": "judge_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "List judges",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getJudges",
+        "tags": [
+          "Raíz/judges/secured",
+          "judges"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Judge list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdNameDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/judges/{id}": {
+      "put": {
+        "summary": "Update judge",
+        "deprecated": false,
+        "description": "",
+        "operationId": "putJudge",
+        "tags": [
+          "Raíz/judges/secured",
+          "judges"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateJudgeRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Judge updated successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the updated judge"
+                },
+                "example": "judge_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete judge",
+        "deprecated": false,
+        "description": "",
+        "operationId": "deleteJudge",
+        "tags": [
+          "Raíz/judges/secured",
+          "judges"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Judge deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the deleted judge"
+                },
+                "example": "judge_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/disciplines/configurations": {
+      "get": {
+        "summary": "Retrieve Discipline configurations",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Raíz/disciplines/secured",
+          "Raíz/disciplines/api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DisciplineFederationConfigurationResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": []
+      }
+    },
+    "/secured/collections": {
+      "get": {
+        "summary": "List collections",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getCollections",
+        "tags": [
+          "Raíz/collections/secured",
+          "collections",
+          "Raíz/collections/api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Judge list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CollectionsResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "StageEventClassificationExerciseScoresResponseDTO": {
+        "type": "object",
+        "properties": {
+          "exercise": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "exerciseScore": {
+            "type": "number"
+          },
+          "scoreRating": {
+            "type": "number"
+          },
+          "totalScore": {
+            "type": "number"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "scores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageEventClassificationScoreResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "exercise",
+          "scores"
+        ]
+      },
+      "StageEventClassificationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "discipline": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "event": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "stage": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "configuration": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "lastUpdated": {
+            "type": "integer"
+          },
+          "competitors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageEventClassificationItemResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "discipline",
+          "event",
+          "stage",
+          "competitors",
+          "configuration",
+          "lastUpdated"
+        ]
+      },
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "CollectionResponseDTO": {
+        "type": "object",
+        "properties": {
+          "configuration": {
+            "$ref": "#/components/schemas/ScoresConfigurationResponseDTO"
+          },
+          "competitors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompetitorScoresResponseDTO"
+            }
+          },
+          "discipline": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          }
+        },
+        "required": [
+          "competitors",
+          "discipline"
+        ]
+      },
+      "CollectionsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "competitionName": {
+            "type": "string"
+          },
+          "stageName": {
+            "type": "string"
+          },
+          "eventName": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "judges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDTO"
+            }
+          }
+        },
+        "required": [
+          "competitionName",
+          "stageName",
+          "eventName",
+          "eventId",
+          "status",
+          "judges"
+        ]
+      },
+      "CompetitionResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompetitionStageDetailResponseDTO"
+            }
+          },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompetitionNotificationDetailResponseDTO"
+            },
+            "description": "Competition notifications visible to the current user."
+          }
+        },
+        "required": [
+          "country",
+          "id",
+          "name",
+          "status"
+        ]
+      },
+      "CompetitorScoresResponseDTO": {
+        "type": "object",
+        "properties": {
+          "exercises": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExerciseScoresResponseDTO"
+            },
+            "description": "Identifier of the exercise this score belongs to."
+          },
+          "competitor": {
+            "$ref": "#/components/schemas/EventCompetitorResponseDTO"
+          }
+        },
+        "required": [
+          "competitor",
+          "exercises"
+        ]
+      },
+      "StageDetailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dateFrom": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "dateTo": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageEventDetailResponseDTO"
+            }
+          },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompetitionNotificationDetailResponseDTO"
+            }
+          },
+          "address": {
+            "type": "string"
+          },
+          "organizer": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "organizer"
+        ]
+      },
+      "StageSummaryResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "location": {
+            "$ref": "#/components/schemas/CompetitionLocationDetailResponseDTO"
+          },
+          "dateFrom": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "dateTo": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageEventSummaryResponseDTO"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "estado"
+          },
+          "organizer": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "organizer",
+          "status"
+        ]
+      },
+      "UserProfileResponseDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "nombre"
+          },
+          "email": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "organizer": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "organizer",
+          "name",
+          "email"
+        ]
+      },
+      "CreateDogRequestDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Dog chip"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the dog."
+          },
+          "image": {
+            "type": "string",
+            "description": "Image URL or asset reference for the dog profile."
+          },
+          "breed": {
+            "type": "string",
+            "description": "Dog breed"
+          },
+          "identifier": {
+            "type": "string",
+            "description": "Dog identifier number"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "team": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "owned": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "image",
+          "breed",
+          "owned"
+        ]
+      },
+      "CreateEventRequestDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Client-generated stable identifier for local-first synchronization"
+          },
+          "name": {
+            "type": "string"
+          },
+          "stageId": {
+            "type": "string",
+            "description": "Identifier of the stage that owns this event."
+          },
+          "disciplineId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "stageId",
+          "disciplineId"
+        ]
+      },
+      "CreateStageRequestDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Client-generated stable identifier for local-first synchronization"
+          },
+          "dateFrom": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "dateTo": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "name": {
+            "type": "string"
+          },
+          "competitionId": {
+            "type": "string",
+            "description": "Identifier of the competition that owns this stage."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "competitionId"
+        ]
+      },
+      "EnrollStageEventRequestDTO": {
+        "type": "object",
+        "properties": {
+          "dogId": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "team": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "dogId",
+          "eventId",
+          "identifier",
+          "owner",
+          "team"
+        ]
+      },
+      "LoginRequestDTO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ]
+      },
+      "PushSubscriptionRequestDTO": {
+        "type": "object",
+        "properties": {
+          "endpoint": {
+            "type": "string",
+            "description": "Web Push endpoint URL generated by the client subscription."
+          },
+          "auth": {
+            "type": "string",
+            "description": "Web Push auth secret from the client subscription keys."
+          },
+          "p256dh": {
+            "type": "string",
+            "description": "Web Push P-256 public key from the client subscription keys."
+          }
+        },
+        "required": [
+          "endpoint",
+          "auth",
+          "p256dh"
+        ]
+      },
+      "UpdateCollectionScoreRequestDTO": {
+        "type": "object",
+        "properties": {
+          "dogId": {
+            "type": "string"
+          },
+          "exerciseId": {
+            "type": "string"
+          },
+          "judgeId": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "dogId",
+          "exerciseId",
+          "judgeId",
+          "eventId",
+          "score"
+        ]
+      },
+      "UpdateCompetitionRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "country"
+        ]
+      },
+      "UpdateDogRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Display name of the dog."
+          },
+          "image": {
+            "type": "string",
+            "description": "Image URL or asset reference for the dog profile."
+          },
+          "breed": {
+            "type": "string",
+            "description": "Dog breed"
+          },
+          "identifier": {
+            "type": "string",
+            "description": "Dog identifier number"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Dog owner"
+          },
+          "team": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "owned": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "image",
+          "breed",
+          "owned"
+        ]
+      },
+      "UpdateEventRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "competitors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventCompetitorRequestDTO"
+            }
+          },
+          "exercises": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventExerciseRequestDTO"
+            }
+          },
+          "configurationId": {
+            "type": "string"
+          },
+          "judges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventJudgeDetailRequestDTO"
+            }
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "UpdateJudgeRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Display name of the judge."
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "UpdateStageRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "dateFrom": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "dateTo": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          }
+        },
+        "required": [
+          "name",
+          "dateFrom",
+          "dateTo"
+        ]
+      },
+      "DogSummaryResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "x-faker": "name.firstName"
+          },
+          "image": {
+            "type": "string"
+          },
+          "owned": {
+            "type": "boolean"
+          },
+          "creator": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "team": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "identity": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "owned",
+          "id",
+          "name",
+          "creator",
+          "team",
+          "owner",
+          "identity"
+        ]
+      },
+      "DisciplineFederationConfigurationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "disciplineId": {
+            "type": "string"
+          },
+          "federations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FederationConfigurationsResponseDTO"
+            }
+          }
+        }
+      },
+      "ExerciseScoresResponseDTO": {
+        "type": "object",
+        "properties": {
+          "exercise": {
+            "$ref": "#/components/schemas/ExerciseResponseDTO"
+          },
+          "collectionScores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CollectionScoreResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "collectionScores",
+          "exercise"
+        ]
+      },
+      "CollectionScoreResponseDTO": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "number"
+          },
+          "judge": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          }
+        },
+        "required": [
+          "judge",
+          "score"
+        ]
+      },
+      "ScoresConfigurationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "allowedValues": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "allowedValues"
+        ]
+      },
+      "FederationConfigurationsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "info": {
+            "$ref": "#/components/schemas/FederationConfigurationResponseDTO"
+          },
+          "configurations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConfigurationResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "info",
+          "configurations"
+        ]
+      },
+      "FederationConfigurationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "name": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "country"
+        ]
+      },
+      "ConfigurationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the scoring or rules configuration applied to the event."
+          },
+          "exercises": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConfigurationExerciseResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "ConfigurationExerciseResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "IdNameDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "nombre"
+          },
+          "id": {
+            "type": "string",
+            "description": "ID"
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ]
+      },
+      "StageEventClassificationItemResponseDTO": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "team": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "description": "estado"
+          },
+          "dog": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "exercises": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageEventClassificationExerciseScoresResponseDTO"
+            }
+          },
+          "position": {
+            "type": "integer"
+          },
+          "totalScore": {
+            "type": "number"
+          },
+          "scoreRating": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "owner",
+          "team",
+          "status",
+          "exercises",
+          "dog",
+          "position"
+        ]
+      },
+      "StageEventClassificationScoreResponseDTO": {
+        "type": "object",
+        "properties": {
+          "judge": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "value": {
+            "type": "number"
+          },
+          "scoreRating": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "judge",
+          "value",
+          "scoreRating"
+        ]
+      },
+      "EventCompetitorResponseDTO": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "description": "Name or identifier of the handler or owner associated with the dog."
+          },
+          "identity": {
+            "type": "string",
+            "description": "Dog identity"
+          },
+          "team": {
+            "type": "string",
+            "description": "Handler team"
+          },
+          "country": {
+            "type": "string",
+            "description": "Handler country"
+          },
+          "order": {
+            "type": "integer",
+            "description": "Competitor order"
+          },
+          "status": {
+            "type": "string",
+            "description": "estado"
+          },
+          "dog": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          }
+        },
+        "required": [
+          "dog"
+        ]
+      },
+      "ExerciseResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "nombre"
+          },
+          "order": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "order"
+        ]
+      },
+      "CompetitionLocationDetailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Human-readable address for the competition location."
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          }
+        }
+      },
+      "StageEventSummaryResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "nombre"
+          },
+          "discipline": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "competitors": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "discipline",
+          "status"
+        ]
+      },
+      "StageEventDetailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "discipline": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "competitors": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "CompetitionNotificationDetailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "date",
+          "id",
+          "text"
+        ]
+      },
+      "CompetitionStageDetailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dateFrom": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "dateTo": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventDetailResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "dateFrom",
+          "dateTo",
+          "events",
+          "id",
+          "name"
+        ]
+      },
+      "EventDetailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "stage": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current lifecycle status of the event."
+          },
+          "discipline": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "competitors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventCompetitorResponseDTO"
+            }
+          },
+          "exercises": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventExerciseDetailResponseDTO"
+            }
+          },
+          "configuration": {
+            "$ref": "#/components/schemas/EventConfigurationDetailResponseDTO"
+          },
+          "judges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventJudgeDetailResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "competitors",
+          "configuration",
+          "discipline",
+          "exercises",
+          "id",
+          "judges",
+          "name",
+          "stage",
+          "status"
+        ]
+      },
+      "EventExerciseDetailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable exercise label or description."
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order in which the exercise appears within the event."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "etiqueta"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "EventConfigurationDetailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the scoring or rules configuration applied to the event."
+          },
+          "federation": {
+            "description": "Federation or governing body associated with the event configuration.",
+            "$ref": "#/components/schemas/FederationConfigurationResponseDTO"
+          }
+        },
+        "required": [
+          "federation",
+          "id",
+          "name"
+        ]
+      },
+      "EventJudgeDetailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identifier of the judge assigned to this stage."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the judge assigned to this stage."
+          },
+          "collectorEmail": {
+            "type": "string",
+            "description": "Email address used to collect or receive scoring data for this judge."
+          }
+        },
+        "required": [
+          "collectorEmail",
+          "id"
+        ]
+      },
+      "EventExerciseRequestDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable exercise label or description."
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order in which the exercise appears within the event."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "order",
+          "tags"
+        ]
+      },
+      "EventCompetitorRequestDTO": {
+        "type": "object",
+        "properties": {
+          "dogId": {
+            "type": "string",
+            "description": "Dog id"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Name or identifier of the handler or owner associated with the dog."
+          },
+          "identity": {
+            "type": "string",
+            "description": "Dog identity"
+          },
+          "team": {
+            "type": "string",
+            "description": "Handler team"
+          },
+          "country": {
+            "type": "string",
+            "description": "Handler country"
+          },
+          "order": {
+            "type": "integer",
+            "description": "Competitor order"
+          },
+          "status": {
+            "type": "string",
+            "description": "estado"
+          }
+        },
+        "required": [
+          "dogId"
+        ]
+      },
+      "EventJudgeDetailRequestDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identifier of the judge assigned to this stage."
+          },
+          "collectorEmail": {
+            "type": "string",
+            "description": "Email address used to collect or receive scoring data for this judge."
+          }
+        },
+        "required": [
+          "collectorEmail",
+          "id"
+        ]
+      },
+      "CompetitionLocationRequestDTO": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Human-readable address for the competition location."
+          }
+        }
+      },
+      "StageEventResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "discipline": {
+            "type": "string",
+            "description": "Competition discipline for the event."
+          },
+          "competitors": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "description": "estado"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "status"
+        ]
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Missing or invalid bearer token",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            },
+            "examples": {
+              "Éxito": {
+                "summary": "Éxito",
+                "value": {
+                  "code": "UNAUTHORIZED",
+                  "message": "Missing or invalid bearer token"
+                }
+              }
+            }
+          }
+        }
+      },
+      "InvalidLoginCodeError": {
+        "description": "Invalid login code",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiError"
+            },
+            "examples": {
+              "Éxito": {
+                "summary": "Éxito",
+                "value": {
+                  "code": "INVALID_LOGIN_CODE",
+                  "message": "Invalid login code"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "servers": [],
+  "security": []
+}
