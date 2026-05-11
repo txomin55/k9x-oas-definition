@@ -92,10 +92,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "deleteDog",
-        "tags": [
-          "Raíz/dogs/secured",
-          "dogs"
-        ],
+        "tags": ["Raíz/dogs/secured", "dogs"],
         "parameters": [
           {
             "name": "id",
@@ -138,10 +135,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "putDog",
-        "tags": [
-          "Raíz/dogs/secured",
-          "dogs"
-        ],
+        "tags": ["Raíz/dogs/secured", "dogs"],
         "parameters": [
           {
             "name": "id",
@@ -196,10 +190,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "postDog",
-        "tags": [
-          "Raíz/dogs/secured",
-          "dogs"
-        ],
+        "tags": ["Raíz/dogs/secured", "dogs"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -241,10 +232,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "getDogsApi",
-        "tags": [
-          "Raíz/dogs/secured",
-          "dogs"
-        ],
+        "tags": ["Raíz/dogs/secured", "dogs"],
         "parameters": [],
         "responses": {
           "200": {
@@ -275,10 +263,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "getUserData",
-        "tags": [
-          "Raíz/user/secured",
-          "user"
-        ],
+        "tags": ["Raíz/user/secured", "user"],
         "parameters": [],
         "responses": {
           "200": {
@@ -310,10 +295,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "logout",
-        "tags": [
-          "Raíz/user/secured",
-          "user"
-        ],
+        "tags": ["Raíz/user/secured", "user"],
         "parameters": [],
         "responses": {
           "200": {
@@ -345,10 +327,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "setNotificationSetup",
-        "tags": [
-          "Raíz/user/secured",
-          "user"
-        ],
+        "tags": ["Raíz/user/secured", "user"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -389,10 +368,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "login",
-        "tags": [
-          "Raíz/user",
-          "user"
-        ],
+        "tags": ["Raíz/user", "user"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -433,10 +409,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "postCompetition",
-        "tags": [
-          "Raíz/competitions/secured",
-          "competitions"
-        ],
+        "tags": ["Raíz/competitions/secured", "competitions"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -477,10 +450,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "getCompetitions",
-        "tags": [
-          "Raíz/competitions/secured",
-          "competitions"
-        ],
+        "tags": ["Raíz/competitions/secured", "competitions"],
         "parameters": [],
         "responses": {
           "200": {
@@ -515,10 +485,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "putCompetition",
-        "tags": [
-          "Raíz/competitions/secured",
-          "competitions"
-        ],
+        "tags": ["Raíz/competitions/secured", "competitions"],
         "parameters": [
           {
             "name": "id",
@@ -570,10 +537,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "deleteCompetition",
-        "tags": [
-          "Raíz/competitions/secured",
-          "competitions"
-        ],
+        "tags": ["Raíz/competitions/secured", "competitions"],
         "parameters": [
           {
             "name": "id",
@@ -612,16 +576,72 @@
         ]
       }
     },
+    "/secured/competitions/{id}/stages": {
+      "get": {
+        "summary": "Get competition stages",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getcompetitionStages",
+        "tags": ["Raíz/stages/secured", "stages"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Stage updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompetitionStageDetailResponseDTO"
+                  },
+                  "description": "Identifier of the updated stage"
+                },
+                "example": "stage_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/secured/stages": {
       "post": {
         "summary": "Create stage",
         "deprecated": false,
         "description": "",
         "operationId": "postStage",
-        "tags": [
-          "Raíz/stages/secured",
-          "stages"
-        ],
+        "tags": ["Raíz/stages/secured", "stages"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -664,10 +684,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "putStage",
-        "tags": [
-          "Raíz/stages/secured",
-          "stages"
-        ],
+        "tags": ["Raíz/stages/secured", "stages"],
         "parameters": [
           {
             "name": "id",
@@ -719,10 +736,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "deleteStage",
-        "tags": [
-          "Raíz/stages/secured",
-          "stages"
-        ],
+        "tags": ["Raíz/stages/secured", "stages"],
         "parameters": [
           {
             "name": "id",
@@ -767,10 +781,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "getStage",
-        "tags": [
-          "Raíz/stages",
-          "stages"
-        ],
+        "tags": ["Raíz/stages", "stages"],
         "parameters": [
           {
             "name": "id",
@@ -805,10 +816,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "getStages",
-        "tags": [
-          "Raíz/stages",
-          "stages"
-        ],
+        "tags": ["Raíz/stages", "stages"],
         "parameters": [],
         "responses": {
           "200": {
@@ -835,10 +843,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "postEvent",
-        "tags": [
-          "Raíz/events/secured",
-          "events"
-        ],
+        "tags": ["Raíz/events/secured", "events"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -875,16 +880,13 @@
         ]
       }
     },
-    "/secured/events/{id}": {
+    "/secured/obdx/events/{id}": {
       "put": {
-        "summary": "Update event",
+        "summary": "Update Obdx event",
         "deprecated": false,
         "description": "",
         "operationId": "putEvent",
-        "tags": [
-          "Raíz/events/secured",
-          "events"
-        ],
+        "tags": ["Raíz/events/secured", "events"],
         "parameters": [
           {
             "name": "id",
@@ -902,7 +904,8 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateEventRequestDTO"
-              }
+              },
+              "examples": {}
             }
           }
         },
@@ -930,16 +933,15 @@
             "bearerAuth": []
           }
         ]
-      },
+      }
+    },
+    "/secured/events/{id}": {
       "delete": {
         "summary": "Delete event",
         "deprecated": false,
         "description": "",
         "operationId": "deleteEvent",
-        "tags": [
-          "Raíz/events/secured",
-          "events"
-        ],
+        "tags": ["Raíz/events/secured", "events"],
         "parameters": [
           {
             "name": "id",
@@ -984,10 +986,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "getScores",
-        "tags": [
-          "Raíz/events/secured",
-          "events"
-        ],
+        "tags": ["Raíz/events/secured", "events"],
         "parameters": [
           {
             "name": "id",
@@ -1025,10 +1024,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "getCollection",
-        "tags": [
-          "Raíz/events/secured",
-          "collections"
-        ],
+        "tags": ["Raíz/events/secured", "collections"],
         "parameters": [
           {
             "name": "id",
@@ -1065,16 +1061,13 @@
         ]
       }
     },
-    "/secured/events/{eventId}/score": {
+    "/secured/obdx/events/{eventId}/score": {
       "put": {
-        "summary": "Update Collection score",
+        "summary": "Update Obdx Collection score",
         "deprecated": false,
         "description": "",
         "operationId": "putScore",
-        "tags": [
-          "Raíz/events/secured",
-          "collections"
-        ],
+        "tags": ["Raíz/events/secured", "collections"],
         "parameters": [
           {
             "name": "eventId",
@@ -1092,7 +1085,8 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateCollectionScoreRequestDTO"
-              }
+              },
+              "examples": {}
             }
           },
           "required": true
@@ -1128,10 +1122,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "putEnroll",
-        "tags": [
-          "Raíz/events/secured",
-          "events"
-        ],
+        "tags": ["Raíz/events/secured", "events"],
         "parameters": [
           {
             "name": "stageId",
@@ -1191,9 +1182,7 @@
         "summary": "Get event classification",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "Raíz/events"
-        ],
+        "tags": ["Raíz/events"],
         "parameters": [
           {
             "name": "stageId",
@@ -1249,10 +1238,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "postJudge",
-        "tags": [
-          "Raíz/judges/secured",
-          "judges"
-        ],
+        "tags": ["Raíz/judges/secured", "judges"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -1294,10 +1280,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "getJudges",
-        "tags": [
-          "Raíz/judges/secured",
-          "judges"
-        ],
+        "tags": ["Raíz/judges/secured", "judges"],
         "parameters": [],
         "responses": {
           "200": {
@@ -1332,10 +1315,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "putJudge",
-        "tags": [
-          "Raíz/judges/secured",
-          "judges"
-        ],
+        "tags": ["Raíz/judges/secured", "judges"],
         "parameters": [
           {
             "name": "id",
@@ -1388,10 +1368,7 @@
         "deprecated": false,
         "description": "",
         "operationId": "deleteJudge",
-        "tags": [
-          "Raíz/judges/secured",
-          "judges"
-        ],
+        "tags": ["Raíz/judges/secured", "judges"],
         "parameters": [
           {
             "name": "id",
@@ -1435,10 +1412,7 @@
         "summary": "Retrieve Discipline configurations",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "Raíz/disciplines/secured",
-          "Raíz/disciplines/api"
-        ],
+        "tags": ["Raíz/disciplines/secured", "Raíz/disciplines/api"],
         "parameters": [],
         "responses": {
           "200": {
@@ -1506,6 +1480,30 @@
   "webhooks": {},
   "components": {
     "schemas": {
+      "ObdxStageEventClassificationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "competitors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageEventClassificationItemResponseDTO"
+            }
+          }
+        },
+        "required": ["competitors"]
+      },
+      "ObdxCompetitorsScoresResponseDTO": {
+        "type": "object",
+        "properties": {
+          "competitors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompetitorScoresResponseDTO"
+            }
+          }
+        },
+        "required": ["competitors"]
+      },
       "StageEventClassificationExerciseScoresResponseDTO": {
         "type": "object",
         "properties": {
@@ -1534,10 +1532,7 @@
             }
           }
         },
-        "required": [
-          "exercise",
-          "scores"
-        ]
+        "required": ["exercise", "scores"]
       },
       "StageEventClassificationResponseDTO": {
         "type": "object",
@@ -1557,18 +1552,14 @@
           "lastUpdated": {
             "type": "integer"
           },
-          "competitors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StageEventClassificationItemResponseDTO"
-            }
+          "obdx": {
+            "$ref": "#/components/schemas/ObdxStageEventClassificationResponseDTO"
           }
         },
         "required": [
           "discipline",
           "event",
           "stage",
-          "competitors",
           "configuration",
           "lastUpdated"
         ]
@@ -1583,10 +1574,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "code",
-          "message"
-        ]
+        "required": ["code", "message"]
       },
       "CollectionResponseDTO": {
         "type": "object",
@@ -1594,20 +1582,14 @@
           "configuration": {
             "$ref": "#/components/schemas/ScoresConfigurationResponseDTO"
           },
-          "competitors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CompetitorScoresResponseDTO"
-            }
+          "obdx": {
+            "$ref": "#/components/schemas/ObdxCompetitorsScoresResponseDTO"
           },
           "discipline": {
             "$ref": "#/components/schemas/IdNameDTO"
           }
         },
-        "required": [
-          "competitors",
-          "discipline"
-        ]
+        "required": ["discipline"]
       },
       "CollectionsResponseDTO": {
         "type": "object",
@@ -1664,12 +1646,6 @@
           "address": {
             "type": "string"
           },
-          "stages": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CompetitionStageDetailResponseDTO"
-            }
-          },
           "notifications": {
             "type": "array",
             "items": {
@@ -1678,12 +1654,7 @@
             "description": "Competition notifications visible to the current user."
           }
         },
-        "required": [
-          "country",
-          "id",
-          "name",
-          "status"
-        ]
+        "required": ["country", "id", "name", "status"]
       },
       "CompetitorScoresResponseDTO": {
         "type": "object",
@@ -1699,10 +1670,7 @@
             "$ref": "#/components/schemas/EventCompetitorResponseDTO"
           }
         },
-        "required": [
-          "competitor",
-          "exercises"
-        ]
+        "required": ["competitor", "exercises"]
       },
       "StageDetailResponseDTO": {
         "type": "object",
@@ -1742,11 +1710,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "organizer"
-        ]
+        "required": ["id", "name", "organizer"]
       },
       "StageSummaryResponseDTO": {
         "type": "object",
@@ -1790,12 +1754,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "organizer",
-          "status"
-        ]
+        "required": ["id", "name", "organizer", "status"]
       },
       "UserProfileResponseDTO": {
         "type": "object",
@@ -1814,11 +1773,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "organizer",
-          "name",
-          "email"
-        ]
+        "required": ["organizer", "name", "email"]
       },
       "CreateDogRequestDTO": {
         "type": "object",
@@ -1856,13 +1811,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "image",
-          "breed",
-          "owned"
-        ]
+        "required": ["id", "name", "image", "breed", "owned"]
       },
       "CreateEventRequestDTO": {
         "type": "object",
@@ -1882,12 +1831,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "stageId",
-          "disciplineId"
-        ]
+        "required": ["id", "name", "stageId", "disciplineId"]
       },
       "CreateStageRequestDTO": {
         "type": "object",
@@ -1914,11 +1858,7 @@
             "description": "Identifier of the competition that owns this stage."
           }
         },
-        "required": [
-          "id",
-          "name",
-          "competitionId"
-        ]
+        "required": ["id", "name", "competitionId"]
       },
       "EnrollStageEventRequestDTO": {
         "type": "object",
@@ -1942,13 +1882,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "dogId",
-          "eventId",
-          "identifier",
-          "owner",
-          "team"
-        ]
+        "required": ["dogId", "eventId", "identifier", "owner", "team"]
       },
       "LoginRequestDTO": {
         "type": "object",
@@ -1957,9 +1891,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "code"
-        ]
+        "required": ["code"]
       },
       "PushSubscriptionRequestDTO": {
         "type": "object",
@@ -1977,11 +1909,7 @@
             "description": "Web Push P-256 public key from the client subscription keys."
           }
         },
-        "required": [
-          "endpoint",
-          "auth",
-          "p256dh"
-        ]
+        "required": ["endpoint", "auth", "p256dh"]
       },
       "UpdateCollectionScoreRequestDTO": {
         "type": "object",
@@ -2002,13 +1930,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "dogId",
-          "exerciseId",
-          "judgeId",
-          "eventId",
-          "score"
-        ]
+        "required": ["dogId", "exerciseId", "judgeId", "eventId", "score"]
       },
       "UpdateCompetitionRequestDTO": {
         "type": "object",
@@ -2026,10 +1948,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "name",
-          "country"
-        ]
+        "required": ["name", "country"]
       },
       "UpdateDogRequestDTO": {
         "type": "object",
@@ -2064,12 +1983,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "name",
-          "image",
-          "breed",
-          "owned"
-        ]
+        "required": ["name", "image", "breed", "owned"]
       },
       "UpdateEventRequestDTO": {
         "type": "object",
@@ -2099,9 +2013,7 @@
             }
           }
         },
-        "required": [
-          "name"
-        ]
+        "required": ["name"]
       },
       "UpdateJudgeRequestDTO": {
         "type": "object",
@@ -2111,9 +2023,7 @@
             "description": "Display name of the judge."
           }
         },
-        "required": [
-          "name"
-        ]
+        "required": ["name"]
       },
       "UpdateStageRequestDTO": {
         "type": "object",
@@ -2132,11 +2042,7 @@
             "description": "Unix timestamp in milliseconds"
           }
         },
-        "required": [
-          "name",
-          "dateFrom",
-          "dateTo"
-        ]
+        "required": ["name", "dateFrom", "dateTo"]
       },
       "DogSummaryResponseDTO": {
         "type": "object",
@@ -2207,10 +2113,7 @@
             }
           }
         },
-        "required": [
-          "collectionScores",
-          "exercise"
-        ]
+        "required": ["collectionScores", "exercise"]
       },
       "CollectionScoreResponseDTO": {
         "type": "object",
@@ -2222,10 +2125,7 @@
             "$ref": "#/components/schemas/IdNameDTO"
           }
         },
-        "required": [
-          "judge",
-          "score"
-        ]
+        "required": ["judge", "score"]
       },
       "ScoresConfigurationResponseDTO": {
         "type": "object",
@@ -2240,9 +2140,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "allowedValues"
-        ]
+        "required": ["allowedValues"]
       },
       "FederationConfigurationsResponseDTO": {
         "type": "object",
@@ -2257,10 +2155,7 @@
             }
           }
         },
-        "required": [
-          "info",
-          "configurations"
-        ]
+        "required": ["info", "configurations"]
       },
       "FederationConfigurationResponseDTO": {
         "type": "object",
@@ -2276,11 +2171,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "country"
-        ]
+        "required": ["id", "name", "country"]
       },
       "ConfigurationResponseDTO": {
         "type": "object",
@@ -2299,10 +2190,7 @@
             }
           }
         },
-        "required": [
-          "id",
-          "name"
-        ]
+        "required": ["id", "name"]
       },
       "ConfigurationExerciseResponseDTO": {
         "type": "object",
@@ -2315,10 +2203,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "name"
-        ]
+        "required": ["id", "name"]
       },
       "IdNameDTO": {
         "type": "object",
@@ -2332,10 +2217,7 @@
             "description": "ID"
           }
         },
-        "required": [
-          "name",
-          "id"
-        ]
+        "required": ["name", "id"]
       },
       "StageEventClassificationItemResponseDTO": {
         "type": "object",
@@ -2372,14 +2254,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "owner",
-          "team",
-          "status",
-          "exercises",
-          "dog",
-          "position"
-        ]
+        "required": ["owner", "team", "status", "exercises", "dog", "position"]
       },
       "StageEventClassificationScoreResponseDTO": {
         "type": "object",
@@ -2394,11 +2269,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "judge",
-          "value",
-          "scoreRating"
-        ]
+        "required": ["judge", "value", "scoreRating"]
       },
       "EventCompetitorResponseDTO": {
         "type": "object",
@@ -2431,9 +2302,7 @@
             "$ref": "#/components/schemas/IdNameDTO"
           }
         },
-        "required": [
-          "dog"
-        ]
+        "required": ["dog"]
       },
       "ExerciseResponseDTO": {
         "type": "object",
@@ -2450,11 +2319,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "order"
-        ]
+        "required": ["id", "name", "order"]
       },
       "CompetitionLocationDetailResponseDTO": {
         "type": "object",
@@ -2492,12 +2357,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "discipline",
-          "status"
-        ]
+        "required": ["id", "name", "discipline", "status"]
       },
       "StageEventDetailResponseDTO": {
         "type": "object",
@@ -2516,10 +2376,7 @@
             "items": {}
           }
         },
-        "required": [
-          "id",
-          "name"
-        ]
+        "required": ["id", "name"]
       },
       "CompetitionNotificationDetailResponseDTO": {
         "type": "object",
@@ -2536,11 +2393,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "date",
-          "id",
-          "text"
-        ]
+        "required": ["date", "id", "text"]
       },
       "CompetitionStageDetailResponseDTO": {
         "type": "object",
@@ -2568,13 +2421,7 @@
             }
           }
         },
-        "required": [
-          "dateFrom",
-          "dateTo",
-          "events",
-          "id",
-          "name"
-        ]
+        "required": ["dateFrom", "dateTo", "events", "id", "name"]
       },
       "EventDetailResponseDTO": {
         "type": "object",
@@ -2651,10 +2498,7 @@
             "description": "etiqueta"
           }
         },
-        "required": [
-          "id",
-          "name"
-        ]
+        "required": ["id", "name"]
       },
       "EventConfigurationDetailResponseDTO": {
         "type": "object",
@@ -2671,11 +2515,7 @@
             "$ref": "#/components/schemas/FederationConfigurationResponseDTO"
           }
         },
-        "required": [
-          "federation",
-          "id",
-          "name"
-        ]
+        "required": ["federation", "id", "name"]
       },
       "EventJudgeDetailResponseDTO": {
         "type": "object",
@@ -2693,10 +2533,7 @@
             "description": "Email address used to collect or receive scoring data for this judge."
           }
         },
-        "required": [
-          "collectorEmail",
-          "id"
-        ]
+        "required": ["collectorEmail", "id"]
       },
       "EventExerciseRequestDTO": {
         "type": "object",
@@ -2719,12 +2556,7 @@
             }
           }
         },
-        "required": [
-          "id",
-          "name",
-          "order",
-          "tags"
-        ]
+        "required": ["id", "name", "order", "tags"]
       },
       "EventCompetitorRequestDTO": {
         "type": "object",
@@ -2758,9 +2590,7 @@
             "description": "estado"
           }
         },
-        "required": [
-          "dogId"
-        ]
+        "required": ["dogId"]
       },
       "EventJudgeDetailRequestDTO": {
         "type": "object",
@@ -2774,10 +2604,7 @@
             "description": "Email address used to collect or receive scoring data for this judge."
           }
         },
-        "required": [
-          "collectorEmail",
-          "id"
-        ]
+        "required": ["collectorEmail", "id"]
       },
       "CompetitionLocationRequestDTO": {
         "type": "object",
@@ -2809,11 +2636,7 @@
             "description": "estado"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "status"
-        ]
+        "required": ["id", "name", "status"]
       }
     },
     "responses": {
