@@ -10,6 +10,18 @@
       "name": "Secured"
     },
     {
+      "name": "Secured/Collections"
+    },
+    {
+      "name": "Secured/Collections/fecth_all"
+    },
+    {
+      "name": "Secured/Collections/fetch_one"
+    },
+    {
+      "name": "Secured/Collections/fetch_one/obdx"
+    },
+    {
       "name": "Secured/Competitions"
     },
     {
@@ -25,13 +37,10 @@
       "name": "Secured/Competitions/fetch_all"
     },
     {
-      "name": "Secured/Collections"
+      "name": "Secured/Disciplines"
     },
     {
-      "name": "Secured/Collections/fecth_all"
-    },
-    {
-      "name": "Secured/Collections/fetch_one"
+      "name": "Secured/Disciplines/fetch_all_by_discipline"
     },
     {
       "name": "Secured/Dogs"
@@ -55,13 +64,13 @@
       "name": "Secured/Events/create"
     },
     {
-      "name": "Secured/Events/delete"
-    },
-    {
       "name": "Secured/Events/enroll"
     },
     {
-      "name": "Secured/Events/fetch_all_by_stages"
+      "name": "Secured/Events/delete"
+    },
+    {
+      "name": "Secured/Events/fetch_one"
     },
     {
       "name": "Secured/Events/update"
@@ -118,12 +127,6 @@
       "name": "Secured/User/register_push"
     },
     {
-      "name": "Secured/Disciplines"
-    },
-    {
-      "name": "Secured/Disciplines/fetch_all"
-    },
-    {
       "name": "Users"
     },
     {
@@ -146,6 +149,88 @@
     }
   ],
   "paths": {
+    "/secured/collections": {
+      "get": {
+        "summary": "List collections",
+        "deprecated": false,
+        "description": "",
+        "operationId": "fetchCollectionsSecured",
+        "tags": [
+          "Secured/Collections/fecth_all"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Judge list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CollectionsResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/events/{id}/collections": {
+      "get": {
+        "summary": "Get event collection detail",
+        "deprecated": false,
+        "description": "",
+        "operationId": "fetchOneCollection",
+        "tags": [
+          "Secured/Collections/fetch_one/obdx"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/secured/competitions": {
       "post": {
         "summary": "Create competition",
@@ -329,51 +414,14 @@
         ]
       }
     },
-    "/secured/collections": {
+    "/secured/disciplines/{id}/configurations": {
       "get": {
-        "summary": "List collections",
+        "summary": "Retrieve Discipline configurations",
         "deprecated": false,
         "description": "",
-        "operationId": "fetchCollectionsSecured",
+        "operationId": "fetchDisciplinesSecured",
         "tags": [
-          "Secured/Collections/fecth_all"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Judge list returned successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CollectionsResponseDTO"
-                  }
-                }
-              }
-            },
-            "headers": {}
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError",
-            "description": "Missing or invalid bearer token"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/secured/events/{id}/collections": {
-      "get": {
-        "summary": "Get event collection detail",
-        "deprecated": false,
-        "description": "",
-        "operationId": "fetchOneCollection",
-        "tags": [
-          "Secured/Collections/fetch_one"
+          "Secured/Disciplines/fetch_all_by_discipline"
         ],
         "parameters": [
           {
@@ -381,7 +429,6 @@
             "in": "path",
             "description": "",
             "required": true,
-            "example": "",
             "schema": {
               "type": "string"
             }
@@ -393,7 +440,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CollectionResponseDTO"
+                  "$ref": "#/components/schemas/DisciplineFederationConfigurationResponseDTO"
                 }
               }
             },
@@ -404,11 +451,7 @@
             "description": "Missing or invalid bearer token"
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        "security": []
       }
     },
     "/secured/dogs/{id}": {
@@ -638,6 +681,59 @@
         ]
       }
     },
+    "/secured/events/{eventId}/enroll": {
+      "put": {
+        "summary": "Enroll into event",
+        "deprecated": false,
+        "description": "",
+        "operationId": "doEnrollSecured",
+        "tags": [
+          "Secured/Events/enroll"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrollStageEventRequestDTO"
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/secured/events/{id}": {
       "delete": {
         "summary": "Delete event",
@@ -683,79 +779,14 @@
             "bearerAuth": []
           }
         ]
-      }
-    },
-    "/secured/stages/{stageId}/events/{eventId}/enroll": {
-      "put": {
-        "summary": "Enroll into event",
-        "deprecated": false,
-        "description": "",
-        "operationId": "doEnrollSecured",
-        "tags": [
-          "Secured/Events/enroll"
-        ],
-        "parameters": [
-          {
-            "name": "stageId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eventId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EnrollStageEventRequestDTO"
-              },
-              "examples": {}
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            },
-            "headers": {}
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/secured/competitions/{id}/stages/events": {
+      },
       "get": {
-        "summary": "Get events by stages",
+        "summary": "Get event data by id",
         "deprecated": false,
         "description": "",
-        "operationId": "getStagesEventsSecured",
+        "operationId": "getOneEventSecured",
         "tags": [
-          "Secured/Events/fetch_all_by_stages"
+          "Secured/Events/fetch_one"
         ],
         "parameters": [
           {
@@ -763,7 +794,6 @@
             "in": "path",
             "description": "",
             "required": true,
-            "example": "",
             "schema": {
               "type": "string"
             }
@@ -781,28 +811,14 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              },
-              "examples": {}
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Stage updated successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EventDetailResponseDTO"
-                  },
-                  "description": "Identifier of the updated stage"
+                  "description": "Identifier of the updated stage",
+                  "$ref": "#/components/schemas/EventDetailResponseDTO"
                 },
                 "example": "stage_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
@@ -1380,39 +1396,6 @@
         ]
       }
     },
-    "/secured/disciplines/configurations": {
-      "get": {
-        "summary": "Retrieve Discipline configurations",
-        "deprecated": false,
-        "description": "",
-        "operationId": "fetchDisciplinesSecured",
-        "tags": [
-          "Secured/Disciplines/fetch_all"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/DisciplineFederationConfigurationResponseDTO"
-                  }
-                }
-              }
-            },
-            "headers": {}
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError",
-            "description": "Missing or invalid bearer token"
-          }
-        },
-        "security": []
-      }
-    },
     "/login": {
       "post": {
         "summary": "Exchange login code for JWT",
@@ -1523,7 +1506,7 @@
         "security": []
       }
     },
-    "/stages/{stageId}/events/{eventId}/classification": {
+    "/events/{eventId}/classification": {
       "get": {
         "summary": "Get event classification",
         "deprecated": false,
@@ -1533,16 +1516,6 @@
           "Events/fetch_classification"
         ],
         "parameters": [
-          {
-            "name": "stageId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "eventId",
             "in": "path",
@@ -1554,18 +1527,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              },
-              "examples": {}
-            }
-          },
-          "required": true
-        },
         "responses": {
           "200": {
             "description": "",
@@ -1622,6 +1583,41 @@
           }
         }
       },
+      "CompetitionStageEventDetailResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "nombre"
+          },
+          "discipline": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "discipline"
+        ]
+      },
+      "ObdxFederationConfigurationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "federations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FederationConfigurationsResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "federations"
+        ]
+      },
       "StageEventClassificationExerciseScoresResponseDTO": {
         "type": "object",
         "properties": {
@@ -1671,7 +1667,7 @@
             "$ref": "#/components/schemas/IdNameDTO"
           },
           "lastUpdated": {
-            "type": "integer"
+            "type": "number"
           },
           "obdx": {
             "$ref": "#/components/schemas/ObdxStageEventClassificationResponseDTO"
@@ -1699,7 +1695,9 @@
           }
         },
         "required": [
-          "discipline"
+          "discipline",
+          "configuration",
+          "obdx"
         ]
       },
       "CollectionsResponseDTO": {
@@ -1725,6 +1723,9 @@
             "items": {
               "$ref": "#/components/schemas/IdNameDTO"
             }
+          },
+          "discipline": {
+            "$ref": "#/components/schemas/IdNameDTO"
           }
         },
         "required": [
@@ -1733,7 +1734,8 @@
           "eventName",
           "eventId",
           "status",
-          "judges"
+          "judges",
+          "discipline"
         ]
       },
       "CompetitionResponseDTO": {
@@ -1776,7 +1778,10 @@
           "id",
           "name",
           "status",
-          "stages"
+          "stages",
+          "notifications",
+          "description",
+          "address"
         ]
       },
       "CompetitorScoresResponseDTO": {
@@ -2020,28 +2025,13 @@
           "dogId": {
             "type": "string"
           },
-          "country": {
-            "type": "string"
-          },
           "eventId": {
-            "type": "string"
-          },
-          "identifier": {
-            "type": "string"
-          },
-          "owner": {
-            "type": "string"
-          },
-          "team": {
             "type": "string"
           }
         },
         "required": [
           "dogId",
-          "eventId",
-          "identifier",
-          "owner",
-          "team"
+          "eventId"
         ]
       },
       "LoginRequestDTO": {
@@ -2277,16 +2267,13 @@
       "DisciplineFederationConfigurationResponseDTO": {
         "type": "object",
         "properties": {
-          "disciplineId": {
-            "type": "string"
-          },
-          "federations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/FederationConfigurationsResponseDTO"
-            }
+          "obdx": {
+            "$ref": "#/components/schemas/ObdxFederationConfigurationResponseDTO"
           }
-        }
+        },
+        "required": [
+          "obdx"
+        ]
       },
       "ExerciseScoresResponseDTO": {
         "type": "object",
@@ -2335,7 +2322,8 @@
           }
         },
         "required": [
-          "allowedValues"
+          "allowedValues",
+          "description"
         ]
       },
       "FederationConfigurationsResponseDTO": {
@@ -2389,24 +2377,8 @@
           "exercises": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ConfigurationExerciseResponseDTO"
+              "$ref": "#/components/schemas/IdNameDTO"
             }
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ]
-      },
-      "ConfigurationExerciseResponseDTO": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "ID"
-          },
-          "name": {
-            "type": "string"
           }
         },
         "required": [
@@ -2513,20 +2485,30 @@
             "type": "string",
             "description": "Handler country"
           },
-          "order": {
+          "position": {
             "type": "integer",
-            "description": "Competitor order"
+            "description": "Competitor position"
           },
           "status": {
             "type": "string",
             "description": "estado"
+          },
+          "breed": {
+            "type": "string"
           },
           "dog": {
             "$ref": "#/components/schemas/IdNameDTO"
           }
         },
         "required": [
-          "dog"
+          "dog",
+          "owner",
+          "identity",
+          "team",
+          "country",
+          "position",
+          "status",
+          "breed"
         ]
       },
       "ExerciseResponseDTO": {
@@ -2540,14 +2522,14 @@
             "type": "string",
             "description": "nombre"
           },
-          "order": {
+          "position": {
             "type": "integer"
           }
         },
         "required": [
           "id",
           "name",
-          "order"
+          "position"
         ]
       },
       "CompetitionLocationDetailResponseDTO": {
@@ -2640,10 +2622,10 @@
         "type": "object",
         "properties": {
           "dateFrom": {
-            "type": "integer"
+            "type": "number"
           },
           "dateTo": {
-            "type": "integer"
+            "type": "number"
           },
           "id": {
             "type": "string",
@@ -2652,11 +2634,20 @@
           "name": {
             "type": "string",
             "description": "nombre"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompetitionStageEventDetailResponseDTO"
+            }
           }
         },
         "required": [
           "id",
-          "name"
+          "name",
+          "events",
+          "dateFrom",
+          "dateTo"
         ]
       },
       "ObdxEventDetailResponseDTO": {
@@ -2722,9 +2713,9 @@
             "type": "string",
             "description": "Human-readable exercise label or description."
           },
-          "order": {
+          "position": {
             "type": "integer",
-            "description": "Order in which the exercise appears within the event."
+            "description": "Position in which the exercise appears within the event."
           },
           "tags": {
             "type": "array",
@@ -2736,7 +2727,8 @@
         },
         "required": [
           "id",
-          "name"
+          "name",
+          "tags"
         ]
       },
       "EventConfigurationDetailResponseDTO": {
@@ -2791,9 +2783,9 @@
             "type": "string",
             "description": "Human-readable exercise label or description."
           },
-          "order": {
+          "position": {
             "type": "integer",
-            "description": "Order in which the exercise appears within the event."
+            "description": "Position in which the exercise appears within the event."
           },
           "tags": {
             "type": "array",
@@ -2805,7 +2797,7 @@
         "required": [
           "id",
           "name",
-          "order",
+          "position",
           "tags"
         ]
       },
@@ -2816,33 +2808,18 @@
             "type": "string",
             "description": "Dog id"
           },
-          "owner": {
-            "type": "string",
-            "description": "Name or identifier of the handler or owner associated with the dog."
-          },
-          "identity": {
-            "type": "string",
-            "description": "Dog identity"
-          },
-          "team": {
-            "type": "string",
-            "description": "Handler team"
-          },
-          "country": {
-            "type": "string",
-            "description": "Handler country"
-          },
-          "order": {
+          "position": {
             "type": "integer",
-            "description": "Competitor order"
+            "description": "Competitor position"
           },
-          "status": {
-            "type": "string",
-            "description": "estado"
+          "accepted": {
+            "type": "boolean"
           }
         },
         "required": [
-          "dogId"
+          "dogId",
+          "accepted",
+          "position"
         ]
       },
       "EventJudgeDetailRequestDTO": {
