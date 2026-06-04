@@ -2519,6 +2519,9 @@
           },
           "scoreRating": {
             "type": "number"
+          },
+          "tied": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -2530,7 +2533,8 @@
           "exercises",
           "position",
           "totalScore",
-          "scoreRating"
+          "scoreRating",
+          "tied"
         ]
       },
       "StageEventClassificationScoreResponseDTO": {
