@@ -1,16 +1,154 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Default",
-    "description": "OpenAPI contract for the K9X local-first application, covering authentication, dog profiles, competitions, stages, events, scoring, and push notification setup.",
+    "title": "Módulo predeterminado",
+    "description": "",
     "version": "1.0.0"
   },
   "tags": [
     {
-      "name": "Secured"
+      "name": "Raíz"
     },
     {
-      "name": "Secured/Collections"
+      "name": "Raíz/Secured"
+    },
+    {
+      "name": "Raíz/Secured/Collections"
+    },
+    {
+      "name": "Raíz/Secured/Collections/fecth_all"
+    },
+    {
+      "name": "Raíz/Secured/Collections/fetch_one"
+    },
+    {
+      "name": "Raíz/Secured/Competitions"
+    },
+    {
+      "name": "Raíz/Secured/Competitions/create"
+    },
+    {
+      "name": "Raíz/Secured/Competitions/fetch_all"
+    },
+    {
+      "name": "Raíz/Secured/Competitions/remove"
+    },
+    {
+      "name": "Raíz/Secured/Competitions/update"
+    },
+    {
+      "name": "Raíz/Secured/Disciplines"
+    },
+    {
+      "name": "Raíz/Secured/Disciplines/fetch_all_by_discipline"
+    },
+    {
+      "name": "Raíz/Secured/Dogs"
+    },
+    {
+      "name": "Raíz/Secured/Dogs/remove"
+    },
+    {
+      "name": "Raíz/Secured/Dogs/update"
+    },
+    {
+      "name": "Raíz/Secured/Dogs/create"
+    },
+    {
+      "name": "Raíz/Secured/Dogs/fetch_all"
+    },
+    {
+      "name": "Raíz/Secured/Events"
+    },
+    {
+      "name": "Raíz/Secured/Events/create"
+    },
+    {
+      "name": "Raíz/Secured/Events/enroll"
+    },
+    {
+      "name": "Raíz/Secured/Events/delete"
+    },
+    {
+      "name": "Raíz/Secured/Events/fetch_one"
+    },
+    {
+      "name": "Raíz/Secured/Events/update"
+    },
+    {
+      "name": "Raíz/Secured/Events/update/info"
+    },
+    {
+      "name": "Raíz/Secured/Events/update/info/obdx"
+    },
+    {
+      "name": "Raíz/Secured/Events/update/score"
+    },
+    {
+      "name": "Raíz/Secured/Events/update/score/obdx"
+    },
+    {
+      "name": "Raíz/Secured/Judges"
+    },
+    {
+      "name": "Raíz/Secured/Judges/create"
+    },
+    {
+      "name": "Raíz/Secured/Judges/fetch_all"
+    },
+    {
+      "name": "Raíz/Secured/Judges/remove"
+    },
+    {
+      "name": "Raíz/Secured/Judges/update"
+    },
+    {
+      "name": "Raíz/Secured/Stages"
+    },
+    {
+      "name": "Raíz/Secured/Stages/create"
+    },
+    {
+      "name": "Raíz/Secured/Stages/remove"
+    },
+    {
+      "name": "Raíz/Secured/Stages/update"
+    },
+    {
+      "name": "Raíz/Secured/User"
+    },
+    {
+      "name": "Raíz/Secured/User/logout"
+    },
+    {
+      "name": "Raíz/Secured/User/fetch"
+    },
+    {
+      "name": "Raíz/Secured/User/register_push"
+    },
+    {
+      "name": "Raíz/Users"
+    },
+    {
+      "name": "Raíz/Users/login"
+    },
+    {
+      "name": "Raíz/Users/refresh"
+    },
+    {
+      "name": "Raíz/Stages"
+    },
+    {
+      "name": "Raíz/Stages/fetch_all"
+    },
+    {
+      "name": "Raíz/Stages/fetch_one"
+    },
+    {
+      "name": "Raíz/Events"
+    },
+    {
+      "name": "Raíz/Events/fetch_classification"
     },
     {
       "name": "Secured/Collections/fecth_all"
@@ -19,10 +157,10 @@
       "name": "Secured/Collections/fetch_one"
     },
     {
-      "name": "Secured/Competitions"
+      "name": "Secured/Competitions/create"
     },
     {
-      "name": "Secured/Competitions/create"
+      "name": "Secured/Competitions/fetch_all"
     },
     {
       "name": "Secured/Competitions/remove"
@@ -31,16 +169,7 @@
       "name": "Secured/Competitions/update"
     },
     {
-      "name": "Secured/Competitions/fetch_all"
-    },
-    {
-      "name": "Secured/Disciplines"
-    },
-    {
       "name": "Secured/Disciplines/fetch_all_by_discipline"
-    },
-    {
-      "name": "Secured/Dogs"
     },
     {
       "name": "Secured/Dogs/remove"
@@ -55,9 +184,6 @@
       "name": "Secured/Dogs/fetch_all"
     },
     {
-      "name": "Secured/Events"
-    },
-    {
       "name": "Secured/Events/create"
     },
     {
@@ -70,37 +196,22 @@
       "name": "Secured/Events/fetch_one"
     },
     {
-      "name": "Secured/Events/update"
-    },
-    {
-      "name": "Secured/Events/update/info"
-    },
-    {
       "name": "Secured/Events/update/info/obdx"
-    },
-    {
-      "name": "Secured/Events/update/score"
     },
     {
       "name": "Secured/Events/update/score/obdx"
     },
     {
-      "name": "Secured/Judges"
+      "name": "Secured/Judges/create"
     },
     {
-      "name": "Secured/Judges/create"
+      "name": "Secured/Judges/fetch_all"
     },
     {
       "name": "Secured/Judges/remove"
     },
     {
       "name": "Secured/Judges/update"
-    },
-    {
-      "name": "Secured/Judges/fetch_all"
-    },
-    {
-      "name": "Secured/Stages"
     },
     {
       "name": "Secured/Stages/create"
@@ -112,9 +223,6 @@
       "name": "Secured/Stages/update"
     },
     {
-      "name": "Secured/User"
-    },
-    {
       "name": "Secured/User/logout"
     },
     {
@@ -124,25 +232,16 @@
       "name": "Secured/User/register_push"
     },
     {
-      "name": "Users"
-    },
-    {
       "name": "Users/login"
     },
     {
       "name": "Users/refresh"
     },
     {
-      "name": "Stages"
-    },
-    {
       "name": "Stages/fetch_all"
     },
     {
       "name": "Stages/fetch_one"
-    },
-    {
-      "name": "Events"
     },
     {
       "name": "Events/fetch_classification"
@@ -156,6 +255,7 @@
         "description": "",
         "operationId": "fetchCollectionsSecured",
         "tags": [
+          "Raíz/Secured/Collections/fecth_all",
           "Secured/Collections/fecth_all"
         ],
         "parameters": [],
@@ -193,6 +293,7 @@
         "description": "",
         "operationId": "fetchOneCollection",
         "tags": [
+          "Raíz/Secured/Collections/fetch_one",
           "Secured/Collections/fetch_one"
         ],
         "parameters": [
@@ -238,6 +339,7 @@
         "description": "",
         "operationId": "createCompetitionSecured",
         "tags": [
+          "Raíz/Secured/Competitions/create",
           "Secured/Competitions/create"
         ],
         "parameters": [],
@@ -246,8 +348,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/IdNameDTO"
-              },
-              "examples": {}
+              }
             }
           }
         },
@@ -282,6 +383,7 @@
         "description": "",
         "operationId": "fetchCompetitionsSecured",
         "tags": [
+          "Raíz/Secured/Competitions/fetch_all",
           "Secured/Competitions/fetch_all"
         ],
         "parameters": [],
@@ -319,6 +421,7 @@
         "description": "",
         "operationId": "removeCompetitionSecured",
         "tags": [
+          "Raíz/Secured/Competitions/remove",
           "Secured/Competitions/remove"
         ],
         "parameters": [
@@ -364,6 +467,7 @@
         "description": "",
         "operationId": "updateCompetitionSecured",
         "tags": [
+          "Raíz/Secured/Competitions/update",
           "Secured/Competitions/update"
         ],
         "parameters": [
@@ -383,8 +487,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateCompetitionRequestDTO"
-              },
-              "examples": {}
+              }
             }
           }
         },
@@ -421,6 +524,7 @@
         "description": "",
         "operationId": "fetchDisciplinesSecured",
         "tags": [
+          "Raíz/Secured/Disciplines/fetch_all_by_discipline",
           "Secured/Disciplines/fetch_all_by_discipline"
         ],
         "parameters": [
@@ -429,6 +533,7 @@
             "in": "path",
             "description": "",
             "required": true,
+            "example": "",
             "schema": {
               "type": "string"
             }
@@ -461,6 +566,7 @@
         "description": "",
         "operationId": "deleteDogSecured",
         "tags": [
+          "Raíz/Secured/Dogs/remove",
           "Secured/Dogs/remove"
         ],
         "parameters": [
@@ -506,6 +612,7 @@
         "description": "",
         "operationId": "updateDogSecured",
         "tags": [
+          "Raíz/Secured/Dogs/update",
           "Secured/Dogs/update"
         ],
         "parameters": [
@@ -525,8 +632,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateDogRequestDTO"
-              },
-              "examples": {}
+              }
             }
           },
           "required": true
@@ -564,6 +670,7 @@
         "description": "",
         "operationId": "createDogSecured",
         "tags": [
+          "Raíz/Secured/Dogs/create",
           "Secured/Dogs/create"
         ],
         "parameters": [],
@@ -572,8 +679,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateDogRequestDTO"
-              },
-              "examples": {}
+              }
             }
           },
           "required": true
@@ -609,6 +715,7 @@
         "description": "",
         "operationId": "getDogsSecured",
         "tags": [
+          "Raíz/Secured/Dogs/fetch_all",
           "Secured/Dogs/fetch_all"
         ],
         "parameters": [
@@ -652,6 +759,7 @@
         "description": "",
         "operationId": "createEventSecured",
         "tags": [
+          "Raíz/Secured/Events/create",
           "Secured/Events/create"
         ],
         "parameters": [],
@@ -660,8 +768,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateEventRequestDTO"
-              },
-              "examples": {}
+              }
             }
           }
         },
@@ -698,6 +805,7 @@
         "description": "",
         "operationId": "doEnrollSecured",
         "tags": [
+          "Raíz/Secured/Events/enroll",
           "Secured/Events/enroll"
         ],
         "parameters": [
@@ -717,8 +825,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/EnrollStageEventRequestDTO"
-              },
-              "examples": {}
+              }
             }
           },
           "required": true
@@ -751,6 +858,7 @@
         "description": "",
         "operationId": "removeEventSecured",
         "tags": [
+          "Raíz/Secured/Events/delete",
           "Secured/Events/delete"
         ],
         "parameters": [
@@ -796,6 +904,7 @@
         "description": "",
         "operationId": "getOneEventSecured",
         "tags": [
+          "Raíz/Secured/Events/fetch_one",
           "Secured/Events/fetch_one"
         ],
         "parameters": [
@@ -804,6 +913,7 @@
             "in": "path",
             "description": "",
             "required": true,
+            "example": "",
             "schema": {
               "type": "string"
             }
@@ -854,6 +964,7 @@
         "description": "",
         "operationId": "updateObdxEventSecured",
         "tags": [
+          "Raíz/Secured/Events/update/info/obdx",
           "Secured/Events/update/info/obdx"
         ],
         "parameters": [
@@ -873,8 +984,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateEventRequestDTO"
-              },
-              "examples": {}
+              }
             }
           }
         },
@@ -911,6 +1021,7 @@
         "description": "",
         "operationId": "updateObdxScore",
         "tags": [
+          "Raíz/Secured/Events/update/score/obdx",
           "Secured/Events/update/score/obdx"
         ],
         "parameters": [
@@ -930,8 +1041,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateCollectionScoreRequestDTO"
-              },
-              "examples": {}
+              }
             }
           },
           "required": true
@@ -968,6 +1078,7 @@
         "description": "",
         "operationId": "createJudgeSecured",
         "tags": [
+          "Raíz/Secured/Judges/create",
           "Secured/Judges/create"
         ],
         "parameters": [],
@@ -976,8 +1087,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/IdNameDTO"
-              },
-              "examples": {}
+              }
             }
           },
           "required": true
@@ -1013,6 +1123,7 @@
         "description": "",
         "operationId": "fetchJudgesSecured",
         "tags": [
+          "Raíz/Secured/Judges/fetch_all",
           "Secured/Judges/fetch_all"
         ],
         "parameters": [],
@@ -1050,6 +1161,7 @@
         "description": "",
         "operationId": "removeJudgeSecured",
         "tags": [
+          "Raíz/Secured/Judges/remove",
           "Secured/Judges/remove"
         ],
         "parameters": [
@@ -1095,6 +1207,7 @@
         "description": "",
         "operationId": "updateJudgeSecured",
         "tags": [
+          "Raíz/Secured/Judges/update",
           "Secured/Judges/update"
         ],
         "parameters": [
@@ -1114,8 +1227,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateJudgeRequestDTO"
-              },
-              "examples": {}
+              }
             }
           },
           "required": true
@@ -1153,6 +1265,7 @@
         "description": "",
         "operationId": "createStage",
         "tags": [
+          "Raíz/Secured/Stages/create",
           "Secured/Stages/create"
         ],
         "parameters": [],
@@ -1161,8 +1274,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateStageRequestDTO"
-              },
-              "examples": {}
+              }
             }
           }
         },
@@ -1199,6 +1311,7 @@
         "description": "",
         "operationId": "removeStage",
         "tags": [
+          "Raíz/Secured/Stages/remove",
           "Secured/Stages/remove"
         ],
         "parameters": [
@@ -1244,6 +1357,7 @@
         "description": "",
         "operationId": "updateStage",
         "tags": [
+          "Raíz/Secured/Stages/update",
           "Secured/Stages/update"
         ],
         "parameters": [
@@ -1263,8 +1377,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateStageRequestDTO"
-              },
-              "examples": {}
+              }
             }
           }
         },
@@ -1301,6 +1414,7 @@
         "description": "",
         "operationId": "logoutSecured",
         "tags": [
+          "Raíz/Secured/User/logout",
           "Secured/User/logout"
         ],
         "parameters": [],
@@ -1335,6 +1449,7 @@
         "description": "",
         "operationId": "fetchUserDataSecured",
         "tags": [
+          "Raíz/Secured/User/fetch",
           "Secured/User/fetch"
         ],
         "parameters": [],
@@ -1369,6 +1484,7 @@
         "description": "",
         "operationId": "registerNotificationSetupSecured",
         "tags": [
+          "Raíz/Secured/User/register_push",
           "Secured/User/register_push"
         ],
         "parameters": [],
@@ -1377,8 +1493,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/PushSubscriptionRequestDTO"
-              },
-              "examples": {}
+              }
             }
           }
         },
@@ -1413,6 +1528,7 @@
         "description": "",
         "operationId": "login",
         "tags": [
+          "Raíz/Users/login",
           "Users/login"
         ],
         "parameters": [],
@@ -1421,8 +1537,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/LoginRequestDTO"
-              },
-              "examples": {}
+              }
             }
           },
           "required": true
@@ -1457,6 +1572,7 @@
         "description": "",
         "operationId": "refresh",
         "tags": [
+          "Raíz/Users/refresh",
           "Users/refresh"
         ],
         "parameters": [],
@@ -1490,6 +1606,7 @@
         "description": "",
         "operationId": "fetchAllStages",
         "tags": [
+          "Raíz/Stages/fetch_all",
           "Stages/fetch_all"
         ],
         "parameters": [],
@@ -1519,6 +1636,7 @@
         "description": "",
         "operationId": "fetchStage",
         "tags": [
+          "Raíz/Stages/fetch_one",
           "Stages/fetch_one"
         ],
         "parameters": [
@@ -1556,6 +1674,7 @@
         "description": "",
         "operationId": "fetchEventClassification",
         "tags": [
+          "Raíz/Events/fetch_classification",
           "Events/fetch_classification"
         ],
         "parameters": [
@@ -1590,6 +1709,34 @@
   "webhooks": {},
   "components": {
     "schemas": {
+      "StageEventDetailCompetitorResponseDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "nombre"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "team": {
+            "type": "string"
+          },
+          "breed": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "owner",
+          "country",
+          "team",
+          "breed"
+        ]
+      },
       "ObdxStageEventClassificationResponseDTO": {
         "type": "object",
         "properties": {
@@ -2685,7 +2832,9 @@
           },
           "competitors": {
             "type": "array",
-            "items": {}
+            "items": {
+              "$ref": "#/components/schemas/StageEventDetailCompetitorResponseDTO"
+            }
           }
         },
         "required": [
