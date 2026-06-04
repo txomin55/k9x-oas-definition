@@ -7,147 +7,6 @@
   },
   "tags": [
     {
-      "name": "Secured"
-    },
-    {
-      "name": "Secured/Collections"
-    },
-    {
-      "name": "Secured/Collections/fecth_all"
-    },
-    {
-      "name": "Secured/Collections/fetch_one"
-    },
-    {
-      "name": "Secured/Competitions"
-    },
-    {
-      "name": "Secured/Competitions/create"
-    },
-    {
-      "name": "Secured/Competitions/fetch_all"
-    },
-    {
-      "name": "Secured/Competitions/remove"
-    },
-    {
-      "name": "Secured/Competitions/update"
-    },
-    {
-      "name": "Secured/Disciplines"
-    },
-    {
-      "name": "Secured/Disciplines/fetch_all_by_discipline"
-    },
-    {
-      "name": "Secured/Dogs"
-    },
-    {
-      "name": "Secured/Dogs/remove"
-    },
-    {
-      "name": "Secured/Dogs/update"
-    },
-    {
-      "name": "Secured/Dogs/create"
-    },
-    {
-      "name": "Secured/Dogs/fetch_all"
-    },
-    {
-      "name": "Secured/Events"
-    },
-    {
-      "name": "Secured/Events/create"
-    },
-    {
-      "name": "Secured/Events/enroll"
-    },
-    {
-      "name": "Secured/Events/delete"
-    },
-    {
-      "name": "Secured/Events/fetch_one"
-    },
-    {
-      "name": "Secured/Events/update"
-    },
-    {
-      "name": "Secured/Events/update/info"
-    },
-    {
-      "name": "Secured/Events/update/info/obdx"
-    },
-    {
-      "name": "Secured/Events/update/score"
-    },
-    {
-      "name": "Secured/Events/update/score/obdx"
-    },
-    {
-      "name": "Secured/Judges"
-    },
-    {
-      "name": "Secured/Judges/create"
-    },
-    {
-      "name": "Secured/Judges/fetch_all"
-    },
-    {
-      "name": "Secured/Judges/remove"
-    },
-    {
-      "name": "Secured/Judges/update"
-    },
-    {
-      "name": "Secured/Stages"
-    },
-    {
-      "name": "Secured/Stages/create"
-    },
-    {
-      "name": "Secured/Stages/remove"
-    },
-    {
-      "name": "Secured/Stages/update"
-    },
-    {
-      "name": "Secured/User"
-    },
-    {
-      "name": "Secured/User/logout"
-    },
-    {
-      "name": "Secured/User/fetch"
-    },
-    {
-      "name": "Secured/User/register_push"
-    },
-    {
-      "name": "Users"
-    },
-    {
-      "name": "Users/login"
-    },
-    {
-      "name": "Users/refresh"
-    },
-    {
-      "name": "Stages"
-    },
-    {
-      "name": "Stages/fetch_all"
-    },
-    {
-      "name": "Stages/fetch_one"
-    },
-    {
-      "name": "Events"
-    },
-    {
-      "name": "Events/fetch_classification"
-    },
-    {
       "name": "Secured/Collections/fecth_all"
     },
     {
@@ -252,7 +111,6 @@
         "description": "",
         "operationId": "fetchCollectionsSecured",
         "tags": [
-          "Secured/Collections/fecth_all",
           "Secured/Collections/fecth_all"
         ],
         "parameters": [],
@@ -290,7 +148,6 @@
         "description": "",
         "operationId": "fetchOneCollection",
         "tags": [
-          "Secured/Collections/fetch_one",
           "Secured/Collections/fetch_one"
         ],
         "parameters": [
@@ -336,7 +193,6 @@
         "description": "",
         "operationId": "createCompetitionSecured",
         "tags": [
-          "Secured/Competitions/create",
           "Secured/Competitions/create"
         ],
         "parameters": [],
@@ -380,7 +236,6 @@
         "description": "",
         "operationId": "fetchCompetitionsSecured",
         "tags": [
-          "Secured/Competitions/fetch_all",
           "Secured/Competitions/fetch_all"
         ],
         "parameters": [],
@@ -418,7 +273,6 @@
         "description": "",
         "operationId": "removeCompetitionSecured",
         "tags": [
-          "Secured/Competitions/remove",
           "Secured/Competitions/remove"
         ],
         "parameters": [
@@ -464,7 +318,6 @@
         "description": "",
         "operationId": "updateCompetitionSecured",
         "tags": [
-          "Secured/Competitions/update",
           "Secured/Competitions/update"
         ],
         "parameters": [
@@ -521,7 +374,6 @@
         "description": "",
         "operationId": "fetchDisciplinesSecured",
         "tags": [
-          "Secured/Disciplines/fetch_all_by_discipline",
           "Secured/Disciplines/fetch_all_by_discipline"
         ],
         "parameters": [
@@ -563,7 +415,6 @@
         "description": "",
         "operationId": "deleteDogSecured",
         "tags": [
-          "Secured/Dogs/remove",
           "Secured/Dogs/remove"
         ],
         "parameters": [
@@ -609,7 +460,6 @@
         "description": "",
         "operationId": "updateDogSecured",
         "tags": [
-          "Secured/Dogs/update",
           "Secured/Dogs/update"
         ],
         "parameters": [
@@ -667,7 +517,6 @@
         "description": "",
         "operationId": "createDogSecured",
         "tags": [
-          "Secured/Dogs/create",
           "Secured/Dogs/create"
         ],
         "parameters": [],
@@ -712,7 +561,6 @@
         "description": "",
         "operationId": "getDogsSecured",
         "tags": [
-          "Secured/Dogs/fetch_all",
           "Secured/Dogs/fetch_all"
         ],
         "parameters": [
@@ -756,7 +604,6 @@
         "description": "",
         "operationId": "createEventSecured",
         "tags": [
-          "Secured/Events/create",
           "Secured/Events/create"
         ],
         "parameters": [],
@@ -802,7 +649,6 @@
         "description": "",
         "operationId": "doEnrollSecured",
         "tags": [
-          "Secured/Events/enroll",
           "Secured/Events/enroll"
         ],
         "parameters": [
@@ -822,7 +668,8 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/EnrollStageEventRequestDTO"
-              }
+              },
+              "examples": {}
             }
           },
           "required": true
@@ -855,7 +702,6 @@
         "description": "",
         "operationId": "removeEventSecured",
         "tags": [
-          "Secured/Events/delete",
           "Secured/Events/delete"
         ],
         "parameters": [
@@ -901,7 +747,6 @@
         "description": "",
         "operationId": "getOneEventSecured",
         "tags": [
-          "Secured/Events/fetch_one",
           "Secured/Events/fetch_one"
         ],
         "parameters": [
@@ -961,7 +806,6 @@
         "description": "",
         "operationId": "updateObdxEventSecured",
         "tags": [
-          "Secured/Events/update/info/obdx",
           "Secured/Events/update/info/obdx"
         ],
         "parameters": [
@@ -1018,7 +862,6 @@
         "description": "",
         "operationId": "updateObdxScore",
         "tags": [
-          "Secured/Events/update/score/obdx",
           "Secured/Events/update/score/obdx"
         ],
         "parameters": [
@@ -1075,7 +918,6 @@
         "description": "",
         "operationId": "createJudgeSecured",
         "tags": [
-          "Secured/Judges/create",
           "Secured/Judges/create"
         ],
         "parameters": [],
@@ -1120,7 +962,6 @@
         "description": "",
         "operationId": "fetchJudgesSecured",
         "tags": [
-          "Secured/Judges/fetch_all",
           "Secured/Judges/fetch_all"
         ],
         "parameters": [],
@@ -1158,7 +999,6 @@
         "description": "",
         "operationId": "removeJudgeSecured",
         "tags": [
-          "Secured/Judges/remove",
           "Secured/Judges/remove"
         ],
         "parameters": [
@@ -1204,7 +1044,6 @@
         "description": "",
         "operationId": "updateJudgeSecured",
         "tags": [
-          "Secured/Judges/update",
           "Secured/Judges/update"
         ],
         "parameters": [
@@ -1262,7 +1101,6 @@
         "description": "",
         "operationId": "createStage",
         "tags": [
-          "Secured/Stages/create",
           "Secured/Stages/create"
         ],
         "parameters": [],
@@ -1308,7 +1146,6 @@
         "description": "",
         "operationId": "removeStage",
         "tags": [
-          "Secured/Stages/remove",
           "Secured/Stages/remove"
         ],
         "parameters": [
@@ -1354,7 +1191,6 @@
         "description": "",
         "operationId": "updateStage",
         "tags": [
-          "Secured/Stages/update",
           "Secured/Stages/update"
         ],
         "parameters": [
@@ -1411,7 +1247,6 @@
         "description": "",
         "operationId": "logoutSecured",
         "tags": [
-          "Secured/User/logout",
           "Secured/User/logout"
         ],
         "parameters": [],
@@ -1446,7 +1281,6 @@
         "description": "",
         "operationId": "fetchUserDataSecured",
         "tags": [
-          "Secured/User/fetch",
           "Secured/User/fetch"
         ],
         "parameters": [],
@@ -1481,7 +1315,6 @@
         "description": "",
         "operationId": "registerNotificationSetupSecured",
         "tags": [
-          "Secured/User/register_push",
           "Secured/User/register_push"
         ],
         "parameters": [],
@@ -1525,7 +1358,6 @@
         "description": "",
         "operationId": "login",
         "tags": [
-          "Users/login",
           "Users/login"
         ],
         "parameters": [],
@@ -1569,7 +1401,6 @@
         "description": "",
         "operationId": "refresh",
         "tags": [
-          "Users/refresh",
           "Users/refresh"
         ],
         "parameters": [],
@@ -1603,7 +1434,6 @@
         "description": "",
         "operationId": "fetchAllStages",
         "tags": [
-          "Stages/fetch_all",
           "Stages/fetch_all"
         ],
         "parameters": [],
@@ -1633,7 +1463,6 @@
         "description": "",
         "operationId": "fetchStage",
         "tags": [
-          "Stages/fetch_one",
           "Stages/fetch_one"
         ],
         "parameters": [
@@ -1671,7 +1500,6 @@
         "description": "",
         "operationId": "fetchEventClassification",
         "tags": [
-          "Events/fetch_classification",
           "Events/fetch_classification"
         ],
         "parameters": [
@@ -1709,9 +1537,9 @@
       "StageEventDetailCompetitorResponseDTO": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "description": "nombre"
+          "dog": {
+            "description": "nombre",
+            "$ref": "#/components/schemas/IdNameDTO"
           },
           "owner": {
             "type": "string"
@@ -1727,7 +1555,7 @@
           }
         },
         "required": [
-          "name",
+          "dog",
           "owner",
           "country",
           "team",
@@ -2827,6 +2655,9 @@
           "discipline": {
             "$ref": "#/components/schemas/IdNameDTO"
           },
+          "configuration": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
           "competitors": {
             "type": "array",
             "items": {
@@ -2838,8 +2669,10 @@
           "id",
           "name",
           "discipline",
-          "competitors"
-        ]
+          "competitors",
+          "configuration"
+        ],
+        "description": "\n"
       },
       "CompetitionNotificationDetailResponseDTO": {
         "type": "object",
