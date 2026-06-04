@@ -19,9 +19,6 @@
       "name": "Secured/Collections/fetch_one"
     },
     {
-      "name": "Secured/Collections/fetch_one/obdx"
-    },
-    {
       "name": "Secured/Competitions"
     },
     {
@@ -133,6 +130,9 @@
       "name": "Users/login"
     },
     {
+      "name": "Users/refresh"
+    },
+    {
       "name": "Stages"
     },
     {
@@ -193,7 +193,7 @@
         "description": "",
         "operationId": "fetchOneCollection",
         "tags": [
-          "Secured/Collections/fetch_one/obdx"
+          "Secured/Collections/fetch_one"
         ],
         "parameters": [
           {
@@ -611,7 +611,17 @@
         "tags": [
           "Secured/Dogs/fetch_all"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "onlyOwned",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Dog list returned successfully",
@@ -1440,6 +1450,39 @@
         "security": []
       }
     },
+    "/refresh": {
+      "post": {
+        "summary": "Refresh JWT access token",
+        "deprecated": false,
+        "description": "",
+        "operationId": "refresh",
+        "tags": [
+          "Users/refresh"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "JWT issued successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "JWT bearer token",
+                  "pattern": "^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$"
+                },
+                "example": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIn0.signature"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/InvalidLoginCodeError",
+            "description": "Invalid login code"
+          }
+        },
+        "security": []
+      }
+    },
     "/stages": {
       "get": {
         "summary": "List stages",
@@ -1581,7 +1624,10 @@
           "obdx": {
             "$ref": "#/components/schemas/ObdxEventDetailResponseDTO"
           }
-        }
+        },
+        "required": [
+          "obdx"
+        ]
       },
       "CompetitionStageEventDetailResponseDTO": {
         "type": "object",
@@ -1648,6 +1694,10 @@
         },
         "required": [
           "exercise",
+          "exerciseScore",
+          "scoreRating",
+          "totalScore",
+          "tags",
           "scores"
         ]
       },
@@ -1667,7 +1717,8 @@
             "$ref": "#/components/schemas/IdNameDTO"
           },
           "lastUpdated": {
-            "type": "number"
+            "type": "integer",
+            "format": "int64"
           },
           "obdx": {
             "$ref": "#/components/schemas/ObdxStageEventClassificationResponseDTO"
@@ -1678,7 +1729,8 @@
           "event",
           "stage",
           "configuration",
-          "lastUpdated"
+          "lastUpdated",
+          "obdx"
         ]
       },
       "CollectionResponseDTO": {
@@ -1695,9 +1747,9 @@
           }
         },
         "required": [
-          "discipline",
           "configuration",
-          "obdx"
+          "obdx",
+          "discipline"
         ]
       },
       "CollectionsResponseDTO": {
@@ -1774,14 +1826,14 @@
           }
         },
         "required": [
-          "country",
           "id",
           "name",
-          "status",
-          "stages",
-          "notifications",
           "description",
-          "address"
+          "country",
+          "status",
+          "address",
+          "stages",
+          "notifications"
         ]
       },
       "CompetitorScoresResponseDTO": {
@@ -1799,8 +1851,8 @@
           }
         },
         "required": [
-          "competitor",
-          "exercises"
+          "exercises",
+          "competitor"
         ]
       },
       "StageDetailResponseDTO": {
@@ -1814,8 +1866,8 @@
           },
           "dateFrom": {
             "type": "integer",
-            "format": "int64",
-            "description": "Unix timestamp in milliseconds"
+            "description": "Unix timestamp in milliseconds",
+            "format": "int64"
           },
           "dateTo": {
             "type": "integer",
@@ -1844,6 +1896,11 @@
         "required": [
           "id",
           "name",
+          "dateFrom",
+          "dateTo",
+          "events",
+          "notifications",
+          "address",
           "organizer"
         ]
       },
@@ -1892,8 +1949,14 @@
         "required": [
           "id",
           "name",
-          "organizer",
-          "status"
+          "description",
+          "country",
+          "location",
+          "dateFrom",
+          "dateTo",
+          "events",
+          "status",
+          "organizer"
         ]
       },
       "UserProfileResponseDTO": {
@@ -1914,9 +1977,10 @@
           }
         },
         "required": [
-          "organizer",
           "name",
-          "email"
+          "email",
+          "image",
+          "organizer"
         ]
       },
       "CreateDogRequestDTO": {
@@ -1960,6 +2024,10 @@
           "name",
           "image",
           "breed",
+          "identifier",
+          "owner",
+          "team",
+          "country",
           "owned"
         ]
       },
@@ -2015,6 +2083,8 @@
         },
         "required": [
           "id",
+          "dateFrom",
+          "dateTo",
           "name",
           "competitionId"
         ]
@@ -2112,7 +2182,9 @@
         },
         "required": [
           "name",
-          "country"
+          "description",
+          "country",
+          "address"
         ]
       },
       "UpdateDogRequestDTO": {
@@ -2152,6 +2224,10 @@
           "name",
           "image",
           "breed",
+          "identifier",
+          "owner",
+          "team",
+          "country",
           "owned"
         ]
       },
@@ -2184,7 +2260,11 @@
           }
         },
         "required": [
-          "name"
+          "name",
+          "competitors",
+          "exercises",
+          "configurationId",
+          "judges"
         ]
       },
       "UpdateJudgeRequestDTO": {
@@ -2255,10 +2335,12 @@
           }
         },
         "required": [
-          "owned",
           "id",
           "name",
+          "image",
+          "owned",
           "creator",
+          "country",
           "team",
           "owner",
           "identity"
@@ -2289,8 +2371,8 @@
           }
         },
         "required": [
-          "collectionScores",
-          "exercise"
+          "exercise",
+          "collectionScores"
         ]
       },
       "CollectionScoreResponseDTO": {
@@ -2304,8 +2386,8 @@
           }
         },
         "required": [
-          "judge",
-          "score"
+          "score",
+          "judge"
         ]
       },
       "ScoresConfigurationResponseDTO": {
@@ -2383,7 +2465,8 @@
         },
         "required": [
           "id",
-          "name"
+          "name",
+          "exercises"
         ]
       },
       "IdNameDTO": {
@@ -2439,12 +2522,15 @@
           }
         },
         "required": [
+          "country",
           "owner",
           "team",
           "status",
-          "exercises",
           "dog",
-          "position"
+          "exercises",
+          "position",
+          "totalScore",
+          "scoreRating"
         ]
       },
       "StageEventClassificationScoreResponseDTO": {
@@ -2501,14 +2587,14 @@
           }
         },
         "required": [
-          "dog",
           "owner",
           "identity",
           "team",
           "country",
           "position",
           "status",
-          "breed"
+          "breed",
+          "dog"
         ]
       },
       "ExerciseResponseDTO": {
@@ -2545,7 +2631,12 @@
           "longitude": {
             "type": "number"
           }
-        }
+        },
+        "required": [
+          "address",
+          "latitude",
+          "longitude"
+        ]
       },
       "StageEventSummaryResponseDTO": {
         "type": "object",
@@ -2572,6 +2663,7 @@
           "id",
           "name",
           "discipline",
+          "competitors",
           "status"
         ]
       },
@@ -2594,7 +2686,9 @@
         },
         "required": [
           "id",
-          "name"
+          "name",
+          "discipline",
+          "competitors"
         ]
       },
       "CompetitionNotificationDetailResponseDTO": {
@@ -2613,8 +2707,8 @@
           }
         },
         "required": [
-          "date",
           "id",
+          "date",
           "text"
         ]
       },
@@ -2643,11 +2737,11 @@
           }
         },
         "required": [
+          "dateFrom",
+          "dateTo",
           "id",
           "name",
-          "events",
-          "dateFrom",
-          "dateTo"
+          "events"
         ]
       },
       "ObdxEventDetailResponseDTO": {
@@ -2692,15 +2786,15 @@
           }
         },
         "required": [
-          "competitors",
-          "configuration",
-          "discipline",
-          "exercises",
           "id",
-          "judges",
-          "name",
           "stage",
-          "status"
+          "name",
+          "status",
+          "discipline",
+          "competitors",
+          "exercises",
+          "configuration",
+          "judges"
         ]
       },
       "EventExerciseDetailResponseDTO": {
@@ -2728,6 +2822,7 @@
         "required": [
           "id",
           "name",
+          "position",
           "tags"
         ]
       },
@@ -2747,9 +2842,9 @@
           }
         },
         "required": [
-          "federation",
           "id",
-          "name"
+          "name",
+          "federation"
         ]
       },
       "EventJudgeDetailResponseDTO": {
@@ -2769,8 +2864,9 @@
           }
         },
         "required": [
-          "collectorEmail",
-          "id"
+          "id",
+          "name",
+          "collectorEmail"
         ]
       },
       "EventExerciseRequestDTO": {
@@ -2818,8 +2914,8 @@
         },
         "required": [
           "dogId",
-          "accepted",
-          "position"
+          "position",
+          "accepted"
         ]
       },
       "EventJudgeDetailRequestDTO": {
@@ -2835,8 +2931,8 @@
           }
         },
         "required": [
-          "collectorEmail",
-          "id"
+          "id",
+          "collectorEmail"
         ]
       },
       "ApiError": {
