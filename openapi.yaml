@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Default",
-    "description": "OpenAPI contract for the K9X local-first application, covering authentication, dog profiles, competitions, stages, events, scoring, and push notification setup.",
+    "title": "Módulo predeterminado",
+    "description": "",
     "version": "1.0.0"
   },
   "tags": [
@@ -1688,6 +1688,10 @@
           "configuration": {
             "$ref": "#/components/schemas/IdNameDTO"
           },
+          "status": {
+            "type": "string",
+            "description": "estado"
+          },
           "lastUpdated": {
             "type": "integer",
             "format": "int64"
@@ -1702,7 +1706,8 @@
           "stage",
           "configuration",
           "lastUpdated",
-          "obdx"
+          "obdx",
+          "status"
         ]
       },
       "CollectionResponseDTO": {
@@ -2229,6 +2234,10 @@
             "items": {
               "$ref": "#/components/schemas/EventJudgeDetailRequestDTO"
             }
+          },
+          "enrollmentDeadline": {
+            "type": "integer",
+            "format": "int64"
           }
         },
         "required": [
@@ -2236,7 +2245,8 @@
           "competitors",
           "exercises",
           "configurationId",
-          "judges"
+          "judges",
+          "enrollmentDeadline"
         ]
       },
       "UpdateJudgeRequestDTO": {
@@ -2663,6 +2673,10 @@
             "items": {
               "$ref": "#/components/schemas/StageEventDetailCompetitorResponseDTO"
             }
+          },
+          "status": {
+            "type": "string",
+            "description": "estado"
           }
         },
         "required": [
@@ -2670,7 +2684,8 @@
           "name",
           "discipline",
           "competitors",
-          "configuration"
+          "configuration",
+          "status"
         ],
         "description": "\n"
       },
