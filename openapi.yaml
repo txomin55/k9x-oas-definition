@@ -58,6 +58,9 @@
       "name": "Secured/Events/update/score/obdx"
     },
     {
+      "name": "Secured/Events/update/not_competing"
+    },
+    {
       "name": "Secured/Judges/create"
     },
     {
@@ -911,6 +914,62 @@
         ]
       }
     },
+    "/secured/events/${eventId}/not-competing": {
+      "put": {
+        "summary": "Competitor not competing in event",
+        "deprecated": false,
+        "description": "",
+        "operationId": "updateEventNotCompeting",
+        "tags": [
+          "Secured/Events/update/not_competing"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEventNotCompetingRequestDTO"
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/secured/judges": {
       "post": {
         "summary": "Create judge",
@@ -1560,6 +1619,21 @@
           "country",
           "team",
           "breed"
+        ]
+      },
+      "UpdateEventNotCompetingRequestDTO": {
+        "type": "object",
+        "properties": {
+          "dogId": {
+            "type": "string"
+          },
+          "notCompeting": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "dogId",
+          "notCompeting"
         ]
       },
       "ObdxStageEventClassificationResponseDTO": {
@@ -2504,6 +2578,9 @@
           },
           "tied": {
             "type": "boolean"
+          },
+          "startOrder": {
+            "type": "integer"
           }
         },
         "required": [
@@ -2516,7 +2593,8 @@
           "position",
           "totalScore",
           "scoreRating",
-          "tied"
+          "tied",
+          "startOrder"
         ]
       },
       "StageEventClassificationScoreResponseDTO": {
@@ -2677,6 +2755,13 @@
           "status": {
             "type": "string",
             "description": "estado"
+          },
+          "enrollmentOpened": {
+            "type": "boolean"
+          },
+          "enrollmentDeadline": {
+            "type": "integer",
+            "format": "uint64"
           }
         },
         "required": [
@@ -2685,7 +2770,9 @@
           "discipline",
           "competitors",
           "configuration",
-          "status"
+          "status",
+          "enrollmentOpened",
+          "enrollmentDeadline"
         ],
         "description": "\n"
       },
@@ -2727,6 +2814,10 @@
             "type": "string",
             "description": "nombre"
           },
+          "status": {
+            "type": "string",
+            "description": "estado"
+          },
           "events": {
             "type": "array",
             "items": {
@@ -2739,7 +2830,8 @@
           "dateTo",
           "id",
           "name",
-          "events"
+          "events",
+          "status"
         ]
       },
       "ObdxEventDetailResponseDTO": {
@@ -2926,11 +3018,15 @@
           "collectorEmail": {
             "type": "string",
             "description": "Email address used to collect or receive scoring data for this judge."
+          },
+          "ring": {
+            "type": "integer"
           }
         },
         "required": [
           "id",
-          "collectorEmail"
+          "collectorEmail",
+          "ring"
         ]
       },
       "ApiError": {
