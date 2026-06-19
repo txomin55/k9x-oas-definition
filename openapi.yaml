@@ -914,12 +914,12 @@
         ]
       }
     },
-    "/secured/events/${eventId}/not-competing": {
+    "/secured/obdx/events/${eventId}/not-competing": {
       "put": {
         "summary": "Competitor not competing in event",
         "deprecated": false,
         "description": "",
-        "operationId": "updateEventNotCompeting",
+        "operationId": "updateObdxEventNotCompeting",
         "tags": [
           "Secured/Events/update/not_competing"
         ],
@@ -2761,7 +2761,7 @@
           },
           "enrollmentDeadline": {
             "type": "integer",
-            "format": "uint64"
+            "format": "int64"
           }
         },
         "required": [
@@ -3018,15 +3018,11 @@
           "collectorEmail": {
             "type": "string",
             "description": "Email address used to collect or receive scoring data for this judge."
-          },
-          "ring": {
-            "type": "integer"
           }
         },
         "required": [
           "id",
-          "collectorEmail",
-          "ring"
+          "collectorEmail"
         ]
       },
       "ApiError": {
