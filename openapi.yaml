@@ -58,7 +58,7 @@
       "name": "Secured/Events/update/score/obdx"
     },
     {
-      "name": "Secured/Events/update/not_competing"
+      "name": "Secured/Events/update/not_competing/obdx"
     },
     {
       "name": "Secured/Judges/create"
@@ -914,14 +914,14 @@
         ]
       }
     },
-    "/secured/obdx/events/${eventId}/not-competing": {
+    "/secured/obdx/events/{eventId}/not-competing": {
       "put": {
         "summary": "Competitor not competing in event",
         "deprecated": false,
         "description": "",
         "operationId": "updateObdxEventNotCompeting",
         "tags": [
-          "Secured/Events/update/not_competing"
+          "Secured/Events/update/not_competing/obdx"
         ],
         "parameters": [
           {
@@ -949,10 +949,9 @@
           "200": {
             "description": "",
             "content": {
-              "text/plain": {
+              "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {}
+                  "type": "string"
                 }
               }
             },
