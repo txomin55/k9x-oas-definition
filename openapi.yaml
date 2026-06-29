@@ -1687,12 +1687,17 @@
           },
           "discipline": {
             "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "status": {
+            "type": "string",
+            "description": "estado"
           }
         },
         "required": [
           "id",
           "name",
-          "discipline"
+          "discipline",
+          "status"
         ]
       },
       "ObdxFederationConfigurationResponseDTO": {
@@ -2872,6 +2877,10 @@
             "items": {
               "$ref": "#/components/schemas/EventJudgeDetailResponseDTO"
             }
+          },
+          "enrollmentDeadline": {
+            "type": "integer",
+            "format": "int64"
           }
         },
         "required": [
@@ -2883,7 +2892,8 @@
           "competitors",
           "exercises",
           "configuration",
-          "judges"
+          "judges",
+          "enrollmentDeadline"
         ]
       },
       "EventExerciseDetailResponseDTO": {
