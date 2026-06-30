@@ -116,7 +116,7 @@
         "tags": [
           "Secured/Collections/fecth_all"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "responses": {
           "200": {
             "description": "Judge list returned successfully",
@@ -130,7 +130,7 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -139,7 +139,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -175,7 +175,7 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -184,7 +184,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -198,7 +198,7 @@
         "tags": [
           "Secured/Competitions/create"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -220,7 +220,7 @@
                 "example": "competition_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -229,7 +229,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       },
@@ -241,7 +241,7 @@
         "tags": [
           "Secured/Competitions/fetch_all"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "responses": {
           "200": {
             "description": "Competition list returned successfully",
@@ -255,7 +255,7 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -264,7 +264,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -302,7 +302,7 @@
                 "example": "competition_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -311,7 +311,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       },
@@ -356,7 +356,7 @@
                 "example": "competition_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -365,7 +365,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -401,14 +401,14 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
             "description": "Missing or invalid bearer token"
           }
         },
-        "security": []
+        "security": [ ]
       }
     },
     "/secured/dogs/{id}": {
@@ -444,7 +444,7 @@
                 "example": "dog_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -453,7 +453,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       },
@@ -499,7 +499,7 @@
                 "example": "dog_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -508,7 +508,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -522,7 +522,7 @@
         "tags": [
           "Secured/Dogs/create"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -545,7 +545,7 @@
                 "example": "dog_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -554,7 +554,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       },
@@ -590,12 +590,12 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           }
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -609,7 +609,7 @@
         "tags": [
           "Secured/Events/create"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -631,7 +631,7 @@
                 "example": "event_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -640,7 +640,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -672,7 +672,7 @@
               "schema": {
                 "$ref": "#/components/schemas/EnrollStageEventRequestDTO"
               },
-              "examples": {}
+              "examples": { }
             }
           },
           "required": true
@@ -684,16 +684,16 @@
               "application/octet-stream": {
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "properties": { }
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           }
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -731,7 +731,7 @@
                 "example": "event_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -740,7 +740,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       },
@@ -788,7 +788,7 @@
                 "example": "stage_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -797,7 +797,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -844,7 +844,7 @@
                 "example": "event_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -853,7 +853,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -900,7 +900,7 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -909,7 +909,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -940,7 +940,7 @@
               "schema": {
                 "$ref": "#/components/schemas/UpdateEventNotCompetingRequestDTO"
               },
-              "examples": {}
+              "examples": { }
             }
           },
           "required": true
@@ -955,7 +955,7 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -964,7 +964,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -978,7 +978,7 @@
         "tags": [
           "Secured/Judges/create"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1001,7 +1001,7 @@
                 "example": "judge_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -1010,7 +1010,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       },
@@ -1022,7 +1022,7 @@
         "tags": [
           "Secured/Judges/fetch_all"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "responses": {
           "200": {
             "description": "Judge list returned successfully",
@@ -1036,7 +1036,7 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -1045,7 +1045,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -1083,7 +1083,7 @@
                 "example": "judge_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -1092,7 +1092,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       },
@@ -1138,7 +1138,7 @@
                 "example": "judge_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -1147,7 +1147,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -1161,7 +1161,7 @@
         "tags": [
           "Secured/Stages/create"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1183,7 +1183,7 @@
                 "example": "stage_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -1192,7 +1192,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -1230,7 +1230,7 @@
                 "example": "stage_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -1239,7 +1239,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       },
@@ -1284,7 +1284,7 @@
                 "example": "stage_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -1293,7 +1293,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -1307,7 +1307,7 @@
         "tags": [
           "Secured/User/logout"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "responses": {
           "200": {
             "description": "User logged out successfully",
@@ -1318,7 +1318,7 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -1327,7 +1327,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -1341,7 +1341,7 @@
         "tags": [
           "Secured/User/fetch"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "responses": {
           "200": {
             "description": "Current user profile returned successfully",
@@ -1352,7 +1352,7 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -1361,7 +1361,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -1375,7 +1375,7 @@
         "tags": [
           "Secured/User/register_push"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1395,7 +1395,7 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError",
@@ -1404,7 +1404,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [ ]
           }
         ]
       }
@@ -1418,7 +1418,7 @@
         "tags": [
           "Users/login"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1442,14 +1442,14 @@
                 "example": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIn0.signature"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/InvalidLoginCodeError",
             "description": "Invalid login code"
           }
         },
-        "security": []
+        "security": [ ]
       }
     },
     "/refresh": {
@@ -1461,7 +1461,7 @@
         "tags": [
           "Users/refresh"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "responses": {
           "200": {
             "description": "JWT issued successfully",
@@ -1475,14 +1475,14 @@
                 "example": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIn0.signature"
               }
             },
-            "headers": {}
+            "headers": { }
           },
           "401": {
             "$ref": "#/components/responses/InvalidLoginCodeError",
             "description": "Invalid login code"
           }
         },
-        "security": []
+        "security": [ ]
       }
     },
     "/stages": {
@@ -1494,7 +1494,7 @@
         "tags": [
           "Stages/fetch_all"
         ],
-        "parameters": [],
+        "parameters": [ ],
         "responses": {
           "200": {
             "description": "Stage list returned successfully",
@@ -1508,10 +1508,10 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           }
         },
-        "security": []
+        "security": [ ]
       }
     },
     "/stages/{id}": {
@@ -1545,10 +1545,10 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           }
         },
-        "security": []
+        "security": [ ]
       }
     },
     "/events/{eventId}/classification": {
@@ -1582,14 +1582,14 @@
                 }
               }
             },
-            "headers": {}
+            "headers": { }
           }
         },
-        "security": []
+        "security": [ ]
       }
     }
   },
-  "webhooks": {},
+  "webhooks": { },
   "components": {
     "schemas": {
       "StageEventDetailCompetitorResponseDTO": {
@@ -2062,16 +2062,18 @@
             "description": "Dog identifier number"
           },
           "owner": {
-            "type": "string"
+            "type": "string",
+            "description": "Email of the app user that owns the dog."
+          },
+          "handler": {
+            "type": "string",
+            "description": "Free-text label for the person handling the dog (e.g. the handler name)."
           },
           "team": {
             "type": "string"
           },
           "country": {
             "type": "string"
-          },
-          "owned": {
-            "type": "boolean"
           }
         },
         "required": [
@@ -2081,9 +2083,9 @@
           "breed",
           "identifier",
           "owner",
+          "handler",
           "team",
-          "country",
-          "owned"
+          "country"
         ]
       },
       "CreateEventRequestDTO": {
@@ -2263,16 +2265,17 @@
           },
           "owner": {
             "type": "string",
-            "description": "Dog owner"
+            "description": "Email of the app user that owns the dog."
+          },
+          "handler": {
+            "type": "string",
+            "description": "Free-text label for the person handling the dog (e.g. the handler name)."
           },
           "team": {
             "type": "string"
           },
           "country": {
             "type": "string"
-          },
-          "owned": {
-            "type": "boolean"
           }
         },
         "required": [
@@ -2281,9 +2284,9 @@
           "breed",
           "identifier",
           "owner",
+          "handler",
           "team",
-          "country",
-          "owned"
+          "country"
         ]
       },
       "UpdateEventRequestDTO": {
@@ -2388,7 +2391,12 @@
             "type": "string"
           },
           "owner": {
-            "type": "string"
+            "type": "string",
+            "description": "Email of the app user that owns the dog."
+          },
+          "handler": {
+            "type": "string",
+            "description": "Free-text label for the person handling the dog (e.g. the handler name)."
           },
           "identity": {
             "type": "string"
@@ -2403,6 +2411,7 @@
           "country",
           "team",
           "owner",
+          "handler",
           "identity"
         ]
       },
@@ -3098,6 +3107,6 @@
       }
     }
   },
-  "servers": [],
-  "security": []
+  "servers": [ ],
+  "security": [ ]
 }
