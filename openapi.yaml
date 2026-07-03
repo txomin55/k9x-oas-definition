@@ -3304,6 +3304,13 @@
           },
           "status": {
             "type": "string"
+          },
+          "enrollmentOpened": {
+            "type": "boolean"
+          },
+          "enrollmentDeadline": {
+            "type": "integer",
+            "format": "int64"
           }
         },
         "required": [
@@ -3311,7 +3318,9 @@
           "name",
           "discipline",
           "competitors",
-          "status"
+          "status",
+          "enrollmentOpened",
+          "enrollmentDeadline"
         ]
       },
       "StageEventDetailResponseDTO": {
