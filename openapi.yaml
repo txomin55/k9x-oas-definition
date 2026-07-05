@@ -503,6 +503,54 @@
         "security": [ ]
       }
     },
+    "/secured/discipline/{id}/awards": {
+      "get": {
+        "summary": "List discipline awards",
+        "deprecated": false,
+        "description": "",
+        "operationId": "fetchDisciplineAwardsSecured",
+        "tags": [
+          "Secured/Disciplines/fetch_awards"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Award list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdNameDTO"
+                  }
+                }
+              }
+            },
+            "headers": { }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [ ]
+          }
+        ]
+      }
+    },
     "/secured/dogs/{id}": {
       "delete": {
         "summary": "Delete dog",
@@ -1960,10 +2008,22 @@
             "items": {
               "$ref": "#/components/schemas/StageEventClassificationItemResponseDTO"
             }
+          },
+          "scoreCalculation": {
+            "type": "string",
+            "description": "Method used to calculate the average score for the event. One of: AVG, MID_AVG."
+          },
+          "judges": {
+            "type" : "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDTO"
+            }
           }
         },
         "required": [
-          "competitors"
+          "competitors",
+          "scoreCalculation",
+          "judges"
         ]
       },
       "ObdxCompetitorsScoresResponseDTO": {
@@ -2446,6 +2506,9 @@
           "withersCm": {
             "type": "integer",
             "description": "Height at the withers, in centimeters."
+          },
+          "3fciGenerationsConfirmed": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -2459,7 +2522,8 @@
           "team",
           "country",
           "sex",
-          "withersCm"
+          "withersCm",
+          "3fciGenerationsConfirmed"
         ]
       },
       "CreateEventRequestDTO": {
@@ -2739,6 +2803,9 @@
           "withersCm": {
             "type": "integer",
             "description": "Height at the withers, in centimeters."
+          },
+          "3fciGenerationsConfirmed": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -2751,7 +2818,8 @@
           "team",
           "country",
           "sex",
-          "withersCm"
+          "withersCm",
+          "3fciGenerationsConfirmed"
         ]
       },
       "UpdateEventRequestDTO": {
@@ -2788,6 +2856,12 @@
           "scoreCalculation": {
             "type": "string",
             "description": "Method used to calculate the average score for the event. One of: AVG, MID_AVG."
+          },
+          "awards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         },
         "required": [
@@ -2900,9 +2974,6 @@
           "owned": {
             "type": "boolean"
           },
-          "creator": {
-            "type": "string"
-          },
           "country": {
             "type": "string"
           },
@@ -2930,6 +3001,9 @@
           "withersCm": {
             "type": "integer",
             "description": "Height at the withers, in centimeters."
+          },
+          "3fciGenerationsConfirmed": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -2937,7 +3011,6 @@
           "name",
           "image",
           "owned",
-          "creator",
           "country",
           "team",
           "owner",
@@ -2945,7 +3018,8 @@
           "identity",
           "breed",
           "sex",
-          "withersCm"
+          "withersCm",
+          "3fciGenerationsConfirmed"
         ]
       },
       "DisciplineFederationConfigurationResponseDTO": {
@@ -3144,6 +3218,12 @@
           "notCompeting": {
             "type": "boolean",
             "description": "Whether the competitor has been flagged as not competing"
+          },
+          "awards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDTO"
+            }
           }
         },
         "required": [
@@ -3160,7 +3240,8 @@
           "scoreRating",
           "tied",
           "startOrder",
-          "bih"
+          "bih",
+          "awards"
         ]
       },
       "StageEventClassificationScoreResponseDTO": {
@@ -3174,12 +3255,16 @@
           },
           "scoreRating": {
             "type": "number"
+          },
+          "applies": {
+            "type": "boolean"
           }
         },
         "required": [
           "judge",
           "value",
-          "scoreRating"
+          "scoreRating",
+          "applies"
         ]
       },
       "EventCompetitorResponseDTO": {
@@ -3311,6 +3396,12 @@
           "enrollmentDeadline": {
             "type": "integer",
             "format": "int64"
+          },
+          "awards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDTO"
+            }
           }
         },
         "required": [
@@ -3320,7 +3411,8 @@
           "competitors",
           "status",
           "enrollmentOpened",
-          "enrollmentDeadline"
+          "enrollmentDeadline",
+          "awards"
         ]
       },
       "StageEventDetailResponseDTO": {
@@ -3354,6 +3446,12 @@
           "enrollmentDeadline": {
             "type": "integer",
             "format": "int64"
+          },
+          "awards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDTO"
+            }
           }
         },
         "required": [
@@ -3364,7 +3462,8 @@
           "configuration",
           "status",
           "enrollmentOpened",
-          "enrollmentDeadline"
+          "enrollmentDeadline",
+          "awards"
         ],
         "description": "\n"
       },
@@ -3473,6 +3572,12 @@
           "scoreCalculation": {
             "type": "string",
             "description": "Method used to calculate the average score for the event. One of: AVG, MID_AVG."
+          },
+          "awards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDTO"
+            }
           }
         },
         "required": [
@@ -3486,7 +3591,8 @@
           "configuration",
           "judges",
           "enrollmentDeadline",
-          "scoreCalculation"
+          "scoreCalculation",
+          "awards"
         ]
       },
       "EventExerciseDetailResponseDTO": {
