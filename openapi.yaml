@@ -2507,7 +2507,7 @@
             "type": "integer",
             "description": "Height at the withers, in centimeters."
           },
-          "3fciGenerationsConfirmed": {
+          "threeFciGenerationsConfirmed": {
             "type": "boolean"
           }
         },
@@ -2523,7 +2523,7 @@
           "country",
           "sex",
           "withersCm",
-          "3fciGenerationsConfirmed"
+          "threeFciGenerationsConfirmed"
         ]
       },
       "CreateEventRequestDTO": {
@@ -2804,7 +2804,7 @@
             "type": "integer",
             "description": "Height at the withers, in centimeters."
           },
-          "3fciGenerationsConfirmed": {
+          "threeFciGenerationsConfirmed": {
             "type": "boolean"
           }
         },
@@ -2819,7 +2819,7 @@
           "country",
           "sex",
           "withersCm",
-          "3fciGenerationsConfirmed"
+          "threeFciGenerationsConfirmed"
         ]
       },
       "UpdateEventRequestDTO": {
@@ -3002,7 +3002,7 @@
             "type": "integer",
             "description": "Height at the withers, in centimeters."
           },
-          "3fciGenerationsConfirmed": {
+          "threeFciGenerationsConfirmed": {
             "type": "boolean"
           }
         },
@@ -3019,7 +3019,7 @@
           "breed",
           "sex",
           "withersCm",
-          "3fciGenerationsConfirmed"
+          "threeFciGenerationsConfirmed"
         ]
       },
       "DisciplineFederationConfigurationResponseDTO": {
@@ -3166,7 +3166,7 @@
         "type": "object",
         "properties": {
           "country": {
-            "type": "string"
+            "$ref": "#/components/schemas/IdNameDTO"
           },
           "owner": {
             "type": "string",
@@ -3615,13 +3615,20 @@
               "type": "string"
             },
             "description": "etiqueta"
+          },
+          "judges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDTO"
+            }
           }
         },
         "required": [
           "id",
           "name",
           "position",
-          "tags"
+          "tags",
+          "judges"
         ]
       },
       "EventConfigurationDetailResponseDTO": {
@@ -3686,13 +3693,20 @@
             "items": {
               "type": "string"
             }
+          },
+          "judgesIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         },
         "required": [
           "id",
           "name",
           "position",
-          "tags"
+          "tags",
+          "judgesIds"
         ]
       },
       "EventCompetitorRequestDTO": {
