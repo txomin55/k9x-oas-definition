@@ -3226,7 +3226,11 @@
           },
           "bih": {
             "type": "boolean",
-            "description": "Best in show flag"
+            "description": "Bitch in heat flag"
+          },
+          "reserve": {
+            "type": "boolean",
+            "description": "Reserve flag"
           },
           "notCompeting": {
             "type": "boolean",
@@ -3254,6 +3258,7 @@
           "tied",
           "startOrder",
           "bih",
+          "reserve",
           "awards"
         ]
       },
@@ -3319,7 +3324,11 @@
           },
           "bih": {
             "type": "boolean",
-            "description": "Best in show flag"
+            "description": "Bitch in heat flag"
+          },
+          "reserve": {
+            "type": "boolean",
+            "description": "Reserve flag"
           },
           "notCompeting": {
             "type": "boolean",
@@ -3339,7 +3348,8 @@
           "position",
           "status",
           "breed",
-          "dog"
+          "dog",
+          "reserve"
         ]
       },
       "ExerciseResponseDTO": {
@@ -3748,14 +3758,19 @@
           },
           "bih": {
             "type": "boolean",
-            "description": "Best in show flag"
+            "description": "Bitch in heat flag"
+          },
+          "reserve": {
+            "type": "boolean",
+            "description": "Reserve flag"
           }
         },
         "required": [
           "dogId",
           "position",
           "accepted",
-          "bih"
+          "bih",
+          "reserve"
         ]
       },
       "EventJudgeDetailRequestDTO": {
