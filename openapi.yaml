@@ -2194,6 +2194,9 @@
             "type": "string",
             "description": "estado"
           },
+          "competitionName": {
+            "type": "string",
+          },
           "lastUpdated": {
             "type": "integer",
             "format": "int64"
@@ -2209,7 +2212,8 @@
           "configuration",
           "lastUpdated",
           "obdx",
-          "status"
+          "status",
+          "competitionName"
         ]
       },
       "CollectionResponseDTO": {
