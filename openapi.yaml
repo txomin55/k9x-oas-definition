@@ -2195,7 +2195,7 @@
             "description": "estado"
           },
           "competitionName": {
-            "type": "string",
+            "type": "string"
           },
           "lastUpdated": {
             "type": "integer",
