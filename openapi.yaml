@@ -3001,7 +3001,7 @@
             "type": "string"
           },
           "breed": {
-            "type": "string"
+            "$ref": "#/components/schemas/IdNameDTO"
           },
           "sex": {
             "type": "string",
