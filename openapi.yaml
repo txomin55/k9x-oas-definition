@@ -1983,7 +1983,7 @@
             "type": "string"
           },
           "breed": {
-            "type": "string"
+            "$ref": "#/components/schemas/IdNameDTO"
           }
         },
         "required": [
@@ -3207,8 +3207,7 @@
             "description": "estado"
           },
           "breed": {
-            "type": "string",
-            "description": "Dog breed"
+            "$ref": "#/components/schemas/IdNameDTO"
           },
           "dog": {
             "$ref": "#/components/schemas/IdNameDTO"
@@ -3326,7 +3325,7 @@
             "description": "estado"
           },
           "breed": {
-            "type": "string"
+            "$ref": "#/components/schemas/IdNameDTO"
           },
           "dog": {
             "$ref": "#/components/schemas/IdNameDTO"
