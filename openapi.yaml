@@ -711,9 +711,19 @@
         ],
         "parameters": [
           {
-            "name": "onlyOwned",
+            "name": "owned",
             "in": "query",
-            "description": "",
+            "description": "When true, returns only the dogs owned by the requesting user. Can be combined with 'created'.",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "created",
+            "in": "query",
+            "description": "When true, returns only the dogs created by the requesting user. Can be combined with 'owned'.",
             "required": false,
             "example": "",
             "schema": {
@@ -1391,7 +1401,18 @@
         "tags": [
           "Secured/Judges/fetch_all"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "created",
+            "in": "query",
+            "description": "When true, return only judges created by the authenticated user. When omitted, all judges are returned.",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Judge list returned successfully",
