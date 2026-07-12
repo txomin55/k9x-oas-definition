@@ -3270,6 +3270,10 @@
             "items": {
               "$ref": "#/components/schemas/IdNameDTO"
             }
+          },
+          "qualification": {
+            "type": "string",
+            "description": "Text qualification (calificativo) derived from the competitor's final score against the grade's qualification scale; NC when it does not reach the lowest tier."
           }
         },
         "required": [
