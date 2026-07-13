@@ -2250,6 +2250,12 @@
       "CollectionResponseDTO": {
         "type": "object",
         "properties": {
+          "competitionName": {
+            "type": "string"
+          },
+          "eventName": {
+            "type": "string"
+          },
           "configuration": {
             "$ref": "#/components/schemas/ScoresConfigurationResponseDTO"
           },
@@ -2261,6 +2267,8 @@
           }
         },
         "required": [
+          "competitionName",
+          "eventName",
           "configuration",
           "obdx",
           "discipline"
