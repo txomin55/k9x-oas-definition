@@ -2215,6 +2215,10 @@
           "event": {
             "$ref": "#/components/schemas/IdNameDTO"
           },
+          "rank": {
+            "type": "string",
+            "description": "rango del evento"
+          },
           "stage": {
             "$ref": "#/components/schemas/IdNameDTO"
           },
@@ -2239,6 +2243,7 @@
         "required": [
           "discipline",
           "event",
+          "rank",
           "stage",
           "configuration",
           "lastUpdated",
