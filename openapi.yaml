@@ -112,6 +112,12 @@
       "name": "Secured/User/register_push"
     },
     {
+      "name": "Secured/Notifications/fetch_all"
+    },
+    {
+      "name": "Secured/Notifications/mark_seen"
+    },
+    {
       "name": "Users/login"
     },
     {
@@ -1799,6 +1805,80 @@
         ]
       }
     },
+    "/secured/notifications": {
+      "get": {
+        "summary": "List notifications",
+        "deprecated": false,
+        "description": "",
+        "operationId": "fetchNotificationsSecured",
+        "tags": [
+          "Secured/Notifications/fetch_all"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Notification list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NotificationResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/notifications/seen": {
+      "put": {
+        "summary": "Mark notifications as seen",
+        "deprecated": false,
+        "description": "",
+        "operationId": "markNotificationsSeenSecured",
+        "tags": [
+          "Secured/Notifications/mark_seen"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarkNotificationsSeenRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Notifications marked as seen successfully",
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/login": {
       "post": {
         "summary": "Exchange login code for JWT",
@@ -2709,6 +2789,45 @@
           "endpoint",
           "auth",
           "p256dh"
+        ]
+      },
+      "NotificationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "text": {
+            "type": "string"
+          },
+          "seen": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "timestamp",
+          "text",
+          "seen"
+        ]
+      },
+      "MarkNotificationsSeenRequestDTO": {
+        "type": "object",
+        "properties": {
+          "markSeen": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "markSeen"
         ]
       },
       "UpdateCollectionScoreRequestDTO": {
