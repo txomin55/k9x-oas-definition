@@ -2104,6 +2104,10 @@
           },
           "breed": {
             "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "verified": {
+            "type": "boolean",
+            "description": "Whether the competitor's enrollment has been verified by the organizer."
           }
         },
         "required": [
@@ -2112,7 +2116,8 @@
           "handler",
           "country",
           "team",
-          "breed"
+          "breed",
+          "verified"
         ]
       },
       "UpdateEventNotCompetingRequestDTO": {
