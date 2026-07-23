@@ -3187,15 +3187,11 @@
           },
           "name": {
             "type": "string"
-          },
-          "country": {
-            "type": "string"
           }
         },
         "required": [
           "id",
-          "name",
-          "country"
+          "name"
         ]
       },
       "ConfigurationResponseDTO": {
