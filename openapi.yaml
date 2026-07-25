@@ -2807,6 +2807,10 @@
             "format": "int64",
             "description": "Unix timestamp in milliseconds"
           },
+          "type": {
+            "type": "string",
+            "description": "Notification kind; the client maps it (plus metadata) to the displayed text and URL"
+          },
           "metadata": {
             "type": "object",
             "additionalProperties": {
@@ -2820,6 +2824,7 @@
         "required": [
           "id",
           "timestamp",
+          "type",
           "metadata",
           "seen"
         ]
