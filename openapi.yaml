@@ -857,6 +857,132 @@
         ]
       }
     },
+    "/secured/events/{eventId}/export": {
+      "get": {
+        "summary": "Export event to Excel",
+        "deprecated": false,
+        "description": "",
+        "operationId": "exportEventSecured",
+        "tags": [
+          "Secured/Events/export"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "include_classification",
+            "in": "query",
+            "description": "When true, the workbook includes the classification sheet.",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Excel workbook returned successfully",
+            "content": {
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/events/{eventId}/import": {
+      "post": {
+        "summary": "Import event from Excel",
+        "deprecated": false,
+        "description": "",
+        "operationId": "importEventSecured",
+        "tags": [
+          "Secured/Events/import"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Excel workbook (.xlsx) to import"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              },
+              "encoding": {
+                "file": {
+                  "contentType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Event imported successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/secured/events/{id}": {
       "delete": {
         "summary": "Delete event",
@@ -1825,6 +1951,51 @@
                   "items": {
                     "$ref": "#/components/schemas/NotificationResponseDTO"
                   }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create notifications",
+        "deprecated": false,
+        "description": "",
+        "operationId": "createNotificationsSecured",
+        "tags": [
+          "Secured/Notifications/create"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CreateNotificationRequestDTO"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Notifications created successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -2827,6 +2998,24 @@
           "type",
           "metadata",
           "seen"
+        ]
+      },
+      "CreateNotificationRequestDTO": {
+        "type": "object",
+        "properties": {
+          "eventIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "eventIds",
+          "content"
         ]
       },
       "MarkNotificationsSeenRequestDTO": {
