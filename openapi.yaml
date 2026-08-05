@@ -103,6 +103,9 @@
       "name": "Secured/Stages/update"
     },
     {
+      "name": "Secured/Stages/notifications/create"
+    },
+    {
       "name": "Secured/User/logout"
     },
     {
@@ -1820,6 +1823,64 @@
         ]
       }
     },
+    "/secured/stages/{id}/notifications": {
+      "post": {
+        "summary": "Create stage notifications",
+        "deprecated": false,
+        "description": "",
+        "operationId": "createStageNotifications",
+        "tags": [
+          "Secured/Stages/notifications/create"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CreateNotificationRequestDTO"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Notifications created successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/secured/logout": {
       "post": {
         "summary": "Log out current user",
@@ -1951,51 +2012,6 @@
                   "items": {
                     "$ref": "#/components/schemas/NotificationResponseDTO"
                   }
-                }
-              }
-            },
-            "headers": {}
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError",
-            "description": "Missing or invalid bearer token"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "post": {
-        "summary": "Create notifications",
-        "deprecated": false,
-        "description": "",
-        "operationId": "createNotificationsSecured",
-        "tags": [
-          "Secured/Notifications/create"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/CreateNotificationRequestDTO"
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Notifications created successfully",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
                 }
               }
             },
