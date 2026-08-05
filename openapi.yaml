@@ -1956,7 +1956,7 @@
       "patch": {
         "summary": "Subscribe or unsubscribe the current user to a resource",
         "deprecated": false,
-        "description": "Toggles a subscription for the authenticated user. When 'subscribe' is true the resource id is added to the user's subscriptions, when false it is removed. Idempotent in both directions.",
+        "description": "Toggles subscriptions for the authenticated user. When 'subscribe' is true every id is added to the user's subscriptions, when false every id is removed. Idempotent in both directions.",
         "operationId": "updateSubscriptionSecured",
         "tags": [
           "Secured/Subscriptions/update"
@@ -3439,18 +3439,21 @@
             "type": "string",
             "description": "Kind of resource to subscribe to. Supported values: EVENT."
           },
-          "id": {
-            "type": "string",
-            "description": "Id of the resource identified by 'kind'."
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Ids of the resources identified by 'kind'. All of them are toggled in one go."
           },
           "subscribe": {
             "type": "boolean",
-            "description": "True adds the subscription, false removes it."
+            "description": "True adds the subscriptions, false removes them."
           }
         },
         "required": [
           "kind",
-          "id",
+          "ids",
           "subscribe"
         ]
       },
