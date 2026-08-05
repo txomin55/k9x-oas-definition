@@ -2634,13 +2634,6 @@
             "items": {
               "$ref": "#/components/schemas/CompetitionStageDetailResponseDTO"
             }
-          },
-          "notifications": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CompetitionNotificationDetailResponseDTO"
-            },
-            "description": "Competition notifications visible to the current user."
           }
         },
         "required": [
@@ -2650,8 +2643,7 @@
           "country",
           "status",
           "address",
-          "stages",
-          "notifications"
+          "stages"
         ]
       },
       "CompetitorScoresResponseDTO": {
@@ -2704,8 +2696,9 @@
           "notifications": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CompetitionNotificationDetailResponseDTO"
-            }
+              "$ref": "#/components/schemas/StageNotificationResponseDTO"
+            },
+            "description": "Announcements sent to this stage's competitors."
           },
           "address": {
             "type": "string"
@@ -3911,25 +3904,29 @@
         ],
         "description": "\n"
       },
-      "CompetitionNotificationDetailResponseDTO": {
+      "StageNotificationResponseDTO": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "date": {
+          "timestamp": {
             "type": "integer",
             "format": "int64",
             "description": "Unix timestamp in milliseconds"
           },
-          "text": {
+          "eventIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Events of the stage this announcement applies to"
+          },
+          "content": {
             "type": "string"
           }
         },
         "required": [
-          "id",
-          "date",
-          "text"
+          "timestamp",
+          "eventIds",
+          "content"
         ]
       },
       "CompetitionStageDetailResponseDTO": {
@@ -3958,6 +3955,13 @@
             "items": {
               "$ref": "#/components/schemas/CompetitionStageEventDetailResponseDTO"
             }
+          },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageNotificationResponseDTO"
+            },
+            "description": "Announcements sent to this stage's competitors."
           }
         },
         "required": [
@@ -3966,7 +3970,8 @@
           "id",
           "name",
           "events",
-          "status"
+          "status",
+          "notifications"
         ]
       },
       "ObdxEventDetailResponseDTO": {
