@@ -2758,6 +2758,13 @@
               "$ref": "#/components/schemas/StageEventSummaryResponseDTO"
             }
           },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageNotificationResponseDTO"
+            },
+            "description": "Announcements sent to this stage's competitors."
+          },
           "status": {
             "type": "string",
             "description": "estado"
@@ -2776,7 +2783,8 @@
           "dateTo",
           "events",
           "status",
-          "organizer"
+          "organizer",
+          "notifications"
         ]
       },
       "UserProfileResponseDTO": {
