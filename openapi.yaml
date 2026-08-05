@@ -106,6 +106,9 @@
       "name": "Secured/Stages/notifications/create"
     },
     {
+      "name": "Secured/Subscriptions/update"
+    },
+    {
       "name": "Secured/User/logout"
     },
     {
@@ -1949,6 +1952,43 @@
         ]
       }
     },
+    "/secured/subscriptions": {
+      "patch": {
+        "summary": "Subscribe or unsubscribe the current user to a resource",
+        "deprecated": false,
+        "description": "Toggles a subscription for the authenticated user. When 'subscribe' is true the resource id is added to the user's subscriptions, when false it is removed. Idempotent in both directions.",
+        "operationId": "updateSubscriptionSecured",
+        "tags": [
+          "Secured/Subscriptions/update"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubscriptionRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Subscription updated successfully",
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/secured/set-notification-setup": {
       "post": {
         "summary": "Register push subscription",
@@ -2802,13 +2842,33 @@
           },
           "organizer": {
             "type": "boolean"
+          },
+          "subscriptions": {
+            "$ref": "#/components/schemas/UserSubscriptionsResponseDTO",
+            "description": "Resources the user is subscribed to."
           }
         },
         "required": [
           "name",
           "email",
           "image",
-          "organizer"
+          "organizer",
+          "subscriptions"
+        ]
+      },
+      "UserSubscriptionsResponseDTO": {
+        "type": "object",
+        "properties": {
+          "eventIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Ids of the events the user is subscribed to."
+          }
+        },
+        "required": [
+          "eventIds"
         ]
       },
       "CreateDogRequestDTO": {
@@ -3370,6 +3430,28 @@
           "name",
           "dateFrom",
           "dateTo"
+        ]
+      },
+      "UpdateSubscriptionRequestDTO": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "Kind of resource to subscribe to. Supported values: EVENT."
+          },
+          "id": {
+            "type": "string",
+            "description": "Id of the resource identified by 'kind'."
+          },
+          "subscribe": {
+            "type": "boolean",
+            "description": "True adds the subscription, false removes it."
+          }
+        },
+        "required": [
+          "kind",
+          "id",
+          "subscribe"
         ]
       },
       "DogSummaryResponseDTO": {
