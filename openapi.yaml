@@ -118,6 +118,9 @@
       "name": "Secured/User/register_push"
     },
     {
+      "name": "Secured/User/remove_push"
+    },
+    {
       "name": "Secured/Notifications/fetch_all"
     },
     {
@@ -2032,6 +2035,49 @@
         ]
       }
     },
+    "/secured/notification-setup": {
+      "delete": {
+        "summary": "Remove push subscription",
+        "deprecated": false,
+        "description": "",
+        "operationId": "removeNotificationSetupSecured",
+        "tags": [
+          "Secured/User/remove_push"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PushUnsubscribeRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Push subscription removed successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/secured/notifications": {
       "get": {
         "summary": "List notifications",
@@ -3042,6 +3088,18 @@
           "endpoint",
           "auth",
           "p256dh"
+        ]
+      },
+      "PushUnsubscribeRequestDTO": {
+        "type": "object",
+        "properties": {
+          "endpoint": {
+            "type": "string",
+            "description": "Web Push endpoint URL of the subscription to remove."
+          }
+        },
+        "required": [
+          "endpoint"
         ]
       },
       "NotificationResponseDTO": {
