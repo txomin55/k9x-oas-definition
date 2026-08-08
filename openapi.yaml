@@ -2940,6 +2940,10 @@
             "type": "string",
             "description": "Dog origin"
           },
+          "license": {
+            "type": "string",
+            "description": "Dog license"
+          },
           "owner": {
             "type": "string",
             "description": "Email of the app user that owns the dog."
@@ -2972,6 +2976,7 @@
           "image",
           "breed",
           "origin",
+          "license",
           "owner",
           "handler",
           "team",
@@ -3050,6 +3055,9 @@
           },
           "bih": {
             "type": "boolean"
+          },
+          "primer": {
+            "type": "string"
           }
         },
         "required": [
@@ -3314,6 +3322,10 @@
             "type": "string",
             "description": "Dog origin"
           },
+          "license": {
+            "type": "string",
+            "description": "Dog license"
+          },
           "owner": {
             "type": "string",
             "description": "Email of the app user that owns the dog."
@@ -3345,6 +3357,7 @@
           "image",
           "breed",
           "origin",
+          "license",
           "owner",
           "handler",
           "team",
@@ -3548,6 +3561,9 @@
           "origin": {
             "type": "string"
           },
+          "license": {
+            "type": "string"
+          },
           "breed": {
             "$ref": "#/components/schemas/IdNameDTO"
           },
@@ -3573,6 +3589,7 @@
           "owner",
           "handler",
           "origin",
+          "license",
           "breed",
           "sex",
           "withersCm",
@@ -3877,6 +3894,10 @@
             "type": "boolean",
             "description": "Bitch in heat flag"
           },
+          "primer": {
+            "type": "string",
+            "description": "Vaccination booklet number"
+          },
           "reserve": {
             "type": "boolean",
             "description": "reserve"
@@ -3903,6 +3924,7 @@
           "dog",
           "reserve",
           "bih",
+          "primer",
           "notCompeting",
           "scoresAllowed"
         ]
@@ -4331,6 +4353,10 @@
             "type": "boolean",
             "description": "Bitch in heat"
           },
+          "primer": {
+            "type": "string",
+            "description": "Vaccination booklet number"
+          },
           "reserve": {
             "type": "boolean"
           }
@@ -4341,6 +4367,7 @@
           "competitorNumber",
           "accepted",
           "bih",
+          "primer",
           "reserve"
         ]
       },
