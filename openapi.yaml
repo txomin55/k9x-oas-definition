@@ -954,10 +954,7 @@
                     "format": "binary",
                     "description": "Excel workbook (.xlsx) to import"
                   }
-                },
-                "required": [
-                  "file"
-                ]
+                }
               },
               "encoding": {
                 "file": {
@@ -2382,16 +2379,7 @@
             "type": "boolean",
             "description": "Whether the competitor's enrollment has been verified by the organizer."
           }
-        },
-        "required": [
-          "dog",
-          "owner",
-          "handler",
-          "country",
-          "team",
-          "breed",
-          "verified"
-        ]
+        }
       },
       "UpdateEventNotCompetingRequestDTO": {
         "type": "object",
@@ -2402,11 +2390,7 @@
           "notCompeting": {
             "type": "boolean"
           }
-        },
-        "required": [
-          "dogIdentification",
-          "notCompeting"
-        ]
+        }
       },
       "ObdxStageEventClassificationResponseDTO": {
         "type": "object",
@@ -2427,12 +2411,7 @@
               "$ref": "#/components/schemas/IdNameDTO"
             }
           }
-        },
-        "required": [
-          "competitors",
-          "scoreCalculation",
-          "judges"
-        ]
+        }
       },
       "ObdxCompetitorsScoresResponseDTO": {
         "type": "object",
@@ -2443,10 +2422,7 @@
               "$ref": "#/components/schemas/CompetitorScoresResponseDTO"
             }
           }
-        },
-        "required": [
-          "competitors"
-        ]
+        }
       },
       "EventDetailResponseDTO": {
         "type": "object",
@@ -2454,10 +2430,7 @@
           "obdx": {
             "$ref": "#/components/schemas/ObdxEventDetailResponseDTO"
           }
-        },
-        "required": [
-          "obdx"
-        ]
+        }
       },
       "CompetitionStageEventDetailResponseDTO": {
         "type": "object",
@@ -2481,14 +2454,7 @@
             "type": "string",
             "description": "rango"
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "discipline",
-          "status",
-          "rank"
-        ]
+        }
       },
       "ObdxFederationConfigurationResponseDTO": {
         "type": "object",
@@ -2499,10 +2465,7 @@
               "$ref": "#/components/schemas/FederationConfigurationsResponseDTO"
             }
           }
-        },
-        "required": [
-          "federations"
-        ]
+        }
       },
       "StageEventClassificationExerciseScoresResponseDTO": {
         "type": "object",
@@ -2540,16 +2503,7 @@
           "redCard": {
             "$ref": "#/components/schemas/StageEventClassificationRedCardResponseDTO"
           }
-        },
-        "required": [
-          "exercise",
-          "exerciseScore",
-          "scoreRating",
-          "totalScore",
-          "tags",
-          "scores",
-          "yellowCards"
-        ]
+        }
       },
       "StageEventClassificationYellowCardResponseDTO": {
         "type": "object",
@@ -2561,11 +2515,7 @@
             "type": "integer",
             "format": "int64"
           }
-        },
-        "required": [
-          "judge",
-          "timestamp"
-        ]
+        }
       },
       "StageEventClassificationRedCardResponseDTO": {
         "type": "object",
@@ -2577,11 +2527,7 @@
             "type": "integer",
             "format": "int64"
           }
-        },
-        "required": [
-          "judge",
-          "timestamp"
-        ]
+        }
       },
       "StageEventClassificationResponseDTO": {
         "type": "object",
@@ -2616,18 +2562,7 @@
           "obdx": {
             "$ref": "#/components/schemas/ObdxStageEventClassificationResponseDTO"
           }
-        },
-        "required": [
-          "discipline",
-          "event",
-          "rank",
-          "stage",
-          "configuration",
-          "lastUpdated",
-          "obdx",
-          "status",
-          "competitionName"
-        ]
+        }
       },
       "CollectionResponseDTO": {
         "type": "object",
@@ -2647,14 +2582,7 @@
           "discipline": {
             "$ref": "#/components/schemas/IdNameDTO"
           }
-        },
-        "required": [
-          "competitionName",
-          "eventName",
-          "configuration",
-          "obdx",
-          "discipline"
-        ]
+        }
       },
       "CollectionsResponseDTO": {
         "type": "object",
@@ -2683,16 +2611,7 @@
           "discipline": {
             "$ref": "#/components/schemas/IdNameDTO"
           }
-        },
-        "required": [
-          "competitionName",
-          "stageName",
-          "eventName",
-          "eventId",
-          "status",
-          "judges",
-          "discipline"
-        ]
+        }
       },
       "CompetitionResponseDTO": {
         "type": "object",
@@ -2721,16 +2640,7 @@
               "$ref": "#/components/schemas/CompetitionStageDetailResponseDTO"
             }
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "description",
-          "country",
-          "status",
-          "address",
-          "stages"
-        ]
+        }
       },
       "CompetitorScoresResponseDTO": {
         "type": "object",
@@ -2745,11 +2655,7 @@
           "competitor": {
             "$ref": "#/components/schemas/EventCompetitorResponseDTO"
           }
-        },
-        "required": [
-          "exercises",
-          "competitor"
-        ]
+        }
       },
       "StageDetailResponseDTO": {
         "type": "object",
@@ -2796,19 +2702,7 @@
             "type": "string",
             "description": "estado"
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "competitionName",
-          "dateFrom",
-          "dateTo",
-          "events",
-          "notifications",
-          "address",
-          "organizer",
-          "status"
-        ]
+        }
       },
       "StageSummaryResponseDTO": {
         "type": "object",
@@ -2858,20 +2752,7 @@
           "organizer": {
             "type": "string"
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "competitionName",
-          "country",
-          "location",
-          "dateFrom",
-          "dateTo",
-          "events",
-          "status",
-          "organizer",
-          "notifications"
-        ]
+        }
       },
       "UserProfileResponseDTO": {
         "type": "object",
@@ -2893,14 +2774,7 @@
             "$ref": "#/components/schemas/UserSubscriptionsResponseDTO",
             "description": "Resources the user is subscribed to."
           }
-        },
-        "required": [
-          "name",
-          "email",
-          "image",
-          "organizer",
-          "subscriptions"
-        ]
+        }
       },
       "UserSubscriptionsResponseDTO": {
         "type": "object",
@@ -2912,10 +2786,7 @@
             },
             "description": "Ids of the events the user is subscribed to."
           }
-        },
-        "required": [
-          "eventIds"
-        ]
+        }
       },
       "CreateDogRequestDTO": {
         "type": "object",
@@ -2969,22 +2840,7 @@
           "threeFciGenerationsConfirmed": {
             "type": "boolean"
           }
-        },
-        "required": [
-          "identification",
-          "name",
-          "image",
-          "breed",
-          "origin",
-          "license",
-          "owner",
-          "handler",
-          "team",
-          "country",
-          "sex",
-          "withersCm",
-          "threeFciGenerationsConfirmed"
-        ]
+        }
       },
       "CreateEventRequestDTO": {
         "type": "object",
@@ -3003,13 +2859,7 @@
           "disciplineId": {
             "type": "string"
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "stageId",
-          "disciplineId"
-        ]
+        }
       },
       "CreateStageRequestDTO": {
         "type": "object",
@@ -3035,14 +2885,7 @@
             "type": "string",
             "description": "Identifier of the competition that owns this stage."
           }
-        },
-        "required": [
-          "id",
-          "dateFrom",
-          "dateTo",
-          "name",
-          "competitionId"
-        ]
+        }
       },
       "EnrollStageEventRequestDTO": {
         "type": "object",
@@ -3059,11 +2902,7 @@
           "primer": {
             "type": "string"
           }
-        },
-        "required": [
-          "dogIdentification",
-          "eventId"
-        ]
+        }
       },
       "LoginRequestDTO": {
         "type": "object",
@@ -3071,10 +2910,7 @@
           "code": {
             "type": "string"
           }
-        },
-        "required": [
-          "code"
-        ]
+        }
       },
       "PushSubscriptionRequestDTO": {
         "type": "object",
@@ -3091,12 +2927,7 @@
             "type": "string",
             "description": "Web Push P-256 public key from the client subscription keys."
           }
-        },
-        "required": [
-          "endpoint",
-          "auth",
-          "p256dh"
-        ]
+        }
       },
       "PushUnsubscribeRequestDTO": {
         "type": "object",
@@ -3105,10 +2936,7 @@
             "type": "string",
             "description": "Web Push endpoint URL of the subscription to remove."
           }
-        },
-        "required": [
-          "endpoint"
-        ]
+        }
       },
       "NotificationResponseDTO": {
         "type": "object",
@@ -3134,14 +2962,7 @@
           "seen": {
             "type": "boolean"
           }
-        },
-        "required": [
-          "id",
-          "timestamp",
-          "type",
-          "metadata",
-          "seen"
-        ]
+        }
       },
       "CreateNotificationRequestDTO": {
         "type": "object",
@@ -3155,11 +2976,7 @@
           "content": {
             "type": "string"
           }
-        },
-        "required": [
-          "eventIds",
-          "content"
-        ]
+        }
       },
       "MarkNotificationsSeenRequestDTO": {
         "type": "object",
@@ -3170,10 +2987,7 @@
               "type": "string"
             }
           }
-        },
-        "required": [
-          "markSeen"
-        ]
+        }
       },
       "UpdateCollectionScoreRequestDTO": {
         "type": "object",
@@ -3193,14 +3007,7 @@
           "score": {
             "type": "number"
           }
-        },
-        "required": [
-          "dogIdentification",
-          "exerciseId",
-          "judgeId",
-          "eventId",
-          "score"
-        ]
+        }
       },
       "RegisterYellowCardRequestDTO": {
         "type": "object",
@@ -3214,12 +3021,7 @@
           "judgeId": {
             "type": "string"
           }
-        },
-        "required": [
-          "dogIdentification",
-          "exerciseId",
-          "judgeId"
-        ]
+        }
       },
       "YellowCardResponseDTO": {
         "type": "object",
@@ -3234,12 +3036,7 @@
             "type": "integer",
             "format": "int64"
           }
-        },
-        "required": [
-          "exercise",
-          "judge",
-          "timestamp"
-        ]
+        }
       },
       "RegisterRedCardRequestDTO": {
         "type": "object",
@@ -3253,12 +3050,7 @@
           "judgeId": {
             "type": "string"
           }
-        },
-        "required": [
-          "dogIdentification",
-          "exerciseId",
-          "judgeId"
-        ]
+        }
       },
       "RedCardResponseDTO": {
         "type": "object",
@@ -3273,12 +3065,7 @@
             "type": "integer",
             "format": "int64"
           }
-        },
-        "required": [
-          "exercise",
-          "judge",
-          "timestamp"
-        ]
+        }
       },
       "UpdateCompetitionRequestDTO": {
         "type": "object",
@@ -3295,13 +3082,7 @@
           "address": {
             "type": "string"
           }
-        },
-        "required": [
-          "name",
-          "description",
-          "country",
-          "address"
-        ]
+        }
       },
       "UpdateDogRequestDTO": {
         "type": "object",
@@ -3351,21 +3132,7 @@
           "threeFciGenerationsConfirmed": {
             "type": "boolean"
           }
-        },
-        "required": [
-          "name",
-          "image",
-          "breed",
-          "origin",
-          "license",
-          "owner",
-          "handler",
-          "team",
-          "country",
-          "sex",
-          "withersCm",
-          "threeFciGenerationsConfirmed"
-        ]
+        }
       },
       "UpdateEventRequestDTO": {
         "type": "object",
@@ -3408,16 +3175,7 @@
               "type": "string"
             }
           }
-        },
-        "required": [
-          "name",
-          "competitors",
-          "exercises",
-          "configurationId",
-          "judges",
-          "enrollmentDeadline",
-          "scoreCalculation"
-        ]
+        }
       },
       "UpdateJudgeRequestDTO": {
         "type": "object",
@@ -3430,11 +3188,7 @@
             "type": "string",
             "description": "Country of the judge."
           }
-        },
-        "required": [
-          "name",
-          "country"
-        ]
+        }
       },
       "CreateJudgeRequestDTO": {
         "type": "object",
@@ -3451,12 +3205,7 @@
             "type": "string",
             "description": "Country of the judge."
           }
-        },
-        "required": [
-          "name",
-          "id",
-          "country"
-        ]
+        }
       },
       "JudgeResponseDTO": {
         "type": "object",
@@ -3473,12 +3222,7 @@
             "type": "string",
             "description": "Country of the judge."
           }
-        },
-        "required": [
-          "name",
-          "id",
-          "country"
-        ]
+        }
       },
       "UpdateStageRequestDTO": {
         "type": "object",
@@ -3496,12 +3240,7 @@
             "format": "int64",
             "description": "Unix timestamp in milliseconds"
           }
-        },
-        "required": [
-          "name",
-          "dateFrom",
-          "dateTo"
-        ]
+        }
       },
       "UpdateSubscriptionRequestDTO": {
         "type": "object",
@@ -3521,12 +3260,7 @@
             "type": "boolean",
             "description": "True adds the subscriptions, false removes them."
           }
-        },
-        "required": [
-          "kind",
-          "ids",
-          "subscribe"
-        ]
+        }
       },
       "DogSummaryResponseDTO": {
         "type": "object",
@@ -3578,23 +3312,7 @@
           "threeFciGenerationsConfirmed": {
             "type": "boolean"
           }
-        },
-        "required": [
-          "identification",
-          "name",
-          "image",
-          "owned",
-          "country",
-          "team",
-          "owner",
-          "handler",
-          "origin",
-          "license",
-          "breed",
-          "sex",
-          "withersCm",
-          "threeFciGenerationsConfirmed"
-        ]
+        }
       },
       "DisciplineFederationConfigurationResponseDTO": {
         "type": "object",
@@ -3602,10 +3320,7 @@
           "obdx": {
             "$ref": "#/components/schemas/ObdxFederationConfigurationResponseDTO"
           }
-        },
-        "required": [
-          "obdx"
-        ]
+        }
       },
       "ExerciseScoresResponseDTO": {
         "type": "object",
@@ -3619,11 +3334,7 @@
               "$ref": "#/components/schemas/CollectionScoreResponseDTO"
             }
           }
-        },
-        "required": [
-          "exercise",
-          "collectionScores"
-        ]
+        }
       },
       "CollectionScoreResponseDTO": {
         "type": "object",
@@ -3634,11 +3345,7 @@
           "judge": {
             "$ref": "#/components/schemas/IdNameDTO"
           }
-        },
-        "required": [
-          "score",
-          "judge"
-        ]
+        }
       },
       "ScoresConfigurationResponseDTO": {
         "type": "object",
@@ -3652,11 +3359,7 @@
           "description": {
             "type": "string"
           }
-        },
-        "required": [
-          "allowedValues",
-          "description"
-        ]
+        }
       },
       "FederationConfigurationsResponseDTO": {
         "type": "object",
@@ -3670,11 +3373,7 @@
               "$ref": "#/components/schemas/ConfigurationResponseDTO"
             }
           }
-        },
-        "required": [
-          "info",
-          "configurations"
-        ]
+        }
       },
       "FederationConfigurationResponseDTO": {
         "type": "object",
@@ -3686,11 +3385,7 @@
           "name": {
             "type": "string"
           }
-        },
-        "required": [
-          "id",
-          "name"
-        ]
+        }
       },
       "ConfigurationResponseDTO": {
         "type": "object",
@@ -3708,12 +3403,7 @@
               "$ref": "#/components/schemas/IdNameDTO"
             }
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "exercises"
-        ]
+        }
       },
       "IdNameDTO": {
         "type": "object",
@@ -3726,11 +3416,7 @@
             "type": "string",
             "description": "ID"
           }
-        },
-        "required": [
-          "name",
-          "id"
-        ]
+        }
       },
       "StageEventClassificationItemResponseDTO": {
         "type": "object",
@@ -3805,26 +3491,7 @@
             "type": "string",
             "description": "Text qualification (calificativo) derived from the competitor's final score against the grade's qualification scale; NC when it does not reach the lowest tier."
           }
-        },
-        "required": [
-          "country",
-          "owner",
-          "handler",
-          "team",
-          "status",
-          "breed",
-          "dog",
-          "exercises",
-          "position",
-          "competitorNumber",
-          "totalScore",
-          "scoreRating",
-          "tied",
-          "startOrder",
-          "bih",
-          "awards",
-          "reserve"
-        ]
+        }
       },
       "StageEventClassificationScoreResponseDTO": {
         "type": "object",
@@ -3841,13 +3508,7 @@
           "applies": {
             "type": "boolean"
           }
-        },
-        "required": [
-          "judge",
-          "value",
-          "scoreRating",
-          "applies"
-        ]
+        }
       },
       "EventCompetitorResponseDTO": {
         "type": "object",
@@ -3910,24 +3571,7 @@
             "type": "boolean",
             "description": "Whether the competitor can still receive scores: false when it holds 2 yellow cards, a red card, or is flagged as not competing"
           }
-        },
-        "required": [
-          "owner",
-          "handler",
-          "origin",
-          "team",
-          "country",
-          "position",
-          "competitorNumber",
-          "status",
-          "breed",
-          "dog",
-          "reserve",
-          "bih",
-          "primer",
-          "notCompeting",
-          "scoresAllowed"
-        ]
+        }
       },
       "ExerciseResponseDTO": {
         "type": "object",
@@ -3943,12 +3587,7 @@
           "position": {
             "type": "integer"
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "position"
-        ]
+        }
       },
       "CompetitionLocationDetailResponseDTO": {
         "type": "object",
@@ -3963,12 +3602,7 @@
           "longitude": {
             "type": "number"
           }
-        },
-        "required": [
-          "address",
-          "latitude",
-          "longitude"
-        ]
+        }
       },
       "StageEventSummaryResponseDTO": {
         "type": "object",
@@ -4007,18 +3641,7 @@
             "type": "string",
             "description": "rango"
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "discipline",
-          "competitors",
-          "status",
-          "enrollmentOpened",
-          "enrollmentDeadline",
-          "awards",
-          "rank"
-        ]
+        }
       },
       "StageEventDetailResponseDTO": {
         "type": "object",
@@ -4063,18 +3686,6 @@
             "description": "rango"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "discipline",
-          "competitors",
-          "configuration",
-          "status",
-          "enrollmentOpened",
-          "enrollmentDeadline",
-          "awards",
-          "rank"
-        ],
         "description": "\n"
       },
       "StageNotificationResponseDTO": {
@@ -4095,12 +3706,7 @@
           "content": {
             "type": "string"
           }
-        },
-        "required": [
-          "timestamp",
-          "eventIds",
-          "content"
-        ]
+        }
       },
       "CompetitionStageDetailResponseDTO": {
         "type": "object",
@@ -4136,16 +3742,7 @@
             },
             "description": "Announcements sent to this stage's competitors."
           }
-        },
-        "required": [
-          "dateFrom",
-          "dateTo",
-          "id",
-          "name",
-          "events",
-          "status",
-          "notifications"
-        ]
+        }
       },
       "ObdxEventDetailResponseDTO": {
         "type": "object",
@@ -4201,21 +3798,7 @@
               "$ref": "#/components/schemas/IdNameDTO"
             }
           }
-        },
-        "required": [
-          "id",
-          "stage",
-          "name",
-          "status",
-          "discipline",
-          "competitors",
-          "exercises",
-          "configuration",
-          "judges",
-          "enrollmentDeadline",
-          "scoreCalculation",
-          "awards"
-        ]
+        }
       },
       "EventExerciseDetailResponseDTO": {
         "type": "object",
@@ -4244,14 +3827,7 @@
               "$ref": "#/components/schemas/IdNameDTO"
             }
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "position",
-          "tags",
-          "judges"
-        ]
+        }
       },
       "EventConfigurationDetailResponseDTO": {
         "type": "object",
@@ -4267,12 +3843,7 @@
             "description": "Federation or governing body associated with the event configuration.",
             "$ref": "#/components/schemas/FederationConfigurationResponseDTO"
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "federation"
-        ]
+        }
       },
       "EventJudgeDetailResponseDTO": {
         "type": "object",
@@ -4289,12 +3860,7 @@
             "type": "string",
             "description": "Email address used to collect or receive scoring data for this judge."
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "collectorEmail"
-        ]
+        }
       },
       "EventExerciseRequestDTO": {
         "type": "object",
@@ -4322,14 +3888,7 @@
               "type": "string"
             }
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "position",
-          "tags",
-          "judgesIds"
-        ]
+        }
       },
       "EventCompetitorRequestDTO": {
         "type": "object",
@@ -4360,16 +3919,7 @@
           "reserve": {
             "type": "boolean"
           }
-        },
-        "required": [
-          "dogIdentification",
-          "position",
-          "competitorNumber",
-          "accepted",
-          "bih",
-          "primer",
-          "reserve"
-        ]
+        }
       },
       "EventJudgeDetailRequestDTO": {
         "type": "object",
@@ -4382,11 +3932,7 @@
             "type": "string",
             "description": "Email address used to collect or receive scoring data for this judge."
           }
-        },
-        "required": [
-          "id",
-          "collectorEmail"
-        ]
+        }
       },
       "ApiError": {
         "type": "object",
@@ -4397,11 +3943,7 @@
           "message": {
             "type": "string"
           }
-        },
-        "required": [
-          "code",
-          "message"
-        ]
+        }
       }
     },
     "responses": {
