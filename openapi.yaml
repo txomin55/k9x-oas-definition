@@ -569,7 +569,7 @@
         ]
       }
     },
-    "/secured/dogs/{id}": {
+    "/secured/dogs/{identification}": {
       "delete": {
         "summary": "Delete dog",
         "deprecated": false,
@@ -580,7 +580,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "identification",
             "in": "path",
             "description": "",
             "required": true,
@@ -625,7 +625,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "identification",
             "in": "path",
             "description": "",
             "required": true,
@@ -2396,7 +2396,7 @@
       "UpdateEventNotCompetingRequestDTO": {
         "type": "object",
         "properties": {
-          "dogId": {
+          "dogIdentification": {
             "type": "string"
           },
           "notCompeting": {
@@ -2404,7 +2404,7 @@
           }
         },
         "required": [
-          "dogId",
+          "dogIdentification",
           "notCompeting"
         ]
       },
@@ -2920,9 +2920,9 @@
       "CreateDogRequestDTO": {
         "type": "object",
         "properties": {
-          "id": {
+          "identification": {
             "type": "string",
-            "description": "Dog chip"
+            "description": "Dog identification"
           },
           "name": {
             "type": "string",
@@ -2936,9 +2936,9 @@
             "type": "string",
             "description": "Dog breed"
           },
-          "identity": {
+          "origin": {
             "type": "string",
-            "description": "Dog identity"
+            "description": "Dog origin"
           },
           "owner": {
             "type": "string",
@@ -2967,11 +2967,11 @@
           }
         },
         "required": [
-          "id",
+          "identification",
           "name",
           "image",
           "breed",
-          "identity",
+          "origin",
           "owner",
           "handler",
           "team",
@@ -3042,7 +3042,7 @@
       "EnrollStageEventRequestDTO": {
         "type": "object",
         "properties": {
-          "dogId": {
+          "dogIdentification": {
             "type": "string"
           },
           "eventId": {
@@ -3053,7 +3053,7 @@
           }
         },
         "required": [
-          "dogId",
+          "dogIdentification",
           "eventId"
         ]
       },
@@ -3170,7 +3170,7 @@
       "UpdateCollectionScoreRequestDTO": {
         "type": "object",
         "properties": {
-          "dogId": {
+          "dogIdentification": {
             "type": "string"
           },
           "exerciseId": {
@@ -3187,7 +3187,7 @@
           }
         },
         "required": [
-          "dogId",
+          "dogIdentification",
           "exerciseId",
           "judgeId",
           "eventId",
@@ -3197,7 +3197,7 @@
       "RegisterYellowCardRequestDTO": {
         "type": "object",
         "properties": {
-          "dogId": {
+          "dogIdentification": {
             "type": "string"
           },
           "exerciseId": {
@@ -3208,7 +3208,7 @@
           }
         },
         "required": [
-          "dogId",
+          "dogIdentification",
           "exerciseId",
           "judgeId"
         ]
@@ -3236,7 +3236,7 @@
       "RegisterRedCardRequestDTO": {
         "type": "object",
         "properties": {
-          "dogId": {
+          "dogIdentification": {
             "type": "string"
           },
           "exerciseId": {
@@ -3247,7 +3247,7 @@
           }
         },
         "required": [
-          "dogId",
+          "dogIdentification",
           "exerciseId",
           "judgeId"
         ]
@@ -3310,9 +3310,9 @@
             "type": "string",
             "description": "Dog breed"
           },
-          "identity": {
+          "origin": {
             "type": "string",
-            "description": "Dog identity"
+            "description": "Dog origin"
           },
           "owner": {
             "type": "string",
@@ -3344,7 +3344,7 @@
           "name",
           "image",
           "breed",
-          "identity",
+          "origin",
           "owner",
           "handler",
           "team",
@@ -3518,7 +3518,7 @@
       "DogSummaryResponseDTO": {
         "type": "object",
         "properties": {
-          "id": {
+          "identification": {
             "type": "string"
           },
           "name": {
@@ -3545,7 +3545,7 @@
             "type": "string",
             "description": "Free-text label for the person handling the dog (e.g. the handler name)."
           },
-          "identity": {
+          "origin": {
             "type": "string"
           },
           "breed": {
@@ -3564,7 +3564,7 @@
           }
         },
         "required": [
-          "id",
+          "identification",
           "name",
           "image",
           "owned",
@@ -3572,7 +3572,7 @@
           "team",
           "owner",
           "handler",
-          "identity",
+          "origin",
           "breed",
           "sex",
           "withersCm",
@@ -3843,9 +3843,9 @@
             "type": "string",
             "description": "Free-text label for the person handling the dog (e.g. the handler name)."
           },
-          "identity": {
+          "origin": {
             "type": "string",
-            "description": "Dog identity"
+            "description": "Dog origin"
           },
           "team": {
             "type": "string",
@@ -3893,7 +3893,7 @@
         "required": [
           "owner",
           "handler",
-          "identity",
+          "origin",
           "team",
           "country",
           "position",
@@ -4312,7 +4312,7 @@
       "EventCompetitorRequestDTO": {
         "type": "object",
         "properties": {
-          "dogId": {
+          "dogIdentification": {
             "type": "string",
             "description": "Dog id"
           },
@@ -4336,7 +4336,7 @@
           }
         },
         "required": [
-          "dogId",
+          "dogIdentification",
           "position",
           "competitorNumber",
           "accepted",
