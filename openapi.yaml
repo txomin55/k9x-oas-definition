@@ -94,6 +94,9 @@
       "name": "Secured/Judges/update"
     },
     {
+      "name": "Rankings/fetch_one"
+    },
+    {
       "name": "Secured/Rankings/create"
     },
     {
@@ -1693,6 +1696,47 @@
             "bearerAuth": []
           }
         ]
+      }
+    },
+    "/rankings/{id}": {
+      "get": {
+        "summary": "Get ranking results",
+        "deprecated": false,
+        "description": "Public ranking results: the event columns and the groups already ordered with their position and total. Answers no content when the ranking does not exist.",
+        "operationId": "fetchRanking",
+        "tags": [
+          "Rankings/fetch_one"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ranking results returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RankingClassificationResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "204": {
+            "description": "The ranking does not exist",
+            "headers": {}
+          }
+        },
+        "security": []
       }
     },
     "/secured/rankings": {
@@ -3452,6 +3496,112 @@
           }
         }
       },
+      "RankingClassificationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "description": "Events of the ranking, in configuration order. These are the columns of the results matrix.",
+            "items": {
+              "$ref": "#/components/schemas/RankingClassificationEventResponseDTO"
+            }
+          },
+          "groups": {
+            "type": "array",
+            "description": "Groups ordered by total, best first. One group per competitor, team or country depending on the ranking grouping.",
+            "items": {
+              "$ref": "#/components/schemas/RankingClassificationGroupResponseDTO"
+            }
+          }
+        }
+      },
+      "RankingClassificationEventResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identifier of the event."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the event."
+          },
+          "stageId": {
+            "type": "string",
+            "description": "Identifier of the trial the event belongs to, so its classification can be linked to."
+          }
+        }
+      },
+      "RankingClassificationGroupResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identifier of the grouping criterion: the dog identification, the team or the country code."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display label of the grouping criterion."
+          },
+          "position": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Position in the ranking, best first. Tied groups share a position."
+          },
+          "tied": {
+            "type": "boolean",
+            "description": "Whether this group shares its position with another one."
+          },
+          "total": {
+            "type": "number",
+            "description": "Sum of the results that count for this group."
+          },
+          "members": {
+            "type": "array",
+            "description": "Participants of the group, the rows of the expanded matrix.",
+            "items": {
+              "$ref": "#/components/schemas/RankingClassificationMemberResponseDTO"
+            }
+          }
+        }
+      },
+      "RankingClassificationMemberResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Dog identification, usable as the competitor filter of the event classification."
+          },
+          "name": {
+            "type": "string",
+            "description": "Dog name."
+          },
+          "cells": {
+            "type": "array",
+            "description": "One cell per event of the ranking, in the same order as events.",
+            "items": {
+              "$ref": "#/components/schemas/RankingClassificationCellResponseDTO"
+            }
+          }
+        }
+      },
+      "RankingClassificationCellResponseDTO": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "description": "Event this cell belongs to."
+          },
+          "score": {
+            "type": "number",
+            "description": "Score obtained in that event. Null when the competitor did not compete, which the UI renders disabled."
+          },
+          "counts": {
+            "type": "boolean",
+            "description": "Whether this score was added to the group total. False when there is no score, or when the inclusion criterion left it out."
+          }
+        }
+      },
       "CreateRankingRequestDTO": {
         "type": "object",
         "properties": {
@@ -3481,7 +3631,7 @@
           "includedCount": {
             "type": "integer",
             "format": "int32",
-            "description": "How many results are counted. Required when includeBy is not NONE, ignored otherwise."
+            "description": "How many results are counted. Required when includeBy is not ALL, ignored otherwise."
           }
         }
       },
@@ -3514,7 +3664,7 @@
           "includedCount": {
             "type": "integer",
             "format": "int32",
-            "description": "How many results are counted. Null when includeBy is NONE, where every result counts."
+            "description": "How many results are counted. Null when includeBy is ALL, where every result counts."
           }
         }
       },
