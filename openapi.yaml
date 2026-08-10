@@ -106,7 +106,7 @@
       "name": "Secured/Rankings/fetch_group_bys"
     },
     {
-      "name": "Secured/Rankings/fetch_exclude_bys"
+      "name": "Secured/Rankings/fetch_include_bys"
     },
     {
       "name": "Secured/Stages/create"
@@ -1777,19 +1777,19 @@
         ]
       }
     },
-    "/secured/rankings/exclude-bys": {
+    "/secured/rankings/include-bys": {
       "get": {
-        "summary": "List ranking exclusion criteria",
+        "summary": "List ranking inclusion criteria",
         "deprecated": false,
         "description": "",
-        "operationId": "fetchRankingExcludeBysSecured",
+        "operationId": "fetchRankingIncludeBysSecured",
         "tags": [
-          "Secured/Rankings/fetch_exclude_bys"
+          "Secured/Rankings/fetch_include_bys"
         ],
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Exclusion criteria returned successfully",
+            "description": "Inclusion criteria returned successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -3474,14 +3474,14 @@
             "type": "string",
             "description": "Grouping criterion. One of the ids returned by /secured/rankings/group-bys."
           },
-          "excludeBy": {
+          "includeBy": {
             "type": "string",
-            "description": "Competitor exclusion criterion. One of the ids returned by /secured/rankings/exclude-bys."
+            "description": "Competitor inclusion criterion: which results are counted. One of the ids returned by /secured/rankings/include-bys."
           },
-          "excludedCount": {
+          "includedCount": {
             "type": "integer",
             "format": "int32",
-            "description": "How many results are excluded. Required when excludeBy is not NONE, ignored otherwise."
+            "description": "How many results are counted. Required when includeBy is not NONE, ignored otherwise."
           }
         }
       },
@@ -3507,14 +3507,14 @@
             "type": "string",
             "description": "Grouping criterion."
           },
-          "excludeBy": {
+          "includeBy": {
             "type": "string",
-            "description": "Competitor exclusion criterion."
+            "description": "Competitor inclusion criterion: which results are counted."
           },
-          "excludedCount": {
+          "includedCount": {
             "type": "integer",
             "format": "int32",
-            "description": "How many results are excluded. Null when excludeBy is NONE."
+            "description": "How many results are counted. Null when includeBy is NONE, where every result counts."
           }
         }
       },
