@@ -22,6 +22,9 @@
       "name": "Secured/Competitions/fetch_all"
     },
     {
+      "name": "Secured/Competitions/fetch_selectable"
+    },
+    {
       "name": "Secured/Competitions/remove"
     },
     {
@@ -95,6 +98,9 @@
     },
     {
       "name": "Rankings/fetch_one"
+    },
+    {
+      "name": "Secured/Rankings/fetch_all"
     },
     {
       "name": "Secured/Rankings/create"
@@ -342,6 +348,43 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/CompetitionResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/competitions/selectable": {
+      "get": {
+        "summary": "List selectable competitions",
+        "deprecated": false,
+        "description": "Identifiers and names of every competition that is not deleted, with their trials and events. Meant for pickers: it carries no dates, status or scores.",
+        "operationId": "fetchSelectableCompetitionsSecured",
+        "tags": [
+          "Secured/Competitions/fetch_selectable"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Selectable competitions returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SelectableCompetitionResponseDTO"
                   }
                 }
               }
@@ -1768,6 +1811,41 @@
                   "description": "Identifier of the stored ranking"
                 },
                 "example": "ranking_competition_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "List rankings",
+        "deprecated": false,
+        "description": "Rankings created by the authenticated organizer.",
+        "operationId": "fetchRankingsSecured",
+        "tags": [
+          "Secured/Rankings/fetch_all"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ranking list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RankingListItemResponseDTO"
+                  }
+                }
               }
             },
             "headers": {}
@@ -3602,6 +3680,41 @@
           }
         }
       },
+      "RankingListItemResponseDTO": {
+        "type": "object",
+        "properties": {
+          "rankingId": {
+            "type": "string",
+            "description": "Identifier of the ranking."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the ranking."
+          },
+          "eventCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "How many events the ranking groups."
+          },
+          "groupBy": {
+            "type": "string",
+            "description": "Grouping criterion."
+          },
+          "includeBy": {
+            "type": "string",
+            "description": "Inclusion criterion: which results are counted."
+          },
+          "includedCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "How many results are counted. Null when includeBy is ALL."
+          },
+          "includeReserves": {
+            "type": "boolean",
+            "description": "Whether competitors entered as reserves count."
+          }
+        }
+      },
       "CreateRankingRequestDTO": {
         "type": "object",
         "properties": {
@@ -3850,6 +3963,40 @@
             "description": "Display name of the scoring or rules configuration applied to the event."
           },
           "exercises": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDTO"
+            }
+          }
+        }
+      },
+      "SelectableCompetitionResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SelectableStageResponseDTO"
+            }
+          }
+        }
+      },
+      "SelectableStageResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "events": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IdNameDTO"
