@@ -94,6 +94,21 @@
       "name": "Secured/Judges/update"
     },
     {
+      "name": "Secured/Rankings/create"
+    },
+    {
+      "name": "Secured/Rankings/fetch_one"
+    },
+    {
+      "name": "Secured/Rankings/remove"
+    },
+    {
+      "name": "Secured/Rankings/fetch_group_bys"
+    },
+    {
+      "name": "Secured/Rankings/fetch_exclude_bys"
+    },
+    {
       "name": "Secured/Stages/create"
     },
     {
@@ -1680,6 +1695,219 @@
         ]
       }
     },
+    "/secured/rankings": {
+      "post": {
+        "summary": "Create or replace ranking",
+        "deprecated": false,
+        "description": "Creates the ranking. If the identifier already exists it is physically replaced, so there is no update operation.",
+        "operationId": "createRankingSecured",
+        "tags": [
+          "Secured/Rankings/create"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRankingRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ranking stored successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the stored ranking"
+                },
+                "example": "ranking_competition_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/rankings/group-bys": {
+      "get": {
+        "summary": "List ranking group by criteria",
+        "deprecated": false,
+        "description": "",
+        "operationId": "fetchRankingGroupBysSecured",
+        "tags": [
+          "Secured/Rankings/fetch_group_bys"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Group by criteria returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdNameDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/rankings/exclude-bys": {
+      "get": {
+        "summary": "List ranking exclusion criteria",
+        "deprecated": false,
+        "description": "",
+        "operationId": "fetchRankingExcludeBysSecured",
+        "tags": [
+          "Secured/Rankings/fetch_exclude_bys"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Exclusion criteria returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdNameDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/secured/rankings/{id}": {
+      "get": {
+        "summary": "Fetch ranking",
+        "deprecated": false,
+        "description": "Returns the ranking owned by the authenticated organizer, or no content when it does not exist.",
+        "operationId": "fetchRankingSecured",
+        "tags": [
+          "Secured/Rankings/fetch_one"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ranking returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RankingResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "204": {
+            "description": "The ranking does not exist",
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete ranking",
+        "deprecated": false,
+        "description": "Physically deletes the ranking. There is no soft delete for this resource.",
+        "operationId": "removeRankingSecured",
+        "tags": [
+          "Secured/Rankings/remove"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ranking deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Identifier of the deleted ranking"
+                },
+                "example": "ranking_competition_01HZX8J6Q7Y2A4B5C6D7E8F9G0"
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/secured/stages": {
       "post": {
         "summary": "Create stage",
@@ -3221,6 +3449,72 @@
           "country": {
             "type": "string",
             "description": "Country of the judge."
+          }
+        }
+      },
+      "CreateRankingRequestDTO": {
+        "type": "object",
+        "properties": {
+          "rankingId": {
+            "type": "string",
+            "description": "Identifier of the ranking. Chosen by the client; replaces any existing ranking with the same identifier."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the ranking."
+          },
+          "eventIds": {
+            "type": "array",
+            "description": "Identifiers of the events grouped by this ranking. Must contain at least one event that is not deleted.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "groupBy": {
+            "type": "string",
+            "description": "Grouping criterion. One of the ids returned by /secured/rankings/group-bys."
+          },
+          "excludeBy": {
+            "type": "string",
+            "description": "Competitor exclusion criterion. One of the ids returned by /secured/rankings/exclude-bys."
+          },
+          "excludedCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "How many results are excluded. Required when excludeBy is not NONE, ignored otherwise."
+          }
+        }
+      },
+      "RankingResponseDTO": {
+        "type": "object",
+        "properties": {
+          "rankingId": {
+            "type": "string",
+            "description": "Identifier of the ranking."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the ranking."
+          },
+          "events": {
+            "type": "array",
+            "description": "Events grouped by this ranking. Deleted events are omitted.",
+            "items": {
+              "$ref": "#/components/schemas/IdNameDTO"
+            }
+          },
+          "groupBy": {
+            "type": "string",
+            "description": "Grouping criterion."
+          },
+          "excludeBy": {
+            "type": "string",
+            "description": "Competitor exclusion criterion."
+          },
+          "excludedCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "How many results are excluded. Null when excludeBy is NONE."
           }
         }
       },
