@@ -3632,6 +3632,10 @@
             "type": "integer",
             "format": "int32",
             "description": "How many results are counted. Required when includeBy is not ALL, ignored otherwise."
+          },
+          "includeReserves": {
+            "type": "boolean",
+            "description": "Whether competitors entered as reserves count towards the ranking."
           }
         }
       },
@@ -3665,6 +3669,10 @@
             "type": "integer",
             "format": "int32",
             "description": "How many results are counted. Null when includeBy is ALL, where every result counts."
+          },
+          "includeReserves": {
+            "type": "boolean",
+            "description": "Whether competitors entered as reserves count towards the ranking."
           }
         }
       },
