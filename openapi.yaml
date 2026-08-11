@@ -163,6 +163,9 @@
       "name": "Stages/fetch_one"
     },
     {
+      "name": "Stages/fetch_event_rankings"
+    },
+    {
       "name": "Events/fetch_classification"
     }
   ],
@@ -2660,6 +2663,56 @@
         "security": []
       }
     },
+    "/stages/{id}/events/{eventId}/rankings": {
+      "get": {
+        "summary": "List rankings of an event",
+        "deprecated": false,
+        "description": "Rankings that include the event. Public: the identifier of a ranking that does not belong to a competition is only returned to an authenticated caller, otherwise it comes back null.",
+        "operationId": "fetchEventRankings",
+        "tags": [
+          "Stages/fetch_event_rankings"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rankings returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdNameDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
     "/events/{eventId}/classification": {
       "get": {
         "summary": "Get event classification",
@@ -3101,6 +3154,10 @@
           },
           "organizer": {
             "type": "string"
+          },
+          "includesRankings": {
+            "type": "boolean",
+            "description": "Whether any event of the trial is included in a ranking."
           }
         }
       },
