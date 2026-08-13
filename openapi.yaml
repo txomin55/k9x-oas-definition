@@ -633,6 +633,54 @@
         ]
       }
     },
+    "/secured/discipline/{id}/categories": {
+      "get": {
+        "summary": "List discipline event categories",
+        "deprecated": false,
+        "description": "",
+        "operationId": "fetchDisciplineCategoriesSecured",
+        "tags": [
+          "Secured/Disciplines/fetch_categories"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdNameDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError",
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/secured/dogs/{identification}": {
       "delete": {
         "summary": "Delete dog",
@@ -4511,6 +4559,10 @@
           "commissioner": {
             "type": "string",
             "description": "OBDX only: chief steward / person responsible for the trial, as printed on the working booklet."
+          },
+          "category": {
+            "type": "string",
+            "description": "OBDX only: category of the event. One of: CLUB, OPEN, WC_Q, WC_SEMI, WC_FINAL."
           }
         }
       },
