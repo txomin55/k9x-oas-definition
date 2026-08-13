@@ -1550,11 +1550,11 @@
         ]
       }
     },
-    "/secured/events/{eventId}/competitors/{competitorId}/event-proof": {
+    "/secured/events/{eventId}/event-proof": {
       "get": {
-        "summary": "Download the working booklet proof of a competitor in an event as a PDF",
+        "summary": "Download the working booklet proofs of every competitor of an event as a PDF",
         "deprecated": false,
-        "description": "Returns a printable page with three identical 20.5 x 6 cm blocks holding the date, organizing group, locality, class, score, qualification and judges of the event, to be cut out and glued into the competitor's paper working booklet. The layout depends on the event's discipline; disciplines with no booklet proof are rejected.",
+        "description": "Returns one printable 20.5 x 6 cm strip per competitor, one page each, holding the date, organizing group, locality, class, score, qualification and judges of the event, to be cut out and glued into each competitor's paper working booklet. The layout depends on the event's discipline; disciplines with no booklet proof are rejected.",
         "operationId": "getEventProofSecured",
         "tags": [
           "Secured/Events/event_proof"
@@ -1564,16 +1564,6 @@
             "name": "eventId",
             "in": "path",
             "description": "",
-            "required": true,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "competitorId",
-            "in": "path",
-            "description": "Dog identification of the competitor.",
             "required": true,
             "example": "",
             "schema": {
@@ -3641,6 +3631,10 @@
           "commissioner": {
             "type": "string",
             "description": "OBDX only: chief steward / person responsible for the trial, as printed on the working booklet."
+          },
+          "category": {
+            "type": "string",
+            "description": "OBDX only: category of the event."
           }
         }
       },
