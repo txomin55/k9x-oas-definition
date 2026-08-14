@@ -3058,6 +3058,10 @@
           },
           "obdx": {
             "$ref": "#/components/schemas/ObdxStageEventClassificationResponseDTO"
+          },
+          "source": {
+            "type": "string",
+            "description": "Origin of the competition data this event belongs to. One of: API, EXTRACTION."
           }
         }
       },
@@ -3136,6 +3140,10 @@
             "items": {
               "$ref": "#/components/schemas/CompetitionStageDetailResponseDTO"
             }
+          },
+          "source": {
+            "type": "string",
+            "description": "Origin of the competition data. One of: API, EXTRACTION."
           }
         }
       },
@@ -3198,6 +3206,10 @@
           "status": {
             "type": "string",
             "description": "estado"
+          },
+          "source": {
+            "type": "string",
+            "description": "Origin of the competition data this stage belongs to. One of: API, EXTRACTION."
           }
         }
       },
@@ -3252,6 +3264,10 @@
           "includesRankings": {
             "type": "boolean",
             "description": "Whether any event of the trial is included in a ranking."
+          },
+          "source": {
+            "type": "string",
+            "description": "Origin of the competition data this stage belongs to. One of: API, EXTRACTION."
           }
         }
       },
@@ -4563,6 +4579,10 @@
           "category": {
             "type": "string",
             "description": "OBDX only: category of the event. One of: CLUB, OPEN, WC_Q, WC_SEMI, WC_FINAL."
+          },
+          "source": {
+            "type": "string",
+            "description": "Origin of the competition data this event belongs to. One of: API, EXTRACTION."
           }
         }
       },
