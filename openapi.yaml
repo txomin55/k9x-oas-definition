@@ -856,6 +856,41 @@
             "schema": {
               "type": "boolean"
             }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Returns only the dogs whose name contains this text, ignoring case.",
+            "required": false,
+            "example": "rex",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based index of the page to return. Ignored unless 'size' is provided.",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Number of dogs per page. When omitted the whole list is returned in a single page.",
+            "required": false,
+            "example": 20,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
           }
         ],
         "responses": {
@@ -864,10 +899,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/DogSummaryResponseDTO"
-                  }
+                  "$ref": "#/components/schemas/DogListResponseDTO"
                 }
               }
             },
@@ -3999,6 +4031,38 @@
           "subscribe": {
             "type": "boolean",
             "description": "True adds the subscriptions, false removes them."
+          }
+        }
+      },
+      "DogListResponseDTO": {
+        "type": "object",
+        "description": "A page of dogs. When no 'size' is requested the whole list comes back as a single page.",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DogSummaryResponseDTO"
+            }
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Zero-based index of the returned page."
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Number of dogs per page. Equals 'total' when the whole list is returned."
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Total number of dogs matching the filters, across every page."
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Number of pages available for the current 'size'."
           }
         }
       },
