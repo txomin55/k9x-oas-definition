@@ -871,7 +871,7 @@
           {
             "name": "name",
             "in": "query",
-            "description": "Returns only the dogs whose name contains this text, ignoring case.",
+            "description": "Returns only the dogs whose name contains this text, ignoring case. When combined with 'identification', a dog is returned when either of the two matches.",
             "required": false,
             "example": "rex",
             "schema": {
@@ -909,6 +909,16 @@
             "description": "Returns only the dogs of this country, by its two-letter code.",
             "required": false,
             "example": "ES",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "identification",
+            "in": "query",
+            "description": "Returns only the dogs whose identification contains this text, ignoring case. When combined with 'name', a dog is returned when either of the two matches.",
+            "required": false,
+            "example": "981098",
             "schema": {
               "type": "string"
             }
