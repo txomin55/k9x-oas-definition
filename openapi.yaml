@@ -97,6 +97,9 @@
       "name": "Secured/Judges/update"
     },
     {
+      "name": "Dogs/fetch_all"
+    },
+    {
       "name": "Rankings/fetch_one"
     },
     {
@@ -1909,6 +1912,88 @@
             "bearerAuth": []
           }
         ]
+      }
+    },
+    "/dogs": {
+      "get": {
+        "summary": "List dogs publicly",
+        "deprecated": false,
+        "description": "Public directory of dogs. Needs no token and exposes only the presentation fields of a dog plus its K9X index.",
+        "operationId": "fetchAllDogs",
+        "tags": [
+          "Dogs/fetch_all"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Returns only the dogs whose name contains this text, ignoring case.",
+            "required": false,
+            "example": "rex",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "handler",
+            "in": "query",
+            "description": "Returns only the dogs whose handler contains this text, ignoring case.",
+            "required": false,
+            "example": "ana",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "description": "Returns only the dogs of this country, by its two-letter code.",
+            "required": false,
+            "example": "ES",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based index of the page to return. Ignored unless 'size' is provided.",
+            "required": false,
+            "example": 0,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Number of dogs per page. When omitted the whole list is returned in a single page.",
+            "required": false,
+            "example": 20,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dog list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicDogListResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
       }
     },
     "/rankings/{id}": {
@@ -4183,6 +4268,70 @@
           },
           "threeFciGenerationsConfirmed": {
             "type": "boolean"
+          }
+        }
+      },
+      "PublicDogSummaryResponseDTO": {
+        "type": "object",
+        "description": "A dog as the public directory shows it.",
+        "properties": {
+          "identification": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "x-faker": "name.firstName"
+          },
+          "handler": {
+            "type": "string",
+            "description": "Free-text label for the person handling the dog (e.g. the handler name)."
+          },
+          "country": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Biological sex of the dog. One of MALE or FEMALE."
+          },
+          "breed": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "rank": {
+            "type": "string",
+            "description": "The dog's latest K9X index on the 0-1000 scale, or 'NO_K9X_INDEX_GENERATED' when no index has been computed for it yet.",
+            "example": "742"
+          }
+        }
+      },
+      "PublicDogListResponseDTO": {
+        "type": "object",
+        "description": "A page of public dogs. When no 'size' is requested the whole list comes back as a single page.",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicDogSummaryResponseDTO"
+            }
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Zero-based index of the returned page."
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Number of dogs per page. Equals 'total' when the whole list is returned."
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Total number of dogs matching the filters, across every page."
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Number of pages available for the current 'size'."
           }
         }
       },
