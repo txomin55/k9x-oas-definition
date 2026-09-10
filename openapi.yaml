@@ -100,6 +100,9 @@
       "name": "Dogs/fetch_all"
     },
     {
+      "name": "Dogs/fetch_one"
+    },
+    {
       "name": "Rankings/fetch_one"
     },
     {
@@ -1991,6 +1994,46 @@
               }
             },
             "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/dogs/{identification}": {
+      "get": {
+        "summary": "Get dog detail publicly",
+        "deprecated": false,
+        "description": "Public detail of a dog. Needs no token and carries no ownership: neither the owner nor the creator of the record are exposed.",
+        "operationId": "fetchDog",
+        "tags": [
+          "Dogs/fetch_one"
+        ],
+        "parameters": [
+          {
+            "name": "identification",
+            "in": "path",
+            "description": "The dog's identification.",
+            "required": true,
+            "example": "981098106001010",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dog detail returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicDogDetailResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No active dog with that identification"
           }
         },
         "security": []
@@ -4332,6 +4375,59 @@
             "type": "integer",
             "format": "int32",
             "description": "Number of pages available for the current 'size'."
+          }
+        }
+      },
+      "PublicDogDetailResponseDTO": {
+        "type": "object",
+        "description": "Everything the public directory knows about a dog. Whoever owns the dog, whoever created the record and when it was created are deliberately left out.",
+        "properties": {
+          "identification": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "x-faker": "name.firstName"
+          },
+          "image": {
+            "type": "string"
+          },
+          "breed": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "origin": {
+            "type": "string",
+            "description": "Studbook or registry number the dog comes from."
+          },
+          "license": {
+            "type": "string"
+          },
+          "country": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "team": {
+            "type": "string"
+          },
+          "handler": {
+            "type": "string",
+            "description": "Free-text label for the person handling the dog (e.g. the handler name)."
+          },
+          "sex": {
+            "type": "string",
+            "description": "Biological sex of the dog. One of MALE or FEMALE."
+          },
+          "withersCm": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Height at the withers, in centimeters."
+          },
+          "threeFciGenerationsConfirmed": {
+            "type": "boolean"
+          },
+          "lastUpdate": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Epoch millis of the last change to the dog."
           }
         }
       },
