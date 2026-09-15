@@ -3172,13 +3172,16 @@
             "$ref": "#/components/schemas/IdNameDTO"
           },
           "exerciseScore": {
-            "type": "number"
+            "type": "number",
+            "description": "Null when the competition's extraction is restricted."
           },
           "scoreRating": {
-            "type": "number"
+            "type": "number",
+            "description": "Null when the competition's extraction is restricted."
           },
           "totalScore": {
-            "type": "number"
+            "type": "number",
+            "description": "Null when the competition's extraction is restricted."
           },
           "tags": {
             "type": "array",
@@ -3282,7 +3285,7 @@
       },
       "ExtractionResponseDTO": {
         "type": "object",
-        "description": "Provenance of a competition k9x did not collect itself: present only on data loaded by an external ETL.",
+        "description": "Provenance of a competition k9x did not collect itself: present only on data loaded by an external ETL. When restricted is true the source is withheld and every score, rating and qualification of that competition comes back null.",
         "properties": {
           "extractionId": {
             "type": "string"
@@ -3292,7 +3295,11 @@
           },
           "hint": {
             "type": "string",
-            "description": "Localised description of how the data was obtained, e.g. 'Publicado en la página de la federación CPC'."
+            "description": "Localised description of how the data was obtained, e.g. 'Publicado en la página de la federación CPC'. When restricted is true it says instead that the results cannot be republished."
+          },
+          "restricted": {
+            "type": "boolean",
+            "description": "True when the source forbids republishing these results. The data is stored and ranked as usual, but the API withholds it: source is absent and scores, ratings and qualifications are null wherever they would appear."
           }
         }
       },
@@ -4075,7 +4082,7 @@
           },
           "score": {
             "type": "number",
-            "description": "Score obtained in that event. Null when the competitor did not compete, which the UI renders disabled."
+            "description": "Score obtained in that event. Null when the competitor did not compete, which the UI renders disabled, and also when that event's extraction is restricted — the group total still counts it."
           },
           "counts": {
             "type": "boolean",
@@ -4610,10 +4617,12 @@
             "description": "Competitor number"
           },
           "totalScore": {
-            "type": "number"
+            "type": "number",
+            "description": "Null when the competition's extraction is restricted."
           },
           "scoreRating": {
-            "type": "number"
+            "type": "number",
+            "description": "Null when the competition's extraction is restricted."
           },
           "tied": {
             "type": "boolean"
@@ -4640,7 +4649,7 @@
           },
           "qualification": {
             "type": "string",
-            "description": "Text qualification (calificativo) derived from the competitor's final score against the grade's qualification scale; NC when it does not reach the lowest tier."
+            "description": "Text qualification (calificativo) derived from the competitor's final score against the grade's qualification scale; NC when it does not reach the lowest tier. Null when the competition's extraction is restricted."
           }
         }
       },
@@ -4651,10 +4660,12 @@
             "$ref": "#/components/schemas/IdNameDTO"
           },
           "value": {
-            "type": "number"
+            "type": "number",
+            "description": "Null when the competition's extraction is restricted."
           },
           "scoreRating": {
-            "type": "number"
+            "type": "number",
+            "description": "Null when the competition's extraction is restricted."
           },
           "applies": {
             "type": "boolean"
