@@ -148,7 +148,7 @@
       "name": "Secured/User/register_push"
     },
     {
-      "name": "Secured/User/remove_push"
+      "name": "Secured/User/notifications_enabled"
     },
     {
       "name": "Secured/Notifications/fetch_all"
@@ -2680,28 +2680,28 @@
         ]
       }
     },
-    "/secured/notification-setup": {
-      "delete": {
-        "summary": "Remove push subscription",
+    "/secured/notification-enabled": {
+      "put": {
+        "summary": "Turn the account's push notifications on or off",
         "deprecated": false,
-        "description": "",
-        "operationId": "removeNotificationSetupSecured",
+        "description": "Applies to every device the user has registered: the setting belongs to the account, not to the browser sending the request. Turning notifications off keeps the stored subscriptions, so turning them back on reaches the user's other devices without visiting them.",
+        "operationId": "setNotificationsEnabledSecured",
         "tags": [
-          "Secured/User/remove_push"
+          "Secured/User/notifications_enabled"
         ],
         "parameters": [],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PushUnsubscribeRequestDTO"
+                "$ref": "#/components/schemas/NotificationsEnabledRequestDTO"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Push subscription removed successfully",
+            "description": "Notification preference updated successfully",
             "content": {
               "text/plain": {
                 "schema": {
@@ -3525,6 +3525,10 @@
           "subscriptions": {
             "$ref": "#/components/schemas/UserSubscriptionsResponseDTO",
             "description": "Resources the user is subscribed to."
+          },
+          "notificationsEnabled": {
+            "type": "boolean",
+            "description": "Whether the account currently receives push notifications. Account-wide: the client renders its toggle from this, not from the browser subscription."
           }
         }
       },
@@ -3681,12 +3685,15 @@
           }
         }
       },
-      "PushUnsubscribeRequestDTO": {
+      "NotificationsEnabledRequestDTO": {
         "type": "object",
+        "required": [
+          "enabled"
+        ],
         "properties": {
-          "endpoint": {
-            "type": "string",
-            "description": "Web Push endpoint URL of the subscription to remove."
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether the account should receive push notifications on all of its devices."
           }
         }
       },
