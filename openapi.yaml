@@ -2089,7 +2089,7 @@
       "get": {
         "summary": "Get a dog's K9X index over time",
         "deprecated": false,
-        "description": "Everything needed to chart a dog's K9X index (level x freshness) over its career. Needs no token. `events` lists every snapshotted result feeding the index, oldest first, with the index right after it and the instant that result starts losing weight on the level curve. `curve` samples the index from the first result until now with the same formula as the index cron: one point per month, one at every slope change of the curves, and two points with the same timestamp at each event (index just before and just after) so a line through it draws the jump as a vertical step. Event score and total score are null when the competition's extraction is restricted.",
+        "description": "Everything needed to chart a dog's K9X index (level x freshness) over its career. Needs no token. `events` lists every snapshotted result feeding the index, oldest first, with the index right after it. `curve` samples the index from the first result until now with the same formula as the index cron: one point per month, one at every slope change of the curves, and two points with the same timestamp at each event (index just before and just after) so a line through it draws the jump as a vertical step. Event score and total score are null when the competition's extraction is restricted.",
         "operationId": "fetchDogIndex",
         "tags": [
           "Dogs/fetch_index"
@@ -4693,11 +4693,6 @@
             "type": "integer",
             "format": "int32",
             "description": "The dog's index right after this result, counting every result up to that instant."
-          },
-          "degradationFrom": {
-            "type": "integer",
-            "format": "int64",
-            "description": "Instant this result starts losing weight on the level curve (8 months after it), Unix timestamp in milliseconds"
           },
           "restricted": {
             "type": "boolean",
