@@ -2042,6 +2042,49 @@
         "security": []
       }
     },
+    "/dogs/{identification}/participations": {
+      "get": {
+        "summary": "List a dog's participations publicly",
+        "deprecated": false,
+        "description": "Every active event the dog was entered in, grouped by the UTC year of its stage start, newest year first and newest event first within a year. Needs no token. Position, score and OBDX points come from the daily snapshot, so they are null until the morning after the stage ends. Score and OBDX points are also null when the competition's extraction is restricted.",
+        "operationId": "fetchDogParticipations",
+        "tags": [
+          "Dogs/fetch_participations"
+        ],
+        "parameters": [
+          {
+            "name": "identification",
+            "in": "path",
+            "description": "The dog's identification.",
+            "required": true,
+            "example": "981098106001010",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participations returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DogParticipationYearResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No active dog with that identification"
+          }
+        },
+        "security": []
+      }
+    },
     "/rankings/{id}": {
       "get": {
         "summary": "Get ranking results",
@@ -4492,6 +4535,59 @@
             "type": "integer",
             "format": "int32",
             "description": "Number of pages available for the current 'size'."
+          }
+        }
+      },
+      "DogParticipationYearResponseDTO": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "integer",
+            "format": "int32",
+            "description": "UTC year of the stage start"
+          },
+          "participations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DogParticipationResponseDTO"
+            }
+          }
+        }
+      },
+      "DogParticipationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "event": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "stageId": {
+            "type": "string"
+          },
+          "date": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Start of the stage, Unix timestamp in milliseconds"
+          },
+          "country": {
+            "description": "Country of the competition the event belongs to. Null when the competition has none.",
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "position": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Final position, tie-aware. Null until the snapshot has run."
+          },
+          "totalScore": {
+            "type": "number",
+            "description": "Points the dog scored in the event. Null until the snapshot has run, or when the competition's extraction is restricted."
+          },
+          "obdxPoints": {
+            "type": "number",
+            "description": "OBDX rank points granted for this result. Null until the snapshot has run, when the event grants none, or when the competition's extraction is restricted."
+          },
+          "restricted": {
+            "type": "boolean",
+            "description": "True when the competition's source forbids republishing its results."
           }
         }
       },
