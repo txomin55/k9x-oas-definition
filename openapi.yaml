@@ -2085,6 +2085,46 @@
         "security": []
       }
     },
+    "/dogs/{identification}/index": {
+      "get": {
+        "summary": "Get a dog's K9X index over time",
+        "deprecated": false,
+        "description": "Everything needed to chart a dog's K9X index (level x freshness) over its career. Needs no token. `events` lists every snapshotted result feeding the index, oldest first, with the index right after it and the instant that result starts losing weight on the level curve. `curve` samples the index from the first result until now with the same formula as the index cron: one point per month, one at every slope change of the curves, and two points with the same timestamp at each event (index just before and just after) so a line through it draws the jump as a vertical step. Event score and total score are null when the competition's extraction is restricted.",
+        "operationId": "fetchDogIndex",
+        "tags": [
+          "Dogs/fetch_index"
+        ],
+        "parameters": [
+          {
+            "name": "identification",
+            "in": "path",
+            "description": "The dog's identification.",
+            "required": true,
+            "example": "981098106001010",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Index timeline returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DogIndexTimelineResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "No active dog with that identification"
+          }
+        },
+        "security": []
+      }
+    },
     "/rankings/{id}": {
       "get": {
         "summary": "Get ranking results",
@@ -4588,6 +4628,94 @@
           "restricted": {
             "type": "boolean",
             "description": "True when the competition's source forbids republishing its results."
+          }
+        }
+      },
+      "DogIndexTimelineResponseDTO": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "description": "Every result feeding the index, oldest first. Empty when the dog never competed.",
+            "items": {
+              "$ref": "#/components/schemas/DogIndexEventResponseDTO"
+            }
+          },
+          "curve": {
+            "type": "array",
+            "description": "The index sampled from the first result until now, in time order. Empty when the dog never competed.",
+            "items": {
+              "$ref": "#/components/schemas/DogIndexPointResponseDTO"
+            }
+          },
+          "freshnessDegradationFrom": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Instant the whole index starts fading if the dog does not compete again (6 months after its latest result), Unix timestamp in milliseconds. Null when the dog never competed."
+          }
+        }
+      },
+      "DogIndexEventResponseDTO": {
+        "type": "object",
+        "properties": {
+          "event": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "stageId": {
+            "type": "string"
+          },
+          "discipline": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "country": {
+            "description": "Country of the competition the event belongs to. Null when the competition has none.",
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "date": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Instant the result applies to in the index (end of the stage), Unix timestamp in milliseconds"
+          },
+          "eventScore": {
+            "type": "number",
+            "description": "The result on the 0-1000 index scale, the input of the index. Null when the competition's extraction is restricted."
+          },
+          "totalScore": {
+            "type": "number",
+            "description": "Points the dog scored in the event. Null when the competition's extraction is restricted."
+          },
+          "position": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Final position, tie-aware."
+          },
+          "index": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The dog's index right after this result, counting every result up to that instant."
+          },
+          "degradationFrom": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Instant this result starts losing weight on the level curve (8 months after it), Unix timestamp in milliseconds"
+          },
+          "restricted": {
+            "type": "boolean",
+            "description": "True when the competition's source forbids republishing its results."
+          }
+        }
+      },
+      "DogIndexPointResponseDTO": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "index": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
