@@ -173,6 +173,9 @@
     },
     {
       "name": "Events/fetch_classification"
+    },
+    {
+      "name": "Extractions/fetch_all"
     }
   ],
   "paths": {
@@ -2921,6 +2924,35 @@
         "security": []
       }
     },
+    "/extractions": {
+      "get": {
+        "summary": "List imported trials by import day",
+        "deprecated": false,
+        "description": "Transparency log of the trials k9x did not collect itself: every stage of a competition loaded by an external ETL, grouped by the UTC day its extraction was loaded (not the day the evidence was collected, nor the day the trial was held). Days come newest first; only the latest extraction of each competition counts.",
+        "operationId": "fetchExtractionLog",
+        "tags": [
+          "Extractions/fetch_all"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Extraction log returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExtractionLogDayResponseDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
     "/stages/{id}": {
       "get": {
         "summary": "Get stage detail",
@@ -3280,6 +3312,77 @@
             "type": "integer",
             "format": "int64",
             "description": "When the evidence was collected, epoch millis. Not when the competition was held nor when it was loaded."
+          }
+        }
+      },
+      "ExtractionLogDayResponseDTO": {
+        "type": "object",
+        "description": "The stages whose extraction was loaded on one UTC day.",
+        "properties": {
+          "date": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Start of the UTC day the extractions were loaded, Unix timestamp in milliseconds"
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtractionLogStageResponseDTO"
+            }
+          }
+        }
+      },
+      "ExtractionLogStageResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "competitionName": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "dateFrom": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "dateTo": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp in milliseconds"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtractionLogEventResponseDTO"
+            }
+          }
+        }
+      },
+      "ExtractionLogEventResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "discipline": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "competitors": {
+            "type": "integer"
+          },
+          "rank": {
+            "type": "string",
+            "description": "rango"
           }
         }
       },
