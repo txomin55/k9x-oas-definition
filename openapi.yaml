@@ -176,6 +176,12 @@
     },
     {
       "name": "Extractions/fetch_all"
+    },
+    {
+      "name": "Methodology/fetch_obdx"
+    },
+    {
+      "name": "Methodology/fetch_k9x"
     }
   ],
   "paths": {
@@ -3159,6 +3165,58 @@
         },
         "security": []
       }
+    },
+    "/obdx/methodology": {
+      "get": {
+        "summary": "Get the OBDX rank methodology",
+        "deprecated": false,
+        "description": "Everything the OBDX methodology page draws, assembled from the domain rules that compute the rank: the 0-1000 scale and its letters, the competitor-count tiers, the event categories, every federation configuration with its band and category sub-bands, and the merit curve of an example event. Numeric only: the copy lives in the frontend locales. Needs no token and does not depend on the request, so it is cacheable for a day.",
+        "operationId": "fetchObdxMethodology",
+        "tags": [
+          "Methodology/fetch_obdx"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Methodology returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObdxMethodologyResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/k9x/methodology": {
+      "get": {
+        "summary": "Get the K9X index methodology",
+        "deprecated": false,
+        "description": "Everything the K9X index methodology page draws: the index scale, the level and freshness decay curves and a worked example of four career profiles, whose figures are computed with the real index and merit formulas. Numeric only: the copy lives in the frontend locales. Needs no token and does not depend on the request, so it is cacheable for a day.",
+        "operationId": "fetchK9xMethodology",
+        "tags": [
+          "Methodology/fetch_k9x"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Methodology returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/K9xMethodologyResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
     }
   },
   "webhooks": {},
@@ -5454,6 +5512,853 @@
             "type": "string"
           }
         }
+      },
+      "MethodologyLocalizedTextResponseDTO": {
+        "type": "object",
+        "description": "An entity name in both languages the methodology pages are written in.",
+        "properties": {
+          "es": {
+            "type": "string",
+            "description": "Spanish."
+          },
+          "en": {
+            "type": "string",
+            "description": "English."
+          }
+        },
+        "required": [
+          "es",
+          "en"
+        ]
+      },
+      "MethodologyScoreRangeResponseDTO": {
+        "type": "object",
+        "description": "A closed range on the 0-1000 scale.",
+        "properties": {
+          "min": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Inclusive lower bound."
+          },
+          "max": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Inclusive upper bound."
+          }
+        },
+        "required": [
+          "min",
+          "max"
+        ]
+      },
+      "MethodologyCompetitorRangeResponseDTO": {
+        "type": "object",
+        "description": "Competitor-count range of a tier.",
+        "properties": {
+          "min": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Fewest competitors of the tier."
+          },
+          "max": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Most competitors of the tier; null only on the last tier, which has no upper bound."
+          }
+        },
+        "required": [
+          "min"
+        ]
+      },
+      "MethodologyScaleRangeResponseDTO": {
+        "type": "object",
+        "properties": {
+          "letter": {
+            "type": "string",
+            "enum": [
+              "E",
+              "D",
+              "C",
+              "B",
+              "A",
+              "S"
+            ],
+            "description": "Rank letter."
+          },
+          "min": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Inclusive lower bound."
+          },
+          "max": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Inclusive upper bound."
+          }
+        },
+        "required": [
+          "letter",
+          "min",
+          "max"
+        ]
+      },
+      "MethodologyGlobalScaleResponseDTO": {
+        "type": "object",
+        "description": "The 0-1000 rank scale and its letters.",
+        "properties": {
+          "min": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Scale floor."
+          },
+          "max": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Scale ceiling."
+          },
+          "ranges": {
+            "type": "array",
+            "description": "The six letters, lowest first, contiguous.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyScaleRangeResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "min",
+          "max",
+          "ranges"
+        ]
+      },
+      "MethodologyTierResponseDTO": {
+        "type": "object",
+        "description": "Competitor-count tier: global, independent of configuration and category.",
+        "properties": {
+          "tier": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Tier, 1 to 3."
+          },
+          "competitors": {
+            "$ref": "#/components/schemas/MethodologyCompetitorRangeResponseDTO"
+          }
+        },
+        "required": [
+          "tier",
+          "competitors"
+        ]
+      },
+      "MethodologyCategoryResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "CLUB",
+              "OPEN",
+              "WC_Q",
+              "WC_SEMI",
+              "WC_FINAL"
+            ],
+            "description": "Event category id."
+          },
+          "name": {
+            "$ref": "#/components/schemas/MethodologyLocalizedTextResponseDTO"
+          },
+          "championship": {
+            "type": "boolean",
+            "description": "Whether it is a world championship round, only accepted by the grade hosting it."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "championship"
+        ]
+      },
+      "MethodologyGradeCategoryTierResponseDTO": {
+        "type": "object",
+        "properties": {
+          "tier": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Tier, 1 to 3."
+          },
+          "competitors": {
+            "$ref": "#/components/schemas/MethodologyCompetitorRangeResponseDTO"
+          },
+          "rankScore": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Event rank score the category reaches in this tier."
+          },
+          "letter": {
+            "type": "string",
+            "enum": [
+              "E",
+              "D",
+              "C",
+              "B",
+              "A",
+              "S"
+            ],
+            "description": "Rank letter."
+          }
+        },
+        "required": [
+          "tier",
+          "competitors",
+          "rankScore",
+          "letter"
+        ]
+      },
+      "MethodologyGradeCategoryResponseDTO": {
+        "type": "object",
+        "description": "The slice of a configuration's band an event of this category competes for.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "CLUB",
+              "OPEN",
+              "WC_Q",
+              "WC_SEMI",
+              "WC_FINAL"
+            ],
+            "description": "Event category id."
+          },
+          "subBand": {
+            "$ref": "#/components/schemas/MethodologyScoreRangeResponseDTO"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "True when the sub-band is a single point, so the tier does not move it."
+          },
+          "tiers": {
+            "type": "array",
+            "description": "The three tiers, in order.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyGradeCategoryTierResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "subBand",
+          "fixed",
+          "tiers"
+        ]
+      },
+      "MethodologyGradeResponseDTO": {
+        "type": "object",
+        "description": "One OBDX configuration (grade or class) of a federation.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Configuration id without version, dots as underscores, e.g. OBDX_FCI_GRADE_3."
+          },
+          "name": {
+            "$ref": "#/components/schemas/MethodologyLocalizedTextResponseDTO"
+          },
+          "band": {
+            "$ref": "#/components/schemas/MethodologyScoreRangeResponseDTO"
+          },
+          "possibleLetters": {
+            "type": "array",
+            "description": "Letters the band touches, lowest first.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "E",
+                "D",
+                "C",
+                "B",
+                "A",
+                "S"
+              ],
+              "description": "Rank letter."
+            }
+          },
+          "categories": {
+            "type": "array",
+            "description": "Allowed categories, by sub-band floor.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyGradeCategoryResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "band",
+          "possibleLetters",
+          "categories"
+        ]
+      },
+      "MethodologyFederationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Short id, e.g. FCI."
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name; a proper noun, not translated."
+          },
+          "grades": {
+            "type": "array",
+            "description": "Configurations, by band floor.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyGradeResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "grades"
+        ]
+      },
+      "MethodologyQualificationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Qualification id, as shown in Spanish (B, MB, EXC)."
+          },
+          "nameEn": {
+            "type": "string",
+            "description": "Its English abbreviation (G, VG, EXC)."
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Minimum total score that reaches it."
+          },
+          "top": {
+            "type": "boolean",
+            "description": "Whether it is the highest qualification, the knee of the curve."
+          }
+        },
+        "required": [
+          "id",
+          "nameEn",
+          "score",
+          "top"
+        ]
+      },
+      "MethodologyMeritParametersResponseDTO": {
+        "type": "object",
+        "properties": {
+          "unlockPct": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Percentage of the span unlocked by reaching the first qualification."
+          },
+          "kneeShare": {
+            "type": "number",
+            "description": "Share of the 90% window earned at the knee."
+          },
+          "floorBelowFirstQualification": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Score of whoever does not reach the first qualification: the grade floor minus one."
+          }
+        },
+        "required": [
+          "unlockPct",
+          "kneeShare",
+          "floorBelowFirstQualification"
+        ]
+      },
+      "MethodologyMeritContextResponseDTO": {
+        "type": "object",
+        "properties": {
+          "configuration": {
+            "type": "string",
+            "description": "Grade id of the example event."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "CLUB",
+              "OPEN",
+              "WC_Q",
+              "WC_SEMI",
+              "WC_FINAL"
+            ],
+            "description": "Event category id."
+          },
+          "eventScore": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Rank score of the example event: the ceiling of the curve."
+          },
+          "gradeFloor": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Floor of the grade band every competitor of the grade is measured from."
+          },
+          "maxScore": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Maximum total score of a competitor."
+          },
+          "qualifications": {
+            "type": "array",
+            "description": "By score, lowest first.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyQualificationResponseDTO"
+            }
+          },
+          "parameters": {
+            "$ref": "#/components/schemas/MethodologyMeritParametersResponseDTO"
+          }
+        },
+        "required": [
+          "configuration",
+          "category",
+          "eventScore",
+          "gradeFloor",
+          "maxScore",
+          "qualifications",
+          "parameters"
+        ]
+      },
+      "MethodologyPointResponseDTO": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number",
+            "description": "Competitor total score."
+          },
+          "y": {
+            "type": "number",
+            "description": "Competitor event score."
+          }
+        },
+        "required": [
+          "x",
+          "y"
+        ]
+      },
+      "MethodologySeriesResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "floor",
+              "curve",
+              "knee"
+            ],
+            "description": "Series id."
+          },
+          "points": {
+            "type": "array",
+            "description": "Points, by x.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyPointResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "points"
+        ]
+      },
+      "MethodologyMeritCurveResponseDTO": {
+        "type": "object",
+        "description": "The curve turning a competitor's total into its event score, for a fixed example event.",
+        "properties": {
+          "context": {
+            "$ref": "#/components/schemas/MethodologyMeritContextResponseDTO"
+          },
+          "series": {
+            "type": "array",
+            "description": "floor, curve and knee.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologySeriesResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "context",
+          "series"
+        ]
+      },
+      "ObdxMethodologyResponseDTO": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Contract version of this endpoint."
+          },
+          "globalScale": {
+            "$ref": "#/components/schemas/MethodologyGlobalScaleResponseDTO"
+          },
+          "tiers": {
+            "type": "array",
+            "description": "The three tiers.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyTierResponseDTO"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "description": "The five categories, in order.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyCategoryResponseDTO"
+            }
+          },
+          "federations": {
+            "type": "array",
+            "description": "Federations with configurations of their own, FCI first.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyFederationResponseDTO"
+            }
+          },
+          "meritCurve": {
+            "$ref": "#/components/schemas/MethodologyMeritCurveResponseDTO"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "globalScale",
+          "tiers",
+          "categories",
+          "federations",
+          "meritCurve"
+        ]
+      },
+      "MethodologyDecayAnchorResponseDTO": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Age in months."
+          },
+          "weight": {
+            "type": "number",
+            "description": "Weight at that age."
+          }
+        },
+        "required": [
+          "month",
+          "weight"
+        ]
+      },
+      "MethodologyDecayFloorResponseDTO": {
+        "type": "object",
+        "properties": {
+          "fromMonth": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Month the weight stops falling."
+          },
+          "value": {
+            "type": "number",
+            "description": "Weight from then on."
+          }
+        },
+        "required": [
+          "fromMonth",
+          "value"
+        ]
+      },
+      "MethodologyDecaySeriesResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "level",
+              "freshness"
+            ],
+            "description": "Curve id."
+          },
+          "plateauMonths": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Months at full weight."
+          },
+          "floor": {
+            "$ref": "#/components/schemas/MethodologyDecayFloorResponseDTO"
+          },
+          "anchors": {
+            "type": "array",
+            "description": "By month, from month 0 to the floor.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyDecayAnchorResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "plateauMonths",
+          "floor",
+          "anchors"
+        ]
+      },
+      "MethodologyDecayCurvesResponseDTO": {
+        "type": "object",
+        "properties": {
+          "series": {
+            "type": "array",
+            "description": "level and freshness.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyDecaySeriesResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "series"
+        ]
+      },
+      "MethodologyIndexParametersResponseDTO": {
+        "type": "object",
+        "properties": {
+          "N": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Fixed denominator of the level: its number of slots."
+          },
+          "C": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Value filling an empty slot."
+          },
+          "cReference": {
+            "$ref": "#/components/schemas/MethodologyLocalizedTextResponseDTO"
+          },
+          "filler": {
+            "type": "string",
+            "description": "Expression of the filler."
+          },
+          "provisionalIfResultsBelow": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Below this many results the index is provisional."
+          }
+        },
+        "required": [
+          "N",
+          "C",
+          "cReference",
+          "filler",
+          "provisionalIfResultsBelow"
+        ]
+      },
+      "MethodologySlotFillingCaseResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Case id."
+          },
+          "results": {
+            "type": "array",
+            "description": "Real results.",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "slots": {
+            "type": "array",
+            "description": "The N slots: the results, then the filler.",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Resulting level."
+          }
+        },
+        "required": [
+          "id",
+          "results",
+          "slots",
+          "level"
+        ]
+      },
+      "MethodologySlotFillingResponseDTO": {
+        "type": "object",
+        "properties": {
+          "cases": {
+            "type": "array",
+            "description": "The ramp of 1..N results, then the case showing C is a ceiling.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologySlotFillingCaseResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "cases"
+        ]
+      },
+      "MethodologyExampleResultResponseDTO": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Month of the result."
+          },
+          "score": {
+            "type": "number",
+            "description": "Its score."
+          }
+        },
+        "required": [
+          "month",
+          "score"
+        ]
+      },
+      "MethodologyExampleIndexPointResponseDTO": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Month."
+          },
+          "index": {
+            "type": "number",
+            "description": "Index at that month; two points share a month at each event."
+          }
+        },
+        "required": [
+          "month",
+          "index"
+        ]
+      },
+      "MethodologyExampleEventResponseDTO": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Month of the event."
+          },
+          "index": {
+            "type": "number",
+            "description": "Index right after it."
+          },
+          "score": {
+            "type": "number",
+            "description": "Score of the event."
+          },
+          "label": {
+            "type": "string",
+            "description": "Short technical label, not translated."
+          }
+        },
+        "required": [
+          "month",
+          "index",
+          "score",
+          "label"
+        ]
+      },
+      "MethodologyExampleDogResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable id, dogA..dogD."
+          },
+          "name": {
+            "$ref": "#/components/schemas/MethodologyLocalizedTextResponseDTO"
+          },
+          "results": {
+            "type": "array",
+            "description": "Every result.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyExampleResultResponseDTO"
+            }
+          },
+          "series": {
+            "type": "array",
+            "description": "The index line, by month.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyExampleIndexPointResponseDTO"
+            }
+          },
+          "events": {
+            "type": "array",
+            "description": "The events, by month.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyExampleEventResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "results",
+          "series",
+          "events"
+        ]
+      },
+      "MethodologyIndexExampleResponseDTO": {
+        "type": "object",
+        "properties": {
+          "formula": {
+            "type": "string",
+            "description": "The index expression."
+          },
+          "parameters": {
+            "$ref": "#/components/schemas/MethodologyIndexParametersResponseDTO"
+          },
+          "slotFilling": {
+            "$ref": "#/components/schemas/MethodologySlotFillingResponseDTO"
+          },
+          "dogs": {
+            "type": "array",
+            "description": "Four career profiles.",
+            "items": {
+              "$ref": "#/components/schemas/MethodologyExampleDogResponseDTO"
+            }
+          }
+        },
+        "required": [
+          "formula",
+          "parameters",
+          "slotFilling",
+          "dogs"
+        ]
+      },
+      "K9xMethodologyResponseDTO": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Contract version of this endpoint."
+          },
+          "indexScale": {
+            "$ref": "#/components/schemas/MethodologyScoreRangeResponseDTO"
+          },
+          "decayCurves": {
+            "$ref": "#/components/schemas/MethodologyDecayCurvesResponseDTO"
+          },
+          "indexExample": {
+            "$ref": "#/components/schemas/MethodologyIndexExampleResponseDTO"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "indexScale",
+          "decayCurves",
+          "indexExample"
+        ]
       }
     },
     "responses": {
