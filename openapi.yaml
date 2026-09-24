@@ -3217,6 +3217,53 @@
         },
         "security": []
       }
+    },
+    "/k9x/ranking": {
+      "get": {
+        "summary": "Get the K9X index world ranking",
+        "deprecated": false,
+        "description": "Everything the world ranking chart draws: how many dogs sit on each band of the K9X index, from the ranking snapshot the index cron rewrites on the 1st and 16th of each month. Only dogs whose current index is 100 or more are charted, and `total` counts just those. Needs no token. With `country`, only the dogs of that country are charted and positions are within it. With `dog`, `highlight` places that dog on the chart; it is null when the dog has no index, sits below 100 or does not belong to the requested country.",
+        "operationId": "fetchK9xRanking",
+        "tags": [
+          "K9x/fetch_ranking"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "description": "Charts only the dogs of this country, by its two-letter code.",
+            "required": false,
+            "example": "ES",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dog",
+            "in": "query",
+            "description": "Identification of a dog to place on the chart.",
+            "required": false,
+            "example": "981098106001010",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ranking returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/K9xRankingResponseDTO"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
     }
   },
   "webhooks": {},
@@ -6359,6 +6406,75 @@
           "decayCurves",
           "indexExample"
         ]
+      },
+      "K9xRankingResponseDTO": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Dogs on the chart: those whose index is 100 or more, within the country when one is requested."
+          },
+          "asOf": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Instant the ranking snapshot was computed, Unix timestamp in milliseconds. Null while the cron has never run."
+          },
+          "buckets": {
+            "type": "array",
+            "description": "Consecutive bands of 20 index points from 100 to 1000, lowest first, including the empty ones.",
+            "items": {
+              "$ref": "#/components/schemas/K9xRankingBucketResponseDTO"
+            }
+          },
+          "highlight": {
+            "description": "The requested dog on the chart. Null when no dog was requested or it is not on the chart.",
+            "$ref": "#/components/schemas/K9xRankingHighlightResponseDTO"
+          }
+        }
+      },
+      "K9xRankingBucketResponseDTO": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Lowest index of the band, inclusive."
+          },
+          "to": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Highest index of the band, exclusive, except the last band which includes 1000."
+          },
+          "dogs": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Dogs whose index falls in the band."
+          }
+        }
+      },
+      "K9xRankingHighlightResponseDTO": {
+        "type": "object",
+        "properties": {
+          "dog": {
+            "$ref": "#/components/schemas/IdNameDTO"
+          },
+          "index": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The dog's current K9X index."
+          },
+          "position": {
+            "type": "integer",
+            "format": "int32",
+            "description": "1-based position among the charted dogs, best index first. Tied dogs share it."
+          },
+          "topPercent": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Smallest whole percentage of the charted dogs the dog is in the top of, from 1 to 100."
+          }
+        }
       }
     },
     "responses": {
