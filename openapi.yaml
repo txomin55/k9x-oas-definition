@@ -2992,6 +2992,16 @@
               "type": "integer",
               "format": "int64"
             }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "description": "Returns only the stages of competitions of this country, by its two-letter code.",
+            "required": false,
+            "example": "ES",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
