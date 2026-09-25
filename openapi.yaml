@@ -570,6 +570,35 @@
         ]
       }
     },
+    "/countries": {
+      "get": {
+        "summary": "List countries publicly",
+        "deprecated": false,
+        "description": "Every country, with its name in the request's language. Needs no token, so the public lists can offer every country in their country filter.",
+        "operationId": "fetchCountries",
+        "tags": [
+          "Countries/fetch_all"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Country list returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdNameDTO"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
     "/secured/disciplines/{id}/configurations": {
       "get": {
         "summary": "Retrieve Discipline configurations",
